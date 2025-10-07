@@ -14,4 +14,10 @@ router.put('/:merchantId', merchantController.updateMerchant);
 // Get merchant stats
 router.get('/:merchantId/stats', merchantController.getMerchantStats);
 
+// Get merchant analytics
+router.get('/:merchantId/analytics', merchantController.getMerchantAnalytics);
+
+// Get merchant transactions
+router.get('/:merchantId/transactions', merchantController.getMerchantTransactions);
+
 module.exports = router;

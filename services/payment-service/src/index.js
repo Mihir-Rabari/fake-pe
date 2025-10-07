@@ -6,6 +6,7 @@ const logger = require('./utils/logger');
 const paymentRoutes = require('./routes/payments');
 const walletRoutes = require('./routes/wallets');
 const adminRoutes = require('./routes/admin');
+const webhookRoutes = require('./routes/webhooks');
 const { register } = require('prom-client');
 
 const app = express();
@@ -54,6 +55,7 @@ app.get('/metrics', async (req, res) => {
 app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1/wallets', walletRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/webhooks', webhookRoutes);
 
 // Error handler
 app.use((err, req, res, next) => {

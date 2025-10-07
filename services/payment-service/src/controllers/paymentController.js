@@ -321,3 +321,136 @@ exports.listPayments = async (req, res) => {
     res.status(500).json({ error: 'Failed to list payments' });
   }
 };
+
+/**
+ * Get payment history
+ */
+exports.getPaymentHistory = async (req, res) => {
+  try {
+    const { paymentId } = req.params;
+
+    const backups = await PaymentBackup.find({ paymentId })
+      .sort({ createdAt: -1 });
+
+    res.json({ history: backups });
+  } catch (err) {
+    logger.error('Get payment history error', { error: err.message });
+    res.status(500).json({ error: 'Failed to get payment history' });
+  }
+};
+
+/**
+ * Refund payment
+ */
+exports.refundPayment = async (req, res) => {
+  const { paymentId } = req.params;
+  const { amount, reason } = req.body;
+
+  try {
+    const payment = await Payment.findOne({ paymentId });
+    if (!payment) {
+      return res.status(404).json({ error: 'Payment not found' });
+    }
+
+    if (payment.status !== PAYMENT_STATUS.COMPLETED) {
+      return res.status(400).json({ error: 'Only completed payments can be refunded' });
+    }
+
+    const refundAmount = amount || payment.amount;
+    if (refundAmount > payment.amount) {
+      return res.status(400).json({ error: 'Refund amount exceeds payment amount' });
+    }
+
+    // Start transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+      // Update payment status
+      payment.status = PAYMENT_STATUS.REFUNDED;
+      payment.refundAmount = refundAmount;
+      payment.refundReason = reason;
+      payment.refundedAt = new Date();
+      await payment.save({ session });
+
+      // Credit payer wallet
+      if (payment.payer) {
+        await Wallet.findOneAndUpdate(
+          { userId: payment.payer },
+          { $inc: { balance: refundAmount } },
+          { session }
+        );
+      }
+
+      // Debit recipient wallet
+      const recipientId = payment.recipientId || payment.merchantId;
+      await Wallet.findOneAndUpdate(
+        { userId: recipientId },
+        { $inc: { balance: -refundAmount } },
+        { session }
+      );
+
+      // Create backup
+      const backup = new PaymentBackup({
+        backupId: generateBackupId(),
+        paymentId,
+        snapshot: payment.toObject(),
+        reason: 'refunded'
+      });
+      await backup.save({ session });
+
+      // Create webhook for refund
+      if (payment.callbackUrl) {
+        const attempt = new WebhookAttempt({
+          attemptId: generateWebhookAttemptId(),
+          paymentId,
+          callbackUrl: payment.callbackUrl,
+          status: 'PENDING'
+        });
+        await attempt.save({ session });
+
+        const redis = req.app.get('redis');
+        await redis.lpush(REDIS_PREFIX.QUEUE_WEBHOOK, attempt.attemptId);
+      }
+
+      await session.commitTransaction();
+
+      logger.info('Payment refunded', { paymentId, refundAmount });
+
+      res.json({
+        success: true,
+        payment: {
+          paymentId: payment.paymentId,
+          status: payment.status,
+          refundAmount,
+          refundedAt: payment.refundedAt
+        }
+      });
+    } catch (err) {
+      await session.abortTransaction();
+      throw err;
+    } finally {
+      session.endSession();
+    }
+  } catch (err) {
+    logger.error('Refund payment error', { error: err.message, paymentId });
+    res.status(500).json({ error: 'Failed to refund payment' });
+  }
+};
+
+/**
+ * Get payment webhooks
+ */
+exports.getPaymentWebhooks = async (req, res) => {
+  try {
+    const { paymentId } = req.params;
+
+    const webhooks = await WebhookAttempt.find({ paymentId })
+      .sort({ createdAt: -1 });
+
+    res.json({ webhooks });
+  } catch (err) {
+    logger.error('Get payment webhooks error', { error: err.message });
+    res.status(500).json({ error: 'Failed to get webhooks' });
+  }
+};

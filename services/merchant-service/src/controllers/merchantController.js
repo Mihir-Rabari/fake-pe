@@ -120,3 +120,65 @@ exports.getMerchantStats = async (req, res) => {
     res.status(500).json({ error: 'Failed to get stats' });
   }
 };
+
+/**
+ * Get merchant analytics
+ */
+exports.getMerchantAnalytics = async (req, res) => {
+  try {
+    const { merchantId } = req.params;
+    const { from, to } = req.query;
+
+    // Mock analytics data
+    const analytics = {
+      merchantId,
+      period: { from, to },
+      revenue: {
+        total: 0,
+        trend: '+12%'
+      },
+      payments: {
+        total: 0,
+        completed: 0,
+        failed: 0,
+        pending: 0
+      },
+      averageTransactionValue: 0,
+      topPaymentMethods: [
+        { method: 'wallet', count: 0, percentage: 0 }
+      ]
+    };
+
+    res.json({ analytics });
+  } catch (err) {
+    logger.error('Get merchant analytics error', { error: err.message });
+    res.status(500).json({ error: 'Failed to get analytics' });
+  }
+};
+
+/**
+ * Get merchant transactions
+ */
+exports.getMerchantTransactions = async (req, res) => {
+  try {
+    const { merchantId } = req.params;
+    const { page = 1, limit = 50 } = req.query;
+
+    // This would fetch from Payment service
+    const transactions = {
+      merchantId,
+      transactions: [],
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        total: 0,
+        pages: 0
+      }
+    };
+
+    res.json(transactions);
+  } catch (err) {
+    logger.error('Get merchant transactions error', { error: err.message });
+    res.status(500).json({ error: 'Failed to get transactions' });
+  }
+};
