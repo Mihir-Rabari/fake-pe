@@ -7,6 +7,7 @@ import WalletPage from './pages/WalletPage';
 import MerchantDashboard from './pages/MerchantDashboard';
 import DeveloperConsole from './pages/DeveloperConsole';
 import PaymentPage from './pages/PaymentPage';
+import TransactionHistory from './pages/TransactionHistory';
 import ErrorBoundary from './components/ErrorBoundary';
 import OfflineIndicator from './components/OfflineIndicator';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/dashboard" element={<MerchantDashboard />} />
           <Route path="/developer" element={<DeveloperConsole />} />
           <Route path="/pay/:paymentId" element={<PaymentPage />} />
+          <Route path="/transactions" element={<TransactionHistory />} />
         </Routes>
       </Router>
     </ErrorBoundary>
