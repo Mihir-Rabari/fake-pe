@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage';
 import WalletPage from './pages/WalletPage';
 import MerchantDashboard from './pages/MerchantDashboard';
 import DeveloperConsole from './pages/DeveloperConsole';
+import PaymentPage from './pages/PaymentPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/wallet" element={<WalletPage />} />
         <Route path="/dashboard" element={<MerchantDashboard />} />
         <Route path="/developer" element={<DeveloperConsole />} />
+        <Route path="/pay/:paymentId" element={<PaymentPage />} />
       </Routes>
     </Router>
   );
