@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Redis = require('ioredis');
 const logger = require('./utils/logger');
+const { register } = require('prom-client');
 
 const app = express();
 const PORT = process.env.PORT || 4003;
@@ -28,6 +29,12 @@ app.get('/health', (req, res) => {
     service: 'merchant-service',
     timestamp: new Date().toISOString()
   });
+});
+
+// Metrics
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
 });
 
 // Routes
