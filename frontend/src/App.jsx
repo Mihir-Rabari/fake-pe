@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WalletPage from './pages/WalletPage';
 import MerchantDashboard from './pages/MerchantDashboard';
+import DeveloperConsole from './pages/DeveloperConsole';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/wallet" element={<WalletPage />} />
         <Route path="/dashboard" element={<MerchantDashboard />} />
-        {/* More routes to be added */}
+        <Route path="/developer" element={<DeveloperConsole />} />
       </Routes>
     </Router>
   );
