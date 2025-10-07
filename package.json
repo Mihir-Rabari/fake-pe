@@ -4,7 +4,12 @@
   "description": "Complete Payment Gateway BaaS - UPI/Google Pay style",
   "scripts": {
     "install:all": "node install-all.js",
-    "dev": "concurrently \"npm run dev:api-gateway\" \"npm run dev:auth\" \"npm run dev:payment\" \"npm run dev:webhook\" \"npm run dev:merchant\" \"npm run dev:frontend\"",
+    "dev": "pm2 start ecosystem.config.js",
+    "dev:stop": "pm2 stop ecosystem.config.js",
+    "dev:restart": "pm2 restart ecosystem.config.js",
+    "dev:delete": "pm2 delete ecosystem.config.js",
+    "dev:logs": "pm2 logs",
+    "dev:monit": "pm2 monit",
     "dev:api-gateway": "cd services/api-gateway && npm run dev",
     "dev:auth": "cd services/auth-service && npm run dev",
     "dev:payment": "cd services/payment-service && npm run dev",
@@ -42,5 +47,8 @@
     "redis"
   ],
   "author": "Mihir Rabari",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "pm2": "^6.0.13"
+  }
 }
