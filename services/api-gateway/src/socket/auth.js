@@ -37,6 +37,12 @@ function setupSocketAuth(io, redis) {
       merchantId: socket.merchantId
     });
 
+    // Send connection status
+    socket.emit('connection:status', {
+      status: 'connected',
+      timestamp: new Date().toISOString()
+    });
+
     // Join user-specific room
     socket.join(`user:${socket.userId}`);
 
@@ -49,12 +55,19 @@ function setupSocketAuth(io, redis) {
     socket.on('subscribe:payment', (paymentId) => {
       logger.debug('Subscribing to payment', { paymentId, userId: socket.userId });
       socket.join(`payment:${paymentId}`);
+      socket.emit('subscribed', { paymentId });
     });
 
     // Unsubscribe from payment updates
     socket.on('unsubscribe:payment', (paymentId) => {
       logger.debug('Unsubscribing from payment', { paymentId, userId: socket.userId });
       socket.leave(`payment:${paymentId}`);
+      socket.emit('unsubscribed', { paymentId });
+    });
+
+    // Ping/pong for connection health
+    socket.on('ping', () => {
+      socket.emit('pong', { timestamp: new Date().toISOString() });
     });
 
     // Disconnect handler
@@ -72,6 +85,19 @@ function setupSocketAuth(io, redis) {
         socketId: socket.id,
         userId: socket.userId,
         error: err.message
+      });
+    });
+
+    // Reconnection handler
+    socket.on('reconnect', (attemptNumber) => {
+      logger.info('Socket reconnected', {
+        socketId: socket.id,
+        userId: socket.userId,
+        attemptNumber
+      });
+      socket.emit('connection:status', {
+        status: 'reconnected',
+        timestamp: new Date().toISOString()
       });
     });
   });
