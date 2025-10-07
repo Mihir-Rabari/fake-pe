@@ -1,0 +1,89 @@
+{
+  "dashboard": {
+    "title": "Expe Payment Metrics",
+    "tags": ["payments", "expe"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Total Payments",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(payments_created_total)",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 6, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Payment Success Rate",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "sum(payments_completed_total) / sum(payments_created_total) * 100",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 6, "x": 6, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "Payments Over Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(payments_created_total[5m])",
+            "refId": "A",
+            "legendFormat": "Created"
+          },
+          {
+            "expr": "rate(payments_completed_total[5m])",
+            "refId": "B",
+            "legendFormat": "Completed"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+      },
+      {
+        "id": 4,
+        "title": "Webhook Delivery Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(webhook_attempts_total[5m])",
+            "refId": "A",
+            "legendFormat": "Attempts"
+          },
+          {
+            "expr": "rate(webhook_failures_total[5m])",
+            "refId": "B",
+            "legendFormat": "Failures"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+      },
+      {
+        "id": 5,
+        "title": "API Response Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
+            "refId": "A",
+            "legendFormat": "p95"
+          },
+          {
+            "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))",
+            "refId": "B",
+            "legendFormat": "p99"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+      }
+    ],
+    "schemaVersion": 16,
+    "version": 1
+  }
+}
