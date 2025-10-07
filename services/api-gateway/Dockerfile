@@ -2,17 +2,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy shared dependencies
-COPY shared /shared
-WORKDIR /shared
+# Copy package files
+COPY package*.json ./
 RUN npm install
 
-# Copy service files
-WORKDIR /app
-COPY services/api-gateway/package*.json ./
-RUN npm install
-
-COPY services/api-gateway .
+# Copy source code
+COPY . .
 
 EXPOSE 4000
 

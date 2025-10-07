@@ -2,17 +2,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy shared dependencies
-COPY shared /shared
-WORKDIR /shared
+# Copy package files
+COPY package*.json ./
 RUN npm install
 
-# Copy service files
-WORKDIR /app
-COPY services/merchant-service/package*.json ./
-RUN npm install
-
-COPY services/merchant-service .
+# Copy source code
+COPY . .
 
 EXPOSE 4003
 

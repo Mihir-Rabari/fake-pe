@@ -2,16 +2,11 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy shared dependencies
-COPY shared /shared
-WORKDIR /shared
+# Copy package files
+COPY package*.json ./
 RUN npm install
 
-# Copy service files
-WORKDIR /app
-COPY services/webhook-service/package*.json ./
-RUN npm install
-
-COPY services/webhook-service .
+# Copy source code
+COPY . .
 
 CMD ["npm", "start"]
