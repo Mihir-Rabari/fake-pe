@@ -24,7 +24,7 @@
     "dotenv": "^16.4.1",
     "prom-client": "^15.1.0",
     "winston": "^3.11.0",
-    "@expe/shared": "*"
+    "@expe/shared": "file:../../shared"
   },
   "devDependencies": {
     "nodemon": "^3.0.3",
