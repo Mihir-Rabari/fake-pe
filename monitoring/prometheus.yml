@@ -1,0 +1,43 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'expe-payment-gateway'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets: ['api-gateway:4000']
+    metrics_path: '/metrics'
+
+  - job_name: 'auth-service'
+    static_configs:
+      - targets: ['auth-service:4001']
+    metrics_path: '/metrics'
+
+  - job_name: 'payment-service'
+    static_configs:
+      - targets: ['payment-service:4002']
+    metrics_path: '/metrics'
+
+  - job_name: 'webhook-service'
+    static_configs:
+      - targets: ['webhook-service:4004']
+    metrics_path: '/metrics'
+
+  - job_name: 'merchant-service'
+    static_configs:
+      - targets: ['merchant-service:4003']
+    metrics_path: '/metrics'
+
+  - job_name: 'mongodb'
+    static_configs:
+      - targets: ['mongodb:27017']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']

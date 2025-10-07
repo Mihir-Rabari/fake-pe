@@ -1,0 +1,51 @@
+{
+  "name": "expe-payment-gateway",
+  "version": "1.0.0",
+  "description": "Complete Payment Gateway BaaS - UPI/Google Pay style",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "frontend",
+    "shared"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm install --workspaces",
+    "dev": "concurrently \"npm run dev:services\" \"npm run dev:frontend\"",
+    "dev:services": "concurrently \"npm run dev -w api-gateway\" \"npm run dev -w auth-service\" \"npm run dev -w payment-service\" \"npm run dev -w webhook-service\" \"npm run dev -w merchant-service\"",
+    "dev:frontend": "npm run dev -w frontend",
+    "build": "npm run build --workspaces",
+    "test": "npm test --workspaces",
+    "test:unit": "npm run test:unit --workspaces",
+    "test:integration": "npm run test:integration --workspaces",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:build": "docker-compose build",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mihir-Rabari/fake-pe.git"
+  },
+  "keywords": [
+    "payment-gateway",
+    "upi",
+    "baas",
+    "microservices",
+    "nodejs",
+    "mongodb",
+    "redis"
+  ],
+  "author": "Mihir Rabari",
+  "license": "MIT"
+}
