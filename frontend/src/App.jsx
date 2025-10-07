@@ -10,6 +10,7 @@ import PaymentPage from './pages/PaymentPage';
 import TransactionHistory from './pages/TransactionHistory';
 import PaymentDetails from './pages/PaymentDetails';
 import SettingsPage from './pages/SettingsPage';
+import WebhookLogs from './pages/WebhookLogs';
 import ErrorBoundary from './components/ErrorBoundary';
 import OfflineIndicator from './components/OfflineIndicator';
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/transactions" element={<TransactionHistory />} />
           <Route path="/payment/:paymentId" element={<PaymentDetails />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/webhooks" element={<WebhookLogs />} />
         </Routes>
       </Router>
     </ErrorBoundary>
