@@ -30,9 +30,12 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Routes (to be implemented)
-// app.use('/api/v1/merchants', merchantRoutes);
-// app.use('/api/v1/projects', projectRoutes);
+// Routes
+const merchantRoutes = require('./routes/merchants');
+const projectRoutes = require('./routes/projects');
+
+app.use('/api/v1/merchants', merchantRoutes);
+app.use('/api/v1/projects', projectRoutes);
 
 // Error handler
 app.use((err, req, res, next) => {
