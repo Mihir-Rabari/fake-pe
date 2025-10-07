@@ -1,0 +1,29 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="url(#gradient)" stroke="#0284c7" stroke-width="2"/>
+  
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0369a1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Letter 'e' stylized as payment symbol -->
+  <path d="M 35 60 L 85 60 M 60 35 L 60 85 M 45 45 L 75 75 M 75 45 L 45 75" 
+        stroke="white" 
+        stroke-width="6" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        fill="none"/>
+  
+  <!-- Circular accent -->
+  <circle cx="60" cy="60" r="25" stroke="white" stroke-width="4" fill="none" opacity="0.6"/>
+  
+  <!-- Small dots for modern touch -->
+  <circle cx="35" cy="35" r="3" fill="white" opacity="0.8"/>
+  <circle cx="85" cy="35" r="3" fill="white" opacity="0.8"/>
+  <circle cx="35" cy="85" r="3" fill="white" opacity="0.8"/>
+  <circle cx="85" cy="85" r="3" fill="white" opacity="0.8"/>
+</svg>
