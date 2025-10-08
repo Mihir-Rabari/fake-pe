@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const projectController = require('../controllers/projectController');
+const authMiddleware = require('../middleware/auth');
+
+// All routes require authentication
+router.use(authMiddleware);
 
 // Create project
 router.post('/', projectController.createProject);
