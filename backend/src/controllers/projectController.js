@@ -9,11 +9,22 @@ const logger = require('../utils/logger');
  */
 exports.createProject = async (req, res) => {
   try {
-    const merchantId = req.headers['x-merchant-id'];
+    // Get merchantId from header, body, or user object
+    let merchantId = req.headers['x-merchant-id'] || req.body.merchantId;
+    
+    // If user is authenticated and has merchantId, use that
+    if (req.user && req.user.merchantId) {
+      merchantId = req.user.merchantId;
+    }
+
     const { name, description, webhookUrl, allowedOrigins } = req.body;
 
     if (!name) {
       return res.status(400).json({ error: 'Project name is required' });
+    }
+
+    if (!merchantId) {
+      return res.status(400).json({ error: 'merchantId is required (pass in body or x-merchant-id header)' });
     }
 
     const projectId = generateProjectId();
@@ -43,9 +54,17 @@ exports.createProject = async (req, res) => {
  */
 exports.listProjects = async (req, res) => {
   try {
-    const merchantId = req.headers['x-merchant-id'];
+    // Get merchantId from header, query, or user object
+    let merchantId = req.headers['x-merchant-id'] || req.query.merchantId;
+    
+    if (req.user && req.user.merchantId) {
+      merchantId = req.user.merchantId;
+    }
 
-    const projects = await Project.find({ merchantId, isActive: true })
+    // If no merchantId, return all projects (for admin) or empty array
+    const query = merchantId ? { merchantId, isActive: true } : { isActive: true };
+
+    const projects = await Project.find(query)
       .sort({ createdAt: -1 });
 
     res.json({ projects });
