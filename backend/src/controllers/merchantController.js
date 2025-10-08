@@ -1,4 +1,6 @@
 const Merchant = require('../models/Merchant');
+const Payment = require('../models/Payment');
+const Project = require('../models/Project');
 const { generateSecret } = require('../utils/crypto');
 const logger = require('../utils/logger');
 
@@ -104,14 +106,21 @@ exports.getMerchantStats = async (req, res) => {
   try {
     const { merchantId } = req.params;
 
-    // This would typically aggregate data from Payment service
-    // For now, return placeholder stats
+    // Get payment stats
+    const payments = await Payment.find({ merchantId });
+    const completedPayments = payments.filter(p => p.status === 'completed');
+    const totalAmount = completedPayments.reduce((sum, p) => sum + p.amount, 0);
+    const successRate = payments.length > 0 ? (completedPayments.length / payments.length) * 100 : 0;
+
+    // Get active projects count
+    const activeProjects = await Project.countDocuments({ merchantId, isActive: true });
+
     const stats = {
       merchantId,
-      totalPayments: 0,
-      totalAmount: 0,
-      successRate: 0,
-      activeProjects: 0
+      totalPayments: payments.length,
+      totalAmount,
+      successRate: Math.round(successRate),
+      activeProjects
     };
 
     res.json({ stats });
@@ -164,15 +173,24 @@ exports.getMerchantTransactions = async (req, res) => {
     const { merchantId } = req.params;
     const { page = 1, limit = 50 } = req.query;
 
-    // This would fetch from Payment service
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    
+    // Get actual payments
+    const payments = await Payment.find({ merchantId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    const total = await Payment.countDocuments({ merchantId });
+
     const transactions = {
       merchantId,
-      transactions: [],
+      transactions: payments,
       pagination: {
         page: parseInt(page),
         limit: parseInt(limit),
-        total: 0,
-        pages: 0
+        total,
+        pages: Math.ceil(total / parseInt(limit))
       }
     };
 

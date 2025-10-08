@@ -1,4 +1,8 @@
 const Wallet = require('../models/Wallet');
+const Payment = require('../models/Payment');
+const User = require('../models/User');
+const { generatePaymentId } = require('../utils/id-generator');
+const { PAYMENT_STATUS, PAYMENT_METHOD } = require('../utils/constants');
 const logger = require('../utils/logger');
 
 /**
@@ -54,11 +58,11 @@ exports.topupWallet = async (req, res) => {
 };
 
 /**
- * P2P Transfer
+ * P2P Transfer (also creates Payment record if recipient is a merchant)
  */
 exports.transfer = async (req, res) => {
   try {
-    const { fromUserId, toUserId, amount } = req.body;
+    const { fromUserId, toUserId, amount, merchantId } = req.body;
 
     if (!fromUserId || !toUserId || !amount || amount <= 0) {
       return res.status(400).json({ error: 'Valid fromUserId, toUserId, and amount required' });
@@ -84,13 +88,36 @@ exports.transfer = async (req, res) => {
       { upsert: true, new: true }
     );
 
-    logger.info('P2P transfer completed', { fromUserId, toUserId, amount });
+    // If merchantId is provided, create a Payment record for merchant dashboard tracking
+    let paymentId = null;
+    if (merchantId) {
+      paymentId = generatePaymentId();
+      const payment = new Payment({
+        paymentId,
+        merchantId,
+        amount,
+        currency: 'INR',
+        status: PAYMENT_STATUS.COMPLETED,
+        method: PAYMENT_METHOD.WALLET,
+        payer: {
+          userId: fromUserId
+        },
+        recipientId: toUserId,
+        orderId: `transfer_${Date.now()}`,
+        completedAt: new Date()
+      });
+      await payment.save();
+      logger.info('Payment record created for transfer', { paymentId, merchantId, amount });
+    }
+
+    logger.info('P2P transfer completed', { fromUserId, toUserId, amount, merchantId, paymentId });
 
     res.json({
       success: true,
       message: 'Transfer completed',
       senderBalance: senderWallet.balance,
-      receiverBalance: receiverWallet.balance
+      receiverBalance: receiverWallet.balance,
+      paymentId
     });
   } catch (err) {
     logger.error('Transfer error', { error: err.message });
