@@ -1,164 +1,132 @@
-# Expe - Payment Gateway BaaS
+# FakePay - Payment Gateway
 
-A comprehensive, production-ready payment gateway platform similar to UPI/Google Pay, built with microservice architecture.
+A complete payment gateway backend with UPI-style payments, wallets, webhooks, and merchant management.
 
 ## Features
 
-- 🚀 **Complete Payment Flow**: UPI-style payment processing with QR codes
-- 💼 **Merchant Portal**: Developer console with API key management
-- 👤 **User Wallets**: Test wallet system with top-up functionality
-- 🔄 **P2P Payments**: Person-to-person transfer support
-- 🔔 **Webhooks**: Reliable webhook delivery with retry logic
-- ⚡ **Real-time Updates**: WebSocket-based live payment notifications
-- 🔒 **Security**: HMAC signing, rate limiting, distributed locks
-- 📊 **Monitoring**: Prometheus metrics & Grafana dashboards
-- 🎨 **Modern UI**: Clean, minimal, professional interface
-
-## Architecture
-
-### Microservices
-- **API Gateway**: Main entry point, routing, rate limiting
-- **Auth Service**: JWT-based authentication & authorization
-- **Payment Service**: Core payment processing with Redis locks
-- **Webhook Service**: Background worker for webhook delivery
-- **Merchant Service**: Developer portal and project management
-
-### Infrastructure
-- **MongoDB**: Primary data store (payments, merchants, wallets)
-- **Redis**: Distributed locks, queues, caching, rate limiting
-- **Prometheus**: Metrics collection
-- **Grafana**: Monitoring dashboards
-- **Docker**: Containerized deployment
+- 💳 **Payment Processing** - Create and manage payments
+- 👛 **Digital Wallets** - User wallet system with top-up and transfers
+- 🔔 **Webhooks** - Reliable webhook delivery with retries
+- 🏢 **Merchant Management** - Multi-tenant merchant accounts
+- 🔐 **Authentication** - JWT-based auth with role-based access
+- 📊 **Monitoring** - Prometheus metrics and Grafana dashboards
+- ⚡ **Real-time** - WebSocket support for live updates
 
 ## Quick Start
 
-### Prerequisites
+### 1. Prerequisites
+- Node.js 18+
 - Docker & Docker Compose
-- Node.js 18+ (for local development)
-- Git
 
-### Setup
+### 2. Setup
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/Mihir-Rabari/fake-pe.git
-cd fake-pe
+# Install backend dependencies
+cd backend
+npm install
+
+# Create environment file
+copy .env.example .env
+
+# Start infrastructure
+cd ..
+docker-compose up -d mongodb redis prometheus grafana
+
+# Install frontend dependencies
+cd frontend
+npm install
 ```
 
-2. Start infrastructure services:
-```bash
-docker-compose up -d
-```
+### 3. Run
 
-3. Install dependencies:
 ```bash
-npm run install:all
-```
-
-4. Start all services:
-```bash
+# Start backend (from root)
 npm run dev
+
+# Backend runs on http://localhost:4000
+# Frontend runs on http://localhost:3000
 ```
 
-### Access Points
+## Project Structure
 
-- **Landing Page**: http://localhost:3000
-- **Merchant Dashboard**: http://localhost:3000/dashboard
-- **Developer Console**: http://localhost:3000/developer
-- **API Gateway**: http://localhost:4000
-- **Grafana**: http://localhost:3001 (admin/admin)
-- **Prometheus**: http://localhost:9090
+```
+fakepay/
+├── backend/              # Consolidated backend
+│   ├── src/
+│   │   ├── controllers/  # Request handlers
+│   │   ├── models/       # MongoDB models
+│   │   ├── routes/       # API routes
+│   │   ├── middleware/   # Express middleware
+│   │   ├── utils/        # Utilities (crypto, logger, etc.)
+│   │   ├── workers/      # Background workers (webhooks)
+│   │   └── index.js      # Main server
+│   └── package.json
+├── frontend/             # React frontend
+├── monitoring/           # Prometheus & Grafana configs
+└── docker-compose.yml    # Infrastructure setup
+```
 
-## API Documentation
+## API Endpoints
 
 ### Authentication
-All merchant API calls require authentication via API key or JWT token.
+- `POST /api/v1/auth/register` - Register user
+- `POST /api/v1/auth/login` - Login
 
-### Create Payment
-```bash
-POST /api/v1/payments
-Headers: 
-  - Authorization: Bearer <token>
-  - Idempotency-Key: <unique-key>
-Body:
-{
-  "amount": 250,
-  "orderId": "order-123",
-  "callbackUrl": "https://merchant.example/webhook",
-  "metadata": {}
-}
+### Payments
+- `POST /api/v1/payments` - Create payment
+- `GET /api/v1/payments/:id` - Get payment details
+- `POST /api/v1/payments/:id/complete` - Complete payment
+
+### Wallets
+- `GET /api/v1/wallets/:userId` - Get wallet balance
+- `POST /api/v1/wallets/topup` - Add funds
+- `POST /api/v1/wallets/transfer` - Transfer funds
+
+### Merchants
+- `POST /api/v1/merchants` - Create merchant
+- `GET /api/v1/merchants/:id` - Get merchant details
+
+### Projects & API Keys
+- `POST /api/v1/projects` - Create project
+- `POST /api/v1/projects/:id/keys` - Generate API key
+
+### Webhooks
+- `GET /api/v1/webhooks/attempts` - Get webhook attempts
+
+### Admin
+- `POST /api/v1/admin/replay-webhook/:paymentId` - Replay webhook
+
+## Environment Variables
+
+```env
+NODE_ENV=development
+PORT=4000
+MONGO_URI=mongodb://admin:expe_secure_pass_2024@localhost:27017/expe_gateway?authSource=admin
+REDIS_URL=redis://:expe_redis_pass_2024@localhost:6379
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRY=24h
+FRONTEND_URL=http://localhost:3000
 ```
-
-### Complete Payment
-```bash
-POST /api/v1/payments/:paymentId/complete
-Body:
-{
-  "payer": "user_id",
-  "method": "wallet"
-}
-```
-
-See full API documentation at `/docs` endpoint.
-
-## Development
-
-### Project Structure
-```
-├── services/
-│   ├── api-gateway/       # Main API gateway
-│   ├── auth-service/      # Authentication service
-│   ├── payment-service/   # Payment processing
-│   ├── webhook-service/   # Webhook worker
-│   └── merchant-service/  # Merchant portal APIs
-├── frontend/              # React frontend
-│   ├── landing/          # Landing page
-│   ├── dashboard/        # User/Merchant dashboard
-│   └── payment/          # Payment page UI
-├── shared/               # Shared utilities & types
-├── docker-compose.yml    # Infrastructure setup
-└── monitoring/           # Prometheus & Grafana configs
-```
-
-### Running Tests
-```bash
-npm test                  # Run all tests
-npm run test:unit        # Unit tests only
-npm run test:integration # Integration tests
-```
-
-### Building for Production
-```bash
-npm run build
-docker-compose -f docker-compose.prod.yml up -d
-```
-
-## Security
-
-- All API communications use HTTPS in production
-- Webhook payloads signed with HMAC-SHA256
-- Rate limiting on all endpoints
-- Distributed locks prevent double-processing
-- Input validation on all requests
-- Secrets managed via environment variables
 
 ## Monitoring
 
-Access Grafana dashboards to monitor:
-- Payment success/failure rates
-- Webhook delivery metrics
-- API latency and throughput
-- Queue backlogs
-- System resource usage
+- **Prometheus**: http://localhost:9090
+- **Grafana**: http://localhost:3001 (admin/expe_grafana_2024)
+- **Metrics**: http://localhost:4000/metrics
+
+## Tech Stack
+
+- **Backend**: Node.js, Express, Socket.IO
+- **Database**: MongoDB
+- **Cache/Queue**: Redis
+- **Frontend**: React, Vite, TailwindCSS
+- **Monitoring**: Prometheus, Grafana
+- **Process Manager**: PM2
 
 ## License
 
-MIT License - see LICENSE file for details
+MIT
 
-## Contributing
+## Author
 
-Contributions welcome! Please read CONTRIBUTING.md first.
-
-## Support
-
-For issues and questions, please open a GitHub issue.
+Mihir Rabari
