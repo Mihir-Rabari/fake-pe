@@ -72,9 +72,13 @@ exports.listProjects = async (req, res) => {
 exports.getProject = async (req, res) => {
   try {
     const { projectId } = req.params;
-    const merchantId = req.headers['x-merchant-id'];
+    const merchantId = req.user?.merchantId;
 
-    const project = await Project.findOne({ projectId, merchantId });
+    if (!merchantId) {
+      return res.status(400).json({ error: 'User must have a merchant account' });
+    }
+
+    const project = await Project.findOne({ projectId, merchantId, isActive: true });
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
     }
@@ -92,11 +96,15 @@ exports.getProject = async (req, res) => {
 exports.updateProject = async (req, res) => {
   try {
     const { projectId } = req.params;
-    const merchantId = req.headers['x-merchant-id'];
+    const merchantId = req.user?.merchantId;
     const { name, description, webhookUrl, allowedOrigins } = req.body;
 
+    if (!merchantId) {
+      return res.status(400).json({ error: 'User must have a merchant account' });
+    }
+
     const project = await Project.findOneAndUpdate(
-      { projectId, merchantId },
+      { projectId, merchantId, isActive: true },
       { name, description, webhookUrl, allowedOrigins, updatedAt: new Date() },
       { new: true }
     );
@@ -120,7 +128,11 @@ exports.updateProject = async (req, res) => {
 exports.deleteProject = async (req, res) => {
   try {
     const { projectId } = req.params;
-    const merchantId = req.headers['x-merchant-id'];
+    const merchantId = req.user?.merchantId;
+
+    if (!merchantId) {
+      return res.status(400).json({ error: 'User must have a merchant account' });
+    }
 
     const project = await Project.findOneAndUpdate(
       { projectId, merchantId },
@@ -153,7 +165,11 @@ exports.deleteProject = async (req, res) => {
 exports.generateApiKey = async (req, res) => {
   try {
     const { projectId } = req.params;
-    const merchantId = req.headers['x-merchant-id'];
+    const merchantId = req.user?.merchantId;
+
+    if (!merchantId) {
+      return res.status(400).json({ error: 'User must have a merchant account' });
+    }
     const { name, type = 'test' } = req.body;
 
     if (!name) {
@@ -203,7 +219,11 @@ exports.generateApiKey = async (req, res) => {
 exports.listApiKeys = async (req, res) => {
   try {
     const { projectId } = req.params;
-    const merchantId = req.headers['x-merchant-id'];
+    const merchantId = req.user?.merchantId;
+
+    if (!merchantId) {
+      return res.status(400).json({ error: 'User must have a merchant account' });
+    }
 
     const apiKeys = await ApiKey.find(
       { projectId, merchantId, isActive: true },
@@ -229,7 +249,11 @@ exports.listApiKeys = async (req, res) => {
 exports.revokeApiKey = async (req, res) => {
   try {
     const { projectId, keyId } = req.params;
-    const merchantId = req.headers['x-merchant-id'];
+    const merchantId = req.user?.merchantId;
+
+    if (!merchantId) {
+      return res.status(400).json({ error: 'User must have a merchant account' });
+    }
 
     const apiKey = await ApiKey.findOneAndUpdate(
       { keyId, projectId, merchantId },
