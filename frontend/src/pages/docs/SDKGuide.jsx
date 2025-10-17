@@ -3,7 +3,7 @@ export default function SDKGuide() {
     <div className="prose prose-indigo max-w-none">
       <h1>SDK Guide</h1>
       <p className="lead">
-        Complete guide for using the @fakepe/sdk Node.js package.
+        Complete guide for using the fakepe-sdk Node.js package.
       </p>
 
       <h2>Installation</h2>
