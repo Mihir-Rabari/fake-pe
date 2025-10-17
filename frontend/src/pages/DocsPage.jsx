@@ -1,23 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Key, CreditCard, Webhook, Copy, Check, Menu, X, Home } from 'lucide-react';
+import { Zap, Key, CreditCard, Webhook, Menu, X, Home, Code2, Wallet, QrCode, AlertCircle } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 
-function CodeBlock({ code, onCopy, copied }) {
-  return (
-    <div className="relative group">
-      <button
-        onClick={onCopy}
-        className="absolute top-4 right-4 p-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition z-10"
-      >
-        {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-gray-300" />}
-      </button>
-      <pre className="bg-gray-900 dark:bg-black rounded-lg p-6 overflow-x-auto">
-        <code className="text-sm text-gray-300">{code}</code>
-      </pre>
-    </div>
-  );
-}
+// Import modular section components
+import GettingStartedSection from '../components/docs/GettingStartedSection';
+import AuthenticationSection from '../components/docs/AuthenticationSection';
+import PaymentsSection from '../components/docs/PaymentsSection';
+import UPISection from '../components/docs/UPISection';
+import WalletsSection from '../components/docs/WalletsSection';
+import WebhooksSection from '../components/docs/WebhooksSection';
+import SDKSection from '../components/docs/SDKSection';
+import ErrorHandlingSection from '../components/docs/ErrorHandlingSection';
 
 export default function DocsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -34,8 +28,25 @@ export default function DocsPage() {
     { id: 'getting-started', label: 'Getting Started', icon: Home },
     { id: 'authentication', label: 'Authentication', icon: Key },
     { id: 'payments', label: 'Payments API', icon: CreditCard },
-    { id: 'webhooks', label: 'Webhooks', icon: Webhook }
+    { id: 'upi', label: 'UPI Payments', icon: QrCode },
+    { id: 'wallets', label: 'Wallets', icon: Wallet },
+    { id: 'webhooks', label: 'Webhooks', icon: Webhook },
+    { id: 'sdk', label: 'SDK Integration', icon: Code2 },
+    { id: 'errors', label: 'Error Handling', icon: AlertCircle }
   ];
+
+  // Scroll to section on navigation
+  useEffect(() => {
+    const hash = window.location.hash.substring(1);
+    if (hash && hash !== activeSection) {
+      setActiveSection(hash);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.location.hash = activeSection;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeSection]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -51,12 +62,12 @@ export default function DocsPage() {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
-                <span className="font-bold text-gray-900 dark:text-white">FakePay Docs</span>
+                <span className="font-bold text-gray-900 dark:text-white">FakePE Docs</span>
               </Link>
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
-              <Link to="/register" className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg">
+              <Link to="/register" className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:opacity-90 transition">
                 Get Started
               </Link>
             </div>
@@ -66,7 +77,7 @@ export default function DocsPage() {
 
       <div className="flex pt-16">
         {/* Sidebar */}
-        <aside className={`fixed lg:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 overflow-y-auto transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+        <aside className={`fixed lg:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 overflow-y-auto transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} z-40`}>
           <nav className="p-6">
             {navigation.map((item) => {
               const Icon = item.icon;
@@ -74,7 +85,7 @@ export default function DocsPage() {
                 <button
                   key={item.id}
                   onClick={() => { setActiveSection(item.id); setSidebarOpen(false); }}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg mb-2 ${activeSection === item.id ? 'bg-blue-50 dark:bg-blue-950 text-blue-600' : 'text-gray-700 dark:text-gray-300'}`}
+                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg mb-2 transition-colors ${activeSection === item.id ? 'bg-blue-50 dark:bg-blue-950 text-blue-600' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900'}`}
                 >
                   <Icon className="w-4 h-4" />
                   {item.label}
@@ -85,91 +96,37 @@ export default function DocsPage() {
         </aside>
 
         {/* Content */}
-        <main className="flex-1 p-6 lg:p-12 max-w-4xl">
+        <main className="flex-1 p-6 lg:p-12 max-w-5xl mx-auto">
           {activeSection === 'getting-started' && (
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Welcome to FakePay</h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400">Complete payment infrastructure for developers</p>
-              <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
-                <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Quick Start</h2>
-                <CodeBlock 
-                  code={`npm install @fakepay/node
-
-const FakePay = require('@fakepay/node');
-const fakepay = new FakePay({ apiKey: 'sk_test_...' });
-
-const payment = await fakepay.payments.create({
-  amount: 50000,
-  currency: 'INR',
-  callbackUrl: 'https://your-app.com/webhook'
-});`}
-                  onCopy={() => copyCode('quickstart', 'qs')}
-                  copied={copiedCode === 'qs'}
-                />
-              </div>
-            </div>
+            <GettingStartedSection copyCode={copyCode} copiedCode={copiedCode} />
           )}
 
           {activeSection === 'authentication' && (
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Authentication</h1>
-              <p className="text-gray-600 dark:text-gray-400">Use API keys to authenticate requests</p>
-              <CodeBlock 
-                code={`Authorization: Bearer sk_test_your_api_key`}
-                onCopy={() => copyCode('auth', 'auth')}
-                copied={copiedCode === 'auth'}
-              />
-            </div>
+            <AuthenticationSection copyCode={copyCode} copiedCode={copiedCode} />
           )}
 
           {activeSection === 'payments' && (
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Payments API</h1>
-              <div>
-                <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Create Payment</h2>
-                <CodeBlock 
-                  code={`POST /api/v1/payments
+            <PaymentsSection copyCode={copyCode} copiedCode={copiedCode} />
+          )}
 
-{
-  "amount": 50000,
-  "currency": "INR",
-  "customer": {
-    "email": "customer@example.com",
-    "phone": "+919876543210"
-  },
-  "callbackUrl": "https://your-app.com/webhook"
-}`}
-                  onCopy={() => copyCode('payment', 'pay')}
-                  copied={copiedCode === 'pay'}
-                />
-              </div>
-            </div>
+          {activeSection === 'upi' && (
+            <UPISection copyCode={copyCode} copiedCode={copiedCode} />
+          )}
+
+          {activeSection === 'wallets' && (
+            <WalletsSection copyCode={copyCode} copiedCode={copiedCode} />
           )}
 
           {activeSection === 'webhooks' && (
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Webhooks</h1>
-              <p className="text-gray-600 dark:text-gray-400">Receive real-time payment notifications</p>
-              <CodeBlock 
-                code={`app.post('/webhook', (req, res) => {
-  const signature = req.headers['x-signature'];
-  const payload = req.body;
-  
-  // Verify signature
-  const expected = crypto
-    .createHmac('sha256', merchantSecret)
-    .update(JSON.stringify(payload))
-    .digest('hex');
-  
-  if (signature === expected) {
-    console.log('Payment:', payload.paymentId);
-    res.status(200).send('OK');
-  }
-});`}
-                onCopy={() => copyCode('webhook', 'wh')}
-                copied={copiedCode === 'wh'}
-              />
-            </div>
+            <WebhooksSection copyCode={copyCode} copiedCode={copiedCode} />
+          )}
+
+          {activeSection === 'sdk' && (
+            <SDKSection copyCode={copyCode} copiedCode={copiedCode} />
+          )}
+
+          {activeSection === 'errors' && (
+            <ErrorHandlingSection copyCode={copyCode} copiedCode={copiedCode} />
           )}
         </main>
       </div>
