@@ -40,7 +40,7 @@ npm install
 npm run dev`}</code></pre>
 
       <h3>3. Install SDK</h3>
-      <pre><code className="language-bash">{`npm install @fakepe/sdk`}</code></pre>
+      <pre><code className="language-bash">{`npm install fakepe-sdk`}</code></pre>
 
       <h3>4. Install User App</h3>
       <pre><code className="language-bash">{`# Clone user app repository
@@ -54,7 +54,7 @@ npm run dev`}</code></pre>
       <h2>Your First Payment</h2>
 
       <h3>Step 1: Create Payment with SDK</h3>
-      <pre><code className="language-javascript">{`const FakePE = require('@fakepe/sdk');
+      <pre><code className="language-javascript">{`const FakePE = require('fakepe-sdk');
 
 const fakepe = new FakePE({
   key_id: 'test_key',

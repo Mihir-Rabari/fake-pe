@@ -39,7 +39,7 @@ export default function QuickReference() {
       <h2>SDK Quick Examples</h2>
 
       <h3>Initialize SDK</h3>
-      <pre><code className="language-javascript">{`const FakePE = require('@fakepe/sdk');
+      <pre><code className="language-javascript">{`const FakePE = require('fakepe-sdk');
 
 const fakepe = new FakePE({
   key_id: 'your_key',
@@ -232,7 +232,7 @@ docker-compose restart mongodb redis`}</code></pre>
         <li><a href="https://github.com/Mihir-Rabari/fake-pe" target="_blank">Main Repository</a></li>
         <li><a href="https://github.com/Mihir-Rabari/fakePE-user-app" target="_blank">User App</a></li>
         <li><a href="https://github.com/Mihir-Rabari/fakePE-sdk" target="_blank">SDK</a></li>
-        <li><a href="https://www.npmjs.com/package/@fakepe/sdk" target="_blank">NPM Package</a></li>
+        <li><a href="https://www.npmjs.com/package/fakepe-sdk" target="_blank">NPM Package</a></li>
       </ul>
     </div>
   );

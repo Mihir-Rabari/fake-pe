@@ -7,10 +7,10 @@ export default function SDKGuide() {
       </p>
 
       <h2>Installation</h2>
-      <pre><code className="language-bash">{`npm install @fakepe/sdk`}</code></pre>
+      <pre><code className="language-bash">{`npm install fakepe-sdk`}</code></pre>
 
       <h2>Initialization</h2>
-      <pre><code className="language-javascript">{`const FakePE = require('@fakepe/sdk');
+      <pre><code className="language-javascript">{`const FakePE = require('fakepe-sdk');
 
 const fakepe = new FakePE({
   key_id: 'your_key_id',        // Required
@@ -234,7 +234,7 @@ if (!fakepe.webhooks.verify(req.body, signature)) {
 
       <h2>TypeScript Support</h2>
       <p>Type definitions are included in the package:</p>
-      <pre><code className="language-typescript">{`import FakePE from '@fakepe/sdk';
+      <pre><code className="language-typescript">{`import FakePE from 'fakepe-sdk';
 
 const fakepe = new FakePE({
   key_id: 'key',
