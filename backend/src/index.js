@@ -81,6 +81,7 @@ const merchantRoutes = require('./routes/merchants');
 const projectRoutes = require('./routes/projects');
 const webhookRoutes = require('./routes/webhooks');
 const adminRoutes = require('./routes/admin');
+const upiRoutes = require('./routes/upi');
 
 // Mount routes
 app.use('/api/v1/auth', authRoutes);
@@ -90,6 +91,7 @@ app.use('/api/v1/merchants', merchantRoutes);
 app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/webhooks', webhookRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/upi', upiRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {

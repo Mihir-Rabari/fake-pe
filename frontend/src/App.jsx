@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import NewLandingPage from './pages/NewLandingPage';
-import DocsPage from './pages/DocsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WalletPage from './pages/WalletPage';
@@ -15,6 +14,13 @@ import WebhookLogs from './pages/WebhookLogs';
 import ErrorBoundary from './components/ErrorBoundary';
 import OfflineIndicator from './components/OfflineIndicator';
 
+// Documentation pages
+import DocsLayout from './pages/docs/DocsLayout';
+import GettingStarted from './pages/docs/GettingStarted';
+import ApiDocs from './pages/docs/ApiDocs';
+import SDKGuide from './pages/docs/SDKGuide';
+import QuickReference from './pages/docs/QuickReference';
+
 function App() {
   return (
     <ErrorBoundary>
@@ -22,7 +28,16 @@ function App() {
         <OfflineIndicator />
         <Routes>
           <Route path="/" element={<NewLandingPage />} />
-          <Route path="/docs" element={<DocsPage />} />
+          
+          {/* Documentation routes */}
+          <Route path="/docs" element={<DocsLayout />}>
+            <Route index element={<Navigate to="/docs/getting-started" replace />} />
+            <Route path="getting-started" element={<GettingStarted />} />
+            <Route path="api" element={<ApiDocs />} />
+            <Route path="sdk" element={<SDKGuide />} />
+            <Route path="quick-reference" element={<QuickReference />} />
+          </Route>
+          
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/wallet" element={<WalletPage />} />
