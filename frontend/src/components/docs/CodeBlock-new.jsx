@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Copy, Check, Terminal } from 'lucide-react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export default function CodeBlock({ code, language = 'bash', title, filename }) {
   const [copied, setCopied] = useState(false);
@@ -23,6 +25,17 @@ export default function CodeBlock({ code, language = 'bash', title, filename }) 
   };
 
   const langColor = languageColors[language] || { bg: 'bg-gray-500', text: 'text-gray-500' };
+
+  // Custom dark theme
+  const customStyle = {
+    ...vscDarkPlus,
+    'pre[class*="language-"]': {
+      ...vscDarkPlus['pre[class*="language-"]'],
+      background: '#1a1a1a',
+      margin: 0,
+      padding: '1.25rem',
+    },
+  };
 
   return (
     <div className="my-6 rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
@@ -78,9 +91,23 @@ export default function CodeBlock({ code, language = 'bash', title, filename }) 
             )}
           </button>
         )}
-        <pre className="bg-gray-900 p-5 overflow-x-auto">
-          <code className={`text-sm text-gray-300 font-mono language-${language}`}>{code}</code>
-        </pre>
+        <SyntaxHighlighter
+          language={language}
+          style={customStyle}
+          customStyle={{
+            margin: 0,
+            borderRadius: 0,
+            background: '#1a1a1a',
+          }}
+          codeTagProps={{
+            style: {
+              fontSize: '0.875rem',
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+            }
+          }}
+        >
+          {code}
+        </SyntaxHighlighter>
       </div>
     </div>
   );

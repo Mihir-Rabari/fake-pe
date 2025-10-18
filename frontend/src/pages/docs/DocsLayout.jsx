@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Github, Rocket, Book, Code2, Zap, Server, FileText, Home } from 'lucide-react';
+import ThemeToggle from '../../components/ThemeToggle';
+import DocsSidebar from '../../components/docs/DocsSidebar';
 
 export default function DocsLayout() {
   const location = useLocation();
@@ -54,9 +56,9 @@ export default function DocsLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950">
       {/* Top Navigation */}
-      <div className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md shadow-sm">
+      <div className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm">
         <div className="flex h-16 items-center px-6">
           <div className="mr-4 flex lg:hidden">
             <button
@@ -77,17 +79,19 @@ export default function DocsLayout() {
               <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full font-medium">Docs</span>
             </Link>
             
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-4">
               <nav className="hidden md:flex md:space-x-6 text-sm font-medium">
-                <Link to="/docs/getting-started" className="text-gray-700 hover:text-indigo-600 transition">Documentation</Link>
-                <Link to="/" className="text-gray-700 hover:text-indigo-600 transition">Dashboard</Link>
+                <Link to="/docs/getting-started" className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Documentation</Link>
+                <Link to="/" className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Dashboard</Link>
               </nav>
+              
+              <ThemeToggle />
               
               <a
                 href="https://github.com/Mihir-Rabari/fake-pe"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition"
+                className="p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
                 title="GitHub"
               >
                 <Github className="h-5 w-5" />
@@ -148,7 +152,7 @@ export default function DocsLayout() {
       <div className="mx-auto max-w-8xl">
         <div className="flex">
           {/* Sidebar */}
-          <aside className="hidden lg:block fixed top-16 bottom-0 left-0 w-72 overflow-y-auto border-r border-gray-200 bg-white/50 backdrop-blur-sm">
+          <aside className="hidden lg:block fixed top-16 bottom-0 left-0 w-72 overflow-y-auto border-r border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
             <nav className="p-6 space-y-6">
               {navigation.map((section) => (
                 <div key={section.title}>
@@ -195,10 +199,15 @@ export default function DocsLayout() {
             </nav>
           </aside>
 
-          {/* Main content */}
+          {/* Main content with right sidebar */}
           <main className="flex-1 lg:ml-72">
-            <div className="mx-auto max-w-4xl px-6 py-12 sm:px-8 lg:px-12">
-              <Outlet />
+            <div className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12">
+              <div className="flex gap-8">
+                <div className="flex-1 max-w-4xl">
+                  <Outlet />
+                </div>
+                <DocsSidebar />
+              </div>
             </div>
           </main>
         </div>
