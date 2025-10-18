@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Menu, X, Github, Search } from 'lucide-react';
+import { Menu, X, Github, Rocket, Book, Code2, Zap, Server, FileText, Home } from 'lucide-react';
 
 export default function DocsLayout() {
   const location = useLocation();
@@ -10,40 +10,40 @@ export default function DocsLayout() {
     {
       title: 'Getting Started',
       items: [
-        { name: 'Introduction', href: '/docs/getting-started' },
-        { name: 'Installation', href: '/docs/getting-started#installation' },
-        { name: 'Quick Start', href: '/docs/getting-started#quick-start' },
+        { name: 'Introduction', href: '/docs/getting-started', icon: Home },
+        { name: 'Installation', href: '/docs/getting-started#installation', icon: Rocket },
+        { name: 'Quick Start', href: '/docs/getting-started#quick-start', icon: Zap },
       ],
     },
     {
       title: 'Guides',
       items: [
-        { name: 'Self-Hosting', href: '/docs/self-hosting' },
-        { name: 'API Usage', href: '/docs/api-usage' },
-        { name: 'Code Examples', href: '/docs/examples' },
+        { name: 'Self-Hosting', href: '/docs/self-hosting', icon: Server },
+        { name: 'API Usage', href: '/docs/api-usage', icon: Code2 },
+        { name: 'Code Examples', href: '/docs/examples', icon: FileText },
       ],
     },
     {
       title: 'API Reference',
       items: [
-        { name: 'API Overview', href: '/docs/api' },
-        { name: 'Payments', href: '/docs/api#payments' },
-        { name: 'UPI', href: '/docs/api#upi' },
-        { name: 'Wallets', href: '/docs/api#wallets' },
+        { name: 'API Overview', href: '/docs/api', icon: Book },
+        { name: 'Payments', href: '/docs/api#payments', icon: null },
+        { name: 'UPI', href: '/docs/api#upi', icon: null },
+        { name: 'Wallets', href: '/docs/api#wallets', icon: null },
       ],
     },
     {
       title: 'SDK',
       items: [
-        { name: 'SDK Guide', href: '/docs/sdk' },
-        { name: 'Installation', href: '/docs/sdk#installation' },
-        { name: 'Examples', href: '/docs/sdk#examples' },
+        { name: 'SDK Guide', href: '/docs/sdk', icon: Code2 },
+        { name: 'Installation', href: '/docs/sdk#installation', icon: null },
+        { name: 'Examples', href: '/docs/sdk#examples', icon: null },
       ],
     },
     {
       title: 'Resources',
       items: [
-        { name: 'Quick Reference', href: '/docs/quick-reference' },
+        { name: 'Quick Reference', href: '/docs/quick-reference', icon: Zap },
       ],
     },
   ];
@@ -54,36 +54,41 @@ export default function DocsLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Top Navigation */}
-      <div className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
-        <div className="flex h-14 items-center px-4">
+      <div className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md shadow-sm">
+        <div className="flex h-16 items-center px-6">
           <div className="mr-4 flex lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              className="inline-flex items-center justify-center rounded-lg p-2 text-gray-700 hover:bg-gray-100 transition"
               onClick={() => setMobileMenuOpen(true)}
             >
-              <Menu className="h-6 w-6" />
+              <Menu className="h-5 w-5" />
             </button>
           </div>
           
           <div className="flex flex-1 items-center justify-between">
-            <Link to="/" className="flex items-center space-x-2">
-              <span className="text-lg font-semibold">FakePE</span>
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <Zap className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">FakePE</span>
+              <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full font-medium">Docs</span>
             </Link>
             
             <div className="flex items-center space-x-6">
               <nav className="hidden md:flex md:space-x-6 text-sm font-medium">
-                <Link to="/docs/getting-started" className="text-gray-700 hover:text-gray-900">Docs</Link>
-                <Link to="/" className="text-gray-700 hover:text-gray-900">Dashboard</Link>
+                <Link to="/docs/getting-started" className="text-gray-700 hover:text-indigo-600 transition">Documentation</Link>
+                <Link to="/" className="text-gray-700 hover:text-indigo-600 transition">Dashboard</Link>
               </nav>
               
               <a
                 href="https://github.com/Mihir-Rabari/fake-pe"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-700 hover:text-gray-900"
+                className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition"
+                title="GitHub"
               >
                 <Github className="h-5 w-5" />
               </a>
@@ -95,32 +100,43 @@ export default function DocsLayout() {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
-          <div className="fixed inset-0 bg-gray-600/75" onClick={() => setMobileMenuOpen(false)} />
-          <div className="fixed inset-y-0 left-0 w-full max-w-xs bg-white p-6">
-            <div className="flex items-center justify-between mb-6">
-              <Link to="/" className="text-lg font-semibold">FakePE</Link>
-              <button onClick={() => setMobileMenuOpen(false)}>
-                <X className="h-6 w-6" />
+          <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
+          <div className="fixed inset-y-0 left-0 w-full max-w-xs bg-white shadow-2xl">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <Link to="/" className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-lg font-bold">FakePE</span>
+              </Link>
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2 hover:bg-gray-100 rounded-lg transition">
+                <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="space-y-6">
+            <nav className="p-6 space-y-6 overflow-y-auto max-h-[calc(100vh-80px)]">
               {navigation.map((section) => (
                 <div key={section.title}>
-                  <h3 className="mb-2 text-sm font-semibold text-gray-900">{section.title}</h3>
-                  <ul className="space-y-2">
-                    {section.items.map((item) => (
-                      <li key={item.name}>
-                        <Link
-                          to={item.href}
-                          className={`block text-sm ${
-                            isActive(item.href) ? 'text-indigo-600 font-medium' : 'text-gray-600 hover:text-gray-900'
-                          }`}
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
+                  <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500">{section.title}</h3>
+                  <ul className="space-y-1">
+                    {section.items.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <li key={item.name}>
+                          <Link
+                            to={item.href}
+                            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition ${
+                              isActive(item.href)
+                                ? 'bg-indigo-50 text-indigo-600 font-medium'
+                                : 'text-gray-700 hover:bg-gray-100'
+                            }`}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {Icon && <Icon className="w-4 h-4" />}
+                            {item.name}
+                          </Link>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}
@@ -132,35 +148,56 @@ export default function DocsLayout() {
       <div className="mx-auto max-w-8xl">
         <div className="flex">
           {/* Sidebar */}
-          <aside className="hidden lg:block fixed top-14 bottom-0 left-0 w-64 overflow-y-auto border-r border-gray-200 p-8">
-            <nav className="space-y-8">
+          <aside className="hidden lg:block fixed top-16 bottom-0 left-0 w-72 overflow-y-auto border-r border-gray-200 bg-white/50 backdrop-blur-sm">
+            <nav className="p-6 space-y-6">
               {navigation.map((section) => (
                 <div key={section.title}>
-                  <h3 className="mb-3 text-sm font-semibold text-gray-900">{section.title}</h3>
-                  <ul className="space-y-2 border-l border-gray-200">
-                    {section.items.map((item) => (
-                      <li key={item.name}>
-                        <Link
-                          to={item.href}
-                          className={`block border-l pl-4 -ml-px text-sm ${
-                            isActive(item.href)
-                              ? 'border-indigo-600 text-indigo-600 font-medium'
-                              : 'border-transparent text-gray-600 hover:border-gray-400 hover:text-gray-900'
-                          }`}
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
+                  <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500 px-3">{section.title}</h3>
+                  <ul className="space-y-1">
+                    {section.items.map((item) => {
+                      const Icon = item.icon;
+                      const active = isActive(item.href);
+                      return (
+                        <li key={item.name}>
+                          <Link
+                            to={item.href}
+                            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition group ${
+                              active
+                                ? 'bg-indigo-50 text-indigo-600 font-medium shadow-sm'
+                                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                            }`}
+                          >
+                            {Icon && (
+                              <Icon className={`w-4 h-4 ${active ? 'text-indigo-600' : 'text-gray-400 group-hover:text-gray-600'}`} />
+                            )}
+                            <span className={Icon ? '' : 'ml-7'}>{item.name}</span>
+                            {active && (
+                              <div className="ml-auto w-1.5 h-1.5 bg-indigo-600 rounded-full"></div>
+                            )}
+                          </Link>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}
+              
+              {/* Footer links */}
+              <div className="pt-6 border-t border-gray-200">
+                <div className="px-3 space-y-2 text-xs text-gray-600">
+                  <a href="https://github.com/Mihir-Rabari/fake-pe" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-indigo-600 transition">
+                    <Github className="w-3.5 h-3.5" />
+                    <span>GitHub</span>
+                  </a>
+                  <p className="text-gray-400">v1.0.0</p>
+                </div>
+              </div>
             </nav>
           </aside>
 
           {/* Main content */}
-          <main className="flex-1 lg:ml-64">
-            <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+          <main className="flex-1 lg:ml-72">
+            <div className="mx-auto max-w-4xl px-6 py-12 sm:px-8 lg:px-12">
               <Outlet />
             </div>
           </main>
