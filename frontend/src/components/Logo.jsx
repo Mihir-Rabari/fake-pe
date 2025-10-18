@@ -1,45 +1,53 @@
 import React from 'react';
 
-function Logo({ size = 'md', className = '' }) {
+export default function Logo({ size = 'md', showText = true, className = '' }) {
   const sizes = {
     sm: 'w-8 h-8',
-    md: 'w-12 h-12',
-    lg: 'w-16 h-16',
-    xl: 'w-24 h-24'
+    md: 'w-10 h-10',
+    lg: 'w-12 h-12',
+    xl: 'w-16 h-16'
   };
 
   return (
-    <div className={`inline-flex items-center gap-2 ${className}`}>
+    <div className={`inline-flex items-center gap-3 ${className}`}>
+      {/* FakePE Logo SVG */}
       <svg 
         className={sizes[size]} 
-        viewBox="0 0 120 120" 
+        viewBox="0 0 64 64" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
+        role="img" 
+        aria-labelledby="titleFakePE"
       >
-        <circle cx="60" cy="60" r="58" fill="url(#gradient)" stroke="#0284c7" strokeWidth="2"/>
-        <defs>
-          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{stopColor:'#0ea5e9', stopOpacity:1}} />
-            <stop offset="100%" style={{stopColor:'#0369a1', stopOpacity:1}} />
-          </linearGradient>
-        </defs>
+        <title id="titleFakePE">FakePE Logo</title>
+        {/* Rounded Rectangle Outline */}
+        <rect 
+          x="4" 
+          y="8" 
+          width="56" 
+          height="48" 
+          rx="8" 
+          fill="none" 
+          stroke="#2ECB70" 
+          strokeWidth="4"
+        />
+        {/* F Letter */}
         <path 
-          d="M 35 60 L 85 60 M 60 35 L 60 85 M 45 45 L 75 75 M 75 45 L 45 75" 
-          stroke="white" 
-          strokeWidth="6" 
+          d="M22 18v28M22 18h18M22 32h14" 
+          fill="none" 
+          stroke="#2ECB70" 
+          strokeWidth="3.5" 
           strokeLinecap="round" 
           strokeLinejoin="round"
-          fill="none"
         />
-        <circle cx="60" cy="60" r="25" stroke="white" strokeWidth="4" fill="none" opacity="0.6"/>
-        <circle cx="35" cy="35" r="3" fill="white" opacity="0.8"/>
-        <circle cx="85" cy="35" r="3" fill="white" opacity="0.8"/>
-        <circle cx="35" cy="85" r="3" fill="white" opacity="0.8"/>
-        <circle cx="85" cy="85" r="3" fill="white" opacity="0.8"/>
       </svg>
-      <span className="text-2xl font-bold text-gray-900">expe</span>
+      
+      {/* FakePE Wordmark */}
+      {showText && (
+        <span className="text-xl font-semibold text-white tracking-tight">
+          FakePE
+        </span>
+      )}
     </div>
   );
 }
-
-export default Logo;

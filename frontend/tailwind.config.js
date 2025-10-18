@@ -8,17 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+        fakepe: {
+          primary: '#2ECB70',      // Supabase Green
+          background: '#0E0E0E',   // Dark Background
+          surface: '#1A1A1A',      // Card Gray
+          border: '#2A2A2A',       // Divider
+          accent: '#00FFAE',       // Neon Mint
+          success: '#3EE68E',      // Lighter Green
+          text: {
+            primary: '#FFFFFF',    // White
+            secondary: '#A3A3A3',  // Gray
+          },
         },
       },
       animation: {
