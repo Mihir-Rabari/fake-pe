@@ -108,28 +108,43 @@ export default function CodeBlock({
           showLineNumbers={showLineNumbers}
           startingLineNumber={startingLineNumber}
           wrapLines={true}
+          lineNumberStyle={{
+            minWidth: '3.5em',
+            paddingRight: '1.5em',
+            paddingLeft: '0.5em',
+            textAlign: 'right',
+            userSelect: 'none',
+            opacity: isDark ? 0.4 : 0.5,
+            color: isDark ? '#6e7681' : '#57606a',
+            borderRight: isDark ? '1px solid #30363d' : '1px solid #d0d7de',
+            marginRight: '1em',
+          }}
           lineProps={(lineNumber) => {
-            const style = { display: 'block', width: 'fit-content' };
+            const style = { display: 'block' };
             if (highlightLines.includes(lineNumber)) {
-              style.backgroundColor = isDark ? 'rgba(97, 218, 251, 0.1)' : 'rgba(59, 130, 246, 0.1)';
+              style.backgroundColor = isDark ? 'rgba(97, 218, 251, 0.08)' : 'rgba(59, 130, 246, 0.08)';
               style.borderLeft = `3px solid ${isDark ? '#61dafb' : '#3b82f6'}`;
-              style.paddingLeft = '0.5rem';
-              style.marginLeft = '-0.5rem';
+              style.paddingLeft = '0.75rem';
+              style.marginLeft = '-0.75rem';
             }
             return { style };
           }}
           customStyle={{
             margin: 0,
             borderRadius: 0,
-            background: isDark ? '#0a0a0a' : '#ffffff',
-            paddingTop: '1.25rem',
-            paddingBottom: '1.25rem',
+            background: isDark ? '#0d1117' : '#f6f8fa',
+            paddingTop: '1rem',
+            paddingBottom: '1rem',
+            paddingLeft: '0',
+            paddingRight: '1.5rem',
+            fontSize: '0.875rem',
+            lineHeight: '1.6',
           }}
           codeTagProps={{
             style: {
-              fontSize: '0.9rem',
-              fontFamily: 'JetBrains Mono, Menlo, Monaco, Consolas, monospace',
-              textShadow: isDark ? '0 0 2px rgba(255, 255, 255, 0.1)' : 'none',
+              fontFamily: 'ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace',
+              fontSize: '0.875rem',
+              lineHeight: '1.6',
             }
           }}
         >
