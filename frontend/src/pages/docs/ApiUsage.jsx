@@ -45,11 +45,16 @@ export default function ApiUsage() {
       
       <p>All API requests require HTTP Basic Authentication using your API keys:</p>
 
-      <pre><code className="language-http">{`Authorization: Basic base64(key_id:key_secret)`}</code></pre>
+      <CodeBlock
+        language="http"
+        code={`Authorization: Basic base64(key_id:key_secret)`}
+      />
 
       <h3>Example (JavaScript/Node.js)</h3>
       
-      <pre><code className="language-javascript">{`const axios = require('axios');
+      <CodeBlock
+        language="javascript"
+        code={`const axios = require('axios');
 
 const API_URL = 'https://api.fakepe.example.com/api/v1';
 const KEY_ID = 'your_key_id';
@@ -62,11 +67,14 @@ const auth = {
 };
 
 // Make authenticated request
-const response = await axios.get(\`\${API_URL}/payments\`, { auth });`}</code></pre>
+const response = await axios.get(\`\${API_URL}/payments\`, { auth });`}
+      />
 
       <h3>Example (Python)</h3>
       
-      <pre><code className="language-python">{`import requests
+      <CodeBlock
+        language="python"
+        code={`import requests
 from requests.auth import HTTPBasicAuth
 
 API_URL = 'https://api.fakepe.example.com/api/v1'
@@ -76,12 +84,16 @@ KEY_SECRET = 'your_key_secret'
 response = requests.get(
     f'{API_URL}/payments',
     auth=HTTPBasicAuth(KEY_ID, KEY_SECRET)
-)`}</code></pre>
+)`}
+      />
 
       <h3>Example (cURL)</h3>
       
-      <pre><code className="language-bash">{`curl -u key_id:key_secret \\
-  https://api.fakepe.example.com/api/v1/payments`}</code></pre>
+      <CodeBlock
+        language="bash"
+        code={`curl -u key_id:key_secret \\
+  https://api.fakepe.example.com/api/v1/payments`}
+      />
 
       <h2 id="creating-payment">Creating a Payment</h2>
 
@@ -89,7 +101,9 @@ response = requests.get(
 
       <h3>Step 1: Create Payment Order (Backend)</h3>
       
-      <pre><code className="language-javascript">{`// server.js (Node.js/Express)
+      <CodeBlock
+        language="javascript"
+        code={`// server.js (Node.js/Express)
 const express = require('express');
 const axios = require('axios');
 
@@ -125,11 +139,14 @@ app.post('/create-order', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});`}</code></pre>
+});`}
+      />
 
       <h3>Step 2: Redirect Customer (Frontend)</h3>
       
-      <pre><code className="language-javascript">{`// frontend (React/JavaScript)
+      <CodeBlock
+        language="javascript"
+        code={`// frontend (React/JavaScript)
 async function handleCheckout() {
   const response = await fetch('/create-order', {
     method: 'POST',
@@ -147,11 +164,14 @@ async function handleCheckout() {
   
   // OR display QR code
   showQRCode(data.qrData);
-}`}</code></pre>
+}`}
+      />
 
       <h3>Step 3: Handle Callback</h3>
       
-      <pre><code className="language-javascript">{`// Webhook endpoint
+      <CodeBlock
+        language="javascript"
+        code={`// Webhook endpoint
 app.post('/payment/callback', async (req, res) => {
   const signature = req.headers['x-fakepe-signature'];
   const payload = req.body;
@@ -185,7 +205,8 @@ function verifySignature(payload, signature) {
     .digest('hex');
   
   return signature === expectedSignature;
-}`}</code></pre>
+}`}
+      />
 
       <h2 id="using-sdk">Using the SDK</h2>
 
@@ -193,11 +214,16 @@ function verifySignature(payload, signature) {
 
       <h3>Installation</h3>
       
-      <pre><code className="language-bash">npm install fakepe-sdk</code></pre>
+      <CodeBlock
+        language="bash"
+        code="npm install fakepe-sdk"
+      />
 
       <h3>Basic Usage</h3>
       
-      <pre><code className="language-javascript">{`const FakePE = require('fakepe-sdk');
+      <CodeBlock
+        language="javascript"
+        code={`const FakePE = require('fakepe-sdk');
 
 const fakepe = new FakePE({
   key_id: process.env.FAKEPE_KEY_ID,
@@ -223,13 +249,16 @@ console.log(status.status); // CREATED, PENDING, COMPLETED, FAILED
 await fakepe.payments.refund(payment.paymentId, {
   amount: 25000, // Partial refund
   reason: 'Customer request'
-});`}</code></pre>
+});`}
+      />
 
       <h2 id="examples">Complete Integration Examples</h2>
 
       <h3>Example 1: E-commerce Checkout</h3>
       
-      <pre><code className="language-javascript">{`// Express.js backend
+      <CodeBlock
+        language="javascript"
+        code={`// Express.js backend
 const express = require('express');
 const FakePE = require('fakepe-sdk');
 
@@ -295,11 +324,14 @@ app.post('/webhook', async (req, res) => {
   }
 
   res.status(200).send('OK');
-});`}</code></pre>
+});`}
+      />
 
       <h3>Example 2: Subscription Payment</h3>
       
-      <pre><code className="language-javascript">{`const cron = require('node-cron');
+      <CodeBlock
+        language="javascript"
+        code={`const cron = require('node-cron');
 
 // Run every day at midnight
 cron.schedule('0 0 * * *', async () => {
@@ -332,11 +364,14 @@ cron.schedule('0 0 * * *', async () => {
       console.error(\`Failed to bill subscription \${sub.id}:\`, error);
     }
   }
-});`}</code></pre>
+});`}
+      />
 
       <h3>Example 3: Marketplace Split Payment</h3>
       
-      <pre><code className="language-javascript">{`// Marketplace with seller payouts
+      <CodeBlock
+        language="javascript"
+        code={`// Marketplace with seller payouts
 app.post('/create-marketplace-payment', async (req, res) => {
   const { sellerId, amount, orderId } = req.body;
 
@@ -380,7 +415,8 @@ app.post('/webhook', async (req, res) => {
   }
 
   res.status(200).send('OK');
-});`}</code></pre>
+});`}
+      />
 
       <h2 id="testing">Testing Your Integration</h2>
 
@@ -388,11 +424,14 @@ app.post('/webhook', async (req, res) => {
       
       <p>Use test API keys for development:</p>
 
-      <pre><code className="language-javascript">{`const fakepe = new FakePE({
+      <CodeBlock
+        language="javascript"
+        code={`const fakepe = new FakePE({
   key_id: 'test_key_id',
   key_secret: 'test_key_secret',
   baseUrl: 'https://sandbox.fakepe.example.com'
-});`}</code></pre>
+});`}
+      />
 
       <h3>Test Data</h3>
       
@@ -432,7 +471,9 @@ app.post('/webhook', async (req, res) => {
       
       <p>Use ngrok to test webhooks on localhost:</p>
 
-      <pre><code className="language-bash">{`# Install ngrok
+      <CodeBlock
+        language="bash"
+        code={`# Install ngrok
 npm install -g ngrok
 
 # Start your server
@@ -442,7 +483,8 @@ node server.js
 ngrok http 3000
 
 # Use the ngrok URL as your callbackUrl
-# https://abc123.ngrok.io/webhook`}</code></pre>
+# https://abc123.ngrok.io/webhook`}
+      />
 
       <h2 id="error-handling">Error Handling</h2>
 
@@ -487,7 +529,9 @@ ngrok http 3000
 
       <h3>Error Handling Example</h3>
       
-      <pre><code className="language-javascript">{`try {
+      <CodeBlock
+        language="javascript"
+        code={`try {
   const payment = await fakepe.payments.create({
     merchantId: 'mer_123',
     amount: 50000,
@@ -516,7 +560,8 @@ ngrok http 3000
     // Network error
     console.error('Network error:', error.message);
   }
-}`}</code></pre>
+}`}
+      />
 
       <h2 id="rate-limits">Rate Limits</h2>
       

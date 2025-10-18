@@ -76,19 +76,24 @@ export default function SelfHosting() {
       
       <p>Clone all three repositories to your machine:</p>
 
-      <pre><code className="language-bash">{`# Main backend and frontend
+      <CodeBlock
+        language="bash"
+        code={`# Main backend and frontend
 git clone https://github.com/Mihir-Rabari/fake-pe.git
 cd fake-pe
 
 # User app (in a separate directory)
 cd ..
-git clone https://github.com/Mihir-Rabari/fakePE-user-app.git`}</code></pre>
+git clone https://github.com/Mihir-Rabari/fakePE-user-app.git`}
+      />
 
       <h3>2. Configure Environment Variables</h3>
       
       <p>Create <code>.env</code> file in the backend directory:</p>
 
-      <pre><code className="language-bash">{`# backend/.env
+      <CodeBlock
+        language="bash"
+        code={`# backend/.env
 NODE_ENV=production
 PORT=4000
 
@@ -104,25 +109,32 @@ JWT_EXPIRE=7d
 ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
 
 # Webhook Secret
-WEBHOOK_SECRET=your_webhook_secret_key`}</code></pre>
+WEBHOOK_SECRET=your_webhook_secret_key`}
+      />
 
       <p>Create <code>.env</code> files in frontend directories:</p>
 
-      <pre><code className="language-bash">{`# frontend/.env
+      <CodeBlock
+        language="bash"
+        code={`# frontend/.env
 VITE_API_URL=http://localhost:4000
 
 # fakePE-user-app/.env
-VITE_API_URL=http://localhost:4000`}</code></pre>
+VITE_API_URL=http://localhost:4000`}
+      />
 
       <h3>3. Start Infrastructure Services</h3>
       
       <p>Use Docker Compose to start MongoDB and Redis:</p>
 
-      <pre><code className="language-bash">{`cd fake-pe
+      <CodeBlock
+        language="bash"
+        code={`cd fake-pe
 docker-compose up -d
 
 # Verify services are running
-docker-compose ps`}</code></pre>
+docker-compose ps`}
+      />
 
       <p>Expected output:</p>
 
@@ -134,7 +146,9 @@ redis              redis      running       0.0.0.0:6379->6379/tcp`}</code></pre
       
       <p>Install Node.js dependencies for all applications:</p>
 
-      <pre><code className="language-bash">{`# Backend
+      <CodeBlock
+        language="bash"
+        code={`# Backend
 cd backend
 npm install
 
@@ -144,15 +158,19 @@ npm install
 
 # User App
 cd ../../fakePE-user-app
-npm install`}</code></pre>
+npm install`}
+      />
 
       <h3>5. Initialize Database</h3>
       
       <p>Run database migrations and seed data (if available):</p>
 
-      <pre><code className="language-bash">{`cd backend
+      <CodeBlock
+        language="bash"
+        code={`cd backend
 npm run db:migrate  # If migrations exist
-npm run db:seed     # If seed data exists`}</code></pre>
+npm run db:seed     # If seed data exists`}
+      />
 
       <h3>6. Start All Services</h3>
       
@@ -160,24 +178,33 @@ npm run db:seed     # If seed data exists`}</code></pre>
 
       <p><strong>Terminal 1 - Backend:</strong></p>
 
-      <pre><code className="language-bash">{`cd fake-pe/backend
+      <CodeBlock
+        language="bash"
+        code={`cd fake-pe/backend
 npm run dev
 
-# Backend running on http://localhost:4000`}</code></pre>
+# Backend running on http://localhost:4000`}
+      />
 
       <p><strong>Terminal 2 - Frontend Dashboard:</strong></p>
 
-      <pre><code className="language-bash">{`cd fake-pe/frontend
+      <CodeBlock
+        language="bash"
+        code={`cd fake-pe/frontend
 npm run dev
 
-# Frontend running on http://localhost:3000`}</code></pre>
+# Frontend running on http://localhost:3000`}
+      />
 
       <p><strong>Terminal 3 - User App:</strong></p>
 
-      <pre><code className="language-bash">{`cd fakePE-user-app
+      <CodeBlock
+        language="bash"
+        code={`cd fakePE-user-app
 npm run dev
 
-# User App running on http://localhost:3001`}</code></pre>
+# User App running on http://localhost:3001`}
+      />
 
       <h2 id="verification">Verify Installation</h2>
       
@@ -185,10 +212,13 @@ npm run dev
 
       <h3>1. Check Backend Health</h3>
       
-      <pre><code className="language-bash">{`curl http://localhost:4000/health
+      <CodeBlock
+        language="bash"
+        code={`curl http://localhost:4000/health
 
 # Expected response:
-# {"status":"ok","timestamp":"2024-01-15T10:00:00.000Z"}`}</code></pre>
+# {"status":"ok","timestamp":"2024-01-15T10:00:00.000Z"}`}
+      />
 
       <h3>2. Test Frontend Dashboard</h3>
       
@@ -210,14 +240,19 @@ npm run dev
       
       <p>Run this test script to verify the entire system:</p>
 
-      <pre><code className="language-bash">{`cd fake-pe
-node test-payment-flow.js`}</code></pre>
+      <CodeBlock
+        language="bash"
+        code={`cd fake-pe
+node test-payment-flow.js`}
+      />
 
       <h2 id="production">Production Deployment</h2>
 
       <h3>Build for Production</h3>
       
-      <pre><code className="language-bash">{`# Backend
+      <CodeBlock
+        language="bash"
+        code={`# Backend
 cd backend
 npm run build
 
@@ -227,17 +262,23 @@ npm run build
 
 # User App
 cd ../../fakePE-user-app
-npm run build`}</code></pre>
+npm run build`}
+      />
 
       <h3>Using PM2 for Process Management</h3>
       
       <p>Install PM2 globally:</p>
 
-      <pre><code className="language-bash">npm install -g pm2</code></pre>
+      <CodeBlock
+        language="bash"
+        code="npm install -g pm2"
+      />
 
       <p>Create PM2 ecosystem file:</p>
 
-      <pre><code className="language-javascript">{`// ecosystem.config.js
+      <CodeBlock
+        language="javascript"
+        code={`// ecosystem.config.js
 module.exports = {
   apps: [
     {
@@ -269,19 +310,25 @@ module.exports = {
       }
     }
   ]
-};`}</code></pre>
+};`}
+      />
 
       <p>Start all services with PM2:</p>
 
-      <pre><code className="language-bash">{`pm2 start ecosystem.config.js
+      <CodeBlock
+        language="bash"
+        code={`pm2 start ecosystem.config.js
 pm2 save
-pm2 startup`}</code></pre>
+pm2 startup`}
+      />
 
       <h3>Using Nginx as Reverse Proxy</h3>
       
       <p>Create Nginx configuration:</p>
 
-      <pre><code className="language-nginx">{`# /etc/nginx/sites-available/fakepe
+      <CodeBlock
+        language="nginx"
+        code={`# /etc/nginx/sites-available/fakepe
 server {
     listen 80;
     server_name fakepe.example.com;
@@ -320,19 +367,25 @@ server {
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
-}`}</code></pre>
+}`}
+      />
 
       <p>Enable the site:</p>
 
-      <pre><code className="language-bash">{`sudo ln -s /etc/nginx/sites-available/fakepe /etc/nginx/sites-enabled/
+      <CodeBlock
+        language="bash"
+        code={`sudo ln -s /etc/nginx/sites-available/fakepe /etc/nginx/sites-enabled/
 sudo nginx -t
-sudo systemctl reload nginx`}</code></pre>
+sudo systemctl reload nginx`}
+      />
 
       <h2 id="docker">Docker Deployment (All-in-One)</h2>
 
       <p>Deploy everything using Docker:</p>
 
-      <pre><code className="language-yaml">{`# docker-compose.production.yml
+      <CodeBlock
+        language="yaml"
+        code={`# docker-compose.production.yml
 version: '3.8'
 
 services:
@@ -386,42 +439,55 @@ services:
 
 volumes:
   mongodb_data:
-  redis_data:`}</code></pre>
+  redis_data:`}
+      />
 
       <p>Start the entire stack:</p>
 
-      <pre><code className="language-bash">{`docker-compose -f docker-compose.production.yml up -d
+      <CodeBlock
+        language="bash"
+        code={`docker-compose -f docker-compose.production.yml up -d
 
 # View logs
-docker-compose -f docker-compose.production.yml logs -f`}</code></pre>
+docker-compose -f docker-compose.production.yml logs -f`}
+      />
 
       <h2 id="monitoring">Monitoring & Maintenance</h2>
 
       <h3>View Logs</h3>
       
-      <pre><code className="language-bash">{`# PM2 logs
+      <CodeBlock
+        language="bash"
+        code={`# PM2 logs
 pm2 logs fakepe-backend
 pm2 logs fakepe-frontend
 
 # Docker logs
 docker-compose logs -f backend
-docker-compose logs -f mongodb`}</code></pre>
+docker-compose logs -f mongodb`}
+      />
 
       <h3>Database Backup</h3>
       
-      <pre><code className="language-bash">{`# Backup MongoDB
+      <CodeBlock
+        language="bash"
+        code={`# Backup MongoDB
 docker exec mongodb mongodump --db fakepe --out /backup
 
 # Restore
-docker exec mongodb mongorestore /backup/fakepe`}</code></pre>
+docker exec mongodb mongorestore /backup/fakepe`}
+      />
 
       <h3>Monitor Resources</h3>
       
-      <pre><code className="language-bash">{`# PM2 monitoring
+      <CodeBlock
+        language="bash"
+        code={`# PM2 monitoring
 pm2 monit
 
 # Docker stats
-docker stats`}</code></pre>
+docker stats`}
+      />
 
       <h2 id="troubleshooting">Troubleshooting</h2>
 
@@ -453,7 +519,9 @@ docker stats`}</code></pre>
 
       <h2 id="updates">Updating Your Instance</h2>
       
-      <pre><code className="language-bash">{`# Pull latest code
+      <CodeBlock
+        language="bash"
+        code={`# Pull latest code
 git pull origin main
 
 # Update dependencies
@@ -464,7 +532,8 @@ pm2 restart all
 
 # Or with Docker
 docker-compose down
-docker-compose up -d --build`}</code></pre>
+docker-compose up -d --build`}
+      />
 
       <h2 id="security">Security Considerations</h2>
 

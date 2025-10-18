@@ -42,22 +42,28 @@ export default function ApiDocs() {
 
       <p><strong>Request Body:</strong></p>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "merchantId": "mer_123",
   "amount": 50000,
   "orderId": "order_abc123",
   "callbackUrl": "https://yourapp.com/webhook"
-}`}</code></pre>
+}`}
+      />
 
       <p><strong>Response:</strong></p>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "paymentId": "pay_xyz789",
   "paymentUrl": "http://localhost:3000/pay/pay_xyz789",
   "qrData": "data:image/png;base64,...",
   "status": "CREATED",
   "amount": 50000
-}`}</code></pre>
+}`}
+      />
 
       <h3>Get Payment</h3>
       
@@ -120,10 +126,13 @@ export default function ApiDocs() {
         <code className="ml-2">/payments/:paymentId/refund</code>
       </div>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "amount": 25000,  // Optional, defaults to full refund
   "reason": "Customer request"
-}`}</code></pre>
+}`}
+      />
 
       <h2 id="upi">UPI API</h2>
 
@@ -136,10 +145,13 @@ export default function ApiDocs() {
         <code className="ml-2">/upi/vpa</code>
       </div>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "userId": "usr_123",
   "vpa": "user@fakepe"
-}`}</code></pre>
+}`}
+      />
 
       <h3>Generate QR Code</h3>
       
@@ -159,10 +171,13 @@ export default function ApiDocs() {
         <code className="ml-2">/upi/initiate</code>
       </div>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "paymentId": "pay_xyz789",
   "payerVpa": "user@fakepe"
-}`}</code></pre>
+}`}
+      />
 
       <h3>Confirm UPI Payment</h3>
       
@@ -173,10 +188,13 @@ export default function ApiDocs() {
         <code className="ml-2">/upi/confirm</code>
       </div>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "txnId": "UPI2024011512345678",
   "pin": "1234"
-}`}</code></pre>
+}`}
+      />
 
       <h2 id="wallets">Wallet API</h2>
 
@@ -198,10 +216,13 @@ export default function ApiDocs() {
         <code className="ml-2">/wallets/topup</code>
       </div>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "userId": "usr_123",
   "amount": 100000  // ₹1000 in paise
-}`}</code></pre>
+}`}
+      />
 
       <h3>Transfer Funds</h3>
       
@@ -212,20 +233,26 @@ export default function ApiDocs() {
         <code className="ml-2">/wallets/transfer</code>
       </div>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "from": "usr_123",
   "to": "usr_456",
   "amount": 50000
-}`}</code></pre>
+}`}
+      />
 
       <h2>Error Responses</h2>
       
       <p>All errors follow a consistent format:</p>
 
-      <pre><code className="language-json">{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "error": "Error message",
   "statusCode": 400
-}`}</code></pre>
+}`}
+      />
 
       <p><strong>Common Status Codes:</strong></p>
 

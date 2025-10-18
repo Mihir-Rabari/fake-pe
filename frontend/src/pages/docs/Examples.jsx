@@ -25,7 +25,9 @@ export default function Examples() {
 
       <h3>Complete E-commerce Integration</h3>
       
-      <pre><code className="language-javascript">{`// server.js
+      <CodeBlock
+        language="javascript"
+        code={`// server.js
 const express = require('express');
 const FakePE = require('fakepe-sdk');
 const cors = require('cors');
@@ -199,13 +201,16 @@ async function sendConfirmationEmail(order) {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(\`Server running on port \${PORT}\`);
-});`}</code></pre>
+});`}
+      />
 
       <h2 id="react">React Frontend Example</h2>
 
       <h3>Checkout Component</h3>
       
-      <pre><code className="language-jsx">{`// components/Checkout.jsx
+      <CodeBlock
+        language="jsx"
+        code={`// components/Checkout.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -309,11 +314,14 @@ export default function Checkout({ cart, onSuccess }) {
       </form>
     </div>
   );
-}`}</code></pre>
+}`}
+      />
 
       <h3>Order Status Component</h3>
       
-      <pre><code className="language-jsx">{`// components/OrderStatus.jsx
+      <CodeBlock
+        language="jsx"
+        code={`// components/OrderStatus.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -414,13 +422,16 @@ function StatusBadge({ status }) {
       {status}
     </span>
   );
-}`}</code></pre>
+}`}
+      />
 
       <h2 id="nextjs">Next.js Full Stack Example</h2>
 
       <h3>API Route Handler</h3>
       
-      <pre><code className="language-javascript">{`// pages/api/checkout.js
+      <CodeBlock
+        language="javascript"
+        code={`// pages/api/checkout.js
 import FakePE from 'fakepe-sdk';
 
 const fakepe = new FakePE({
@@ -452,11 +463,14 @@ export default async function handler(req, res) {
     console.error('Checkout error:', error);
     res.status(500).json({ error: error.message });
   }
-}`}</code></pre>
+}`}
+      />
 
       <h3>Server Component</h3>
       
-      <pre><code className="language-jsx">{`// app/checkout/page.jsx
+      <CodeBlock
+        language="jsx"
+        code={`// app/checkout/page.jsx
 'use client';
 
 import { useState } from 'react';
@@ -499,11 +513,14 @@ export default function CheckoutPage() {
       </button>
     </div>
   );
-}`}</code></pre>
+}`}
+      />
 
       <h2 id="django">Django/Python Example</h2>
 
-      <pre><code className="language-python">{`# views.py
+      <CodeBlock
+        language="python"
+        code={`# views.py
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -574,11 +591,14 @@ from . import views
 urlpatterns = [
     path('create-payment/', views.create_payment),
     path('webhook/', views.webhook),
-]`}</code></pre>
+]`}
+      />
 
       <h2 id="php">PHP/Laravel Example</h2>
 
-      <pre><code className="language-php">{`<?php
+      <CodeBlock
+        language="php"
+        code={`<?php
 // app/Http/Controllers/PaymentController.php
 
 namespace App\\Http\\Controllers;
@@ -648,11 +668,14 @@ class PaymentController extends Controller
 
 // routes/web.php
 Route::post('/create-payment', [PaymentController::class, 'createPayment']);
-Route::post('/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');`}</code></pre>
+Route::post('/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');`}
+      />
 
       <h2 id="mobile">React Native Mobile Example</h2>
 
-      <pre><code className="language-jsx">{`// screens/CheckoutScreen.jsx
+      <CodeBlock
+        language="jsx"
+        code={`// screens/CheckoutScreen.jsx
 import React, { useState } from 'react';
 import { View, Text, Button, Linking } from 'react-native';
 import axios from 'axios';
@@ -699,7 +722,8 @@ export default function CheckoutScreen({ route }) {
       />
     </View>
   );
-}`}</code></pre>
+}`}
+      />
 
       <h2>Download Complete Examples</h2>
       

@@ -39,29 +39,41 @@ export default function QuickReference() {
 
       <h3>Initialize</h3>
       
-      <pre><code className="language-javascript">{`const FakePE = require('fakepe-sdk');
+      <CodeBlock
+        language="javascript"
+        code={`const FakePE = require('fakepe-sdk');
 
 const fakepe = new FakePE({
   key_id: 'your_key',
   key_secret: 'your_secret'
-});`}</code></pre>
+});`}
+      />
 
       <h3>Create Payment</h3>
       
-      <pre><code className="language-javascript">{`const payment = await fakepe.payments.create({
+      <CodeBlock
+        language="javascript"
+        code={`const payment = await fakepe.payments.create({
   merchantId: 'mer_123',
   amount: 50000,
   orderId: 'order_001'
-});`}</code></pre>
+});`}
+      />
 
       <h3>Get Status</h3>
       
-      <pre><code className="language-javascript">const payment = await fakepe.payments.fetch('pay_xyz');</code></pre>
+      <CodeBlock
+        language="javascript"
+        code="const payment = await fakepe.payments.fetch('pay_xyz');"
+      />
 
       <h3>Generate QR</h3>
       
-      <pre><code className="language-javascript">{`const qr = await fakepe.upi.generateQr('pay_xyz');
-console.log(qr.upiIntent);`}</code></pre>
+      <CodeBlock
+        language="javascript"
+        code={`const qr = await fakepe.upi.generateQr('pay_xyz');
+console.log(qr.upiIntent);`}
+      />
 
       <h2>API Endpoints</h2>
 
@@ -124,7 +136,9 @@ console.log(qr.upiIntent);`}</code></pre>
 
       <h3>Start Services</h3>
       
-      <pre><code className="language-bash">{`# Infrastructure
+      <CodeBlock
+        language="bash"
+        code={`# Infrastructure
 docker-compose up -d
 
 # Backend
@@ -134,18 +148,22 @@ cd backend && npm run dev
 cd frontend && npm run dev
 
 # User App
-cd ../fakePE-user-app && npm run dev`}</code></pre>
+cd ../fakePE-user-app && npm run dev`}
+      />
 
       <h3>Docker Commands</h3>
       
-      <pre><code className="language-bash">{`# Start
+      <CodeBlock
+        language="bash"
+        code={`# Start
 docker-compose up -d
 
 # Stop
 docker-compose down
 
 # View logs
-docker-compose logs -f`}</code></pre>
+docker-compose logs -f`}
+      />
 
       <h2>Test Data</h2>
 
@@ -185,15 +203,21 @@ COMPLETED → REFUNDED`}</code></pre>
 
       <h3>Backend</h3>
       
-      <pre><code className="language-bash">{`NODE_ENV=development
+      <CodeBlock
+        language="bash"
+        code={`NODE_ENV=development
 PORT=4000
 MONGO_URI=mongodb://localhost:27017/fakepe
 REDIS_URL=redis://localhost:6379
-JWT_SECRET=your_secret`}</code></pre>
+JWT_SECRET=your_secret`}
+      />
 
       <h3>Frontend</h3>
       
-      <pre><code className="language-bash">VITE_API_URL=http://localhost:4000</code></pre>
+      <CodeBlock
+        language="bash"
+        code="VITE_API_URL=http://localhost:4000"
+      />
     </DocPage>
   );
 }

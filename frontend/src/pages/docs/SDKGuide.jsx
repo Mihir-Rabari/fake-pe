@@ -12,23 +12,31 @@ export default function SDKGuide() {
 
       <h2>Installation</h2>
       
-      <pre><code className="language-bash">npm install fakepe-sdk</code></pre>
+      <CodeBlock
+        language="bash"
+        code="npm install fakepe-sdk"
+      />
 
       <h2>Initialization</h2>
       
-      <pre><code className="language-javascript">{`const FakePE = require('fakepe-sdk');
+      <CodeBlock
+        language="javascript"
+        code={`const FakePE = require('fakepe-sdk');
 
 const fakepe = new FakePE({
   key_id: 'your_key_id',
   key_secret: 'your_key_secret',
   baseUrl: 'http://localhost:4000'  // Optional
-});`}</code></pre>
+});`}
+      />
 
       <h2>Payments</h2>
 
       <h3>Create Payment</h3>
       
-      <pre><code className="language-javascript">{`const payment = await fakepe.payments.create({
+      <CodeBlock
+        language="javascript"
+        code={`const payment = await fakepe.payments.create({
   merchantId: 'mer_123',
   amount: 50000,  // in paise (₹500)
   orderId: 'order_001',
@@ -36,48 +44,66 @@ const fakepe = new FakePE({
 });
 
 console.log(payment.paymentId);
-console.log(payment.paymentUrl);`}</code></pre>
+console.log(payment.paymentUrl);`}
+      />
 
       <h3>Fetch Payment</h3>
       
-      <pre><code className="language-javascript">{`const payment = await fakepe.payments.fetch('pay_xyz789');
-console.log(payment.status);`}</code></pre>
+      <CodeBlock
+        language="javascript"
+        code={`const payment = await fakepe.payments.fetch('pay_xyz789');
+console.log(payment.status);`}
+      />
 
       <h3>List Payments</h3>
       
-      <pre><code className="language-javascript">{`const result = await fakepe.payments.list({
+      <CodeBlock
+        language="javascript"
+        code={`const result = await fakepe.payments.list({
   merchantId: 'mer_123',
   status: 'COMPLETED',
   limit: 10
 });
 
-console.log(result.payments);`}</code></pre>
+console.log(result.payments);`}
+      />
 
       <h3>Refund Payment</h3>
       
-      <pre><code className="language-javascript">{`await fakepe.payments.refund('pay_xyz789', {
+      <CodeBlock
+        language="javascript"
+        code={`await fakepe.payments.refund('pay_xyz789', {
   amount: 25000,  // Optional for partial refund
   reason: 'Customer request'
-});`}</code></pre>
+});`}
+      />
 
       <h2>UPI</h2>
 
       <h3>Create VPA</h3>
       
-      <pre><code className="language-javascript">{`await fakepe.upi.createVpa({
+      <CodeBlock
+        language="javascript"
+        code={`await fakepe.upi.createVpa({
   userId: 'usr_123',
   vpa: 'user@fakepe'
-});`}</code></pre>
+});`}
+      />
 
       <h3>Generate QR Code</h3>
       
-      <pre><code className="language-javascript">{`const qr = await fakepe.upi.generateQr('pay_xyz789');
+      <CodeBlock
+        language="javascript"
+        code={`const qr = await fakepe.upi.generateQr('pay_xyz789');
 console.log(qr.upiIntent);
-console.log(qr.qrCodeData);`}</code></pre>
+console.log(qr.qrCodeData);`}
+      />
 
       <h3>Complete UPI Flow</h3>
       
-      <pre><code className="language-javascript">{`// 1. Initiate payment
+      <CodeBlock
+        language="javascript"
+        code={`// 1. Initiate payment
 const txn = await fakepe.upi.initiate({
   paymentId: 'pay_xyz789',
   payerVpa: 'user@fakepe'
@@ -89,35 +115,47 @@ const result = await fakepe.upi.confirm({
   pin: '1234'
 });
 
-console.log(result.status);  // SUCCESS`}</code></pre>
+console.log(result.status);  // SUCCESS`}
+      />
 
       <h2>Wallets</h2>
 
       <h3>Get Balance</h3>
       
-      <pre><code className="language-javascript">{`const wallet = await fakepe.wallets.getBalance('usr_123');
-console.log(wallet.balance);`}</code></pre>
+      <CodeBlock
+        language="javascript"
+        code={`const wallet = await fakepe.wallets.getBalance('usr_123');
+console.log(wallet.balance);`}
+      />
 
       <h3>Top Up</h3>
       
-      <pre><code className="language-javascript">{`await fakepe.wallets.topup({
+      <CodeBlock
+        language="javascript"
+        code={`await fakepe.wallets.topup({
   userId: 'usr_123',
   amount: 100000  // ₹1000
-});`}</code></pre>
+});`}
+      />
 
       <h3>Transfer</h3>
       
-      <pre><code className="language-javascript">{`await fakepe.wallets.transfer({
+      <CodeBlock
+        language="javascript"
+        code={`await fakepe.wallets.transfer({
   from: 'usr_123',
   to: 'usr_456',
   amount: 50000
-});`}</code></pre>
+});`}
+      />
 
       <h2>Webhooks</h2>
 
       <h3>Verify Signature</h3>
       
-      <pre><code className="language-javascript">{`app.post('/webhook', (req, res) => {
+      <CodeBlock
+        language="javascript"
+        code={`app.post('/webhook', (req, res) => {
   const signature = req.headers['x-fakepe-signature'];
   
   if (!fakepe.webhooks.verify(req.body, signature)) {
@@ -131,7 +169,8 @@ console.log(wallet.balance);`}</code></pre>
   }
   
   res.status(200).send('OK');
-});`}</code></pre>
+});`}
+      />
 
       <h2 id="examples">Examples</h2>
       
@@ -145,7 +184,9 @@ console.log(wallet.balance);`}</code></pre>
 
       <h2>Error Handling</h2>
       
-      <pre><code className="language-javascript">{`try {
+      <CodeBlock
+        language="javascript"
+        code={`try {
   const payment = await fakepe.payments.create({
     merchantId: 'mer_123',
     amount: 50000,
@@ -157,7 +198,8 @@ console.log(wallet.balance);`}</code></pre>
     console.error(error.response.status);
     console.error(error.response.data);
   }
-}`}</code></pre>
+}`}
+      />
 
       <h2>Best Practices</h2>
       
@@ -172,7 +214,9 @@ console.log(wallet.balance);`}</code></pre>
       
       <p>Type definitions are included in the package:</p>
 
-      <pre><code className="language-typescript">{`import FakePE from 'fakepe-sdk';
+      <CodeBlock
+        language="typescript"
+        code={`import FakePE from 'fakepe-sdk';
 
 const fakepe = new FakePE({
   key_id: 'key',
@@ -183,7 +227,8 @@ const payment: Payment = await fakepe.payments.create({
   merchantId: 'mer_123',
   amount: 50000,
   orderId: 'order_001'
-});`}</code></pre>
+});`}
+      />
     </DocPage>
   );
 }
