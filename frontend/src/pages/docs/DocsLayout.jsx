@@ -16,8 +16,17 @@ export default function DocsLayout() {
       ],
     },
     {
+      title: 'Guides',
+      items: [
+        { name: 'Self-Hosting', href: '/docs/self-hosting' },
+        { name: 'API Usage', href: '/docs/api-usage' },
+        { name: 'Code Examples', href: '/docs/examples' },
+      ],
+    },
+    {
       title: 'API Reference',
       items: [
+        { name: 'API Overview', href: '/docs/api' },
         { name: 'Payments', href: '/docs/api#payments' },
         { name: 'UPI', href: '/docs/api#upi' },
         { name: 'Wallets', href: '/docs/api#wallets' },
@@ -27,6 +36,7 @@ export default function DocsLayout() {
       title: 'SDK',
       items: [
         { name: 'SDK Guide', href: '/docs/sdk' },
+        { name: 'Installation', href: '/docs/sdk#installation' },
         { name: 'Examples', href: '/docs/sdk#examples' },
       ],
     },

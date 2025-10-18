@@ -20,6 +20,10 @@ import GettingStarted from './pages/docs/GettingStarted';
 import ApiDocs from './pages/docs/ApiDocs';
 import SDKGuide from './pages/docs/SDKGuide';
 import QuickReference from './pages/docs/QuickReference';
+import SelfHosting from './pages/docs/SelfHosting';
+import ApiUsage from './pages/docs/ApiUsage';
+import Examples from './pages/docs/Examples';
+import DocsManager from './pages/DocsManager';
 
 function App() {
   return (
@@ -36,7 +40,13 @@ function App() {
             <Route path="api" element={<ApiDocs />} />
             <Route path="sdk" element={<SDKGuide />} />
             <Route path="quick-reference" element={<QuickReference />} />
+            <Route path="self-hosting" element={<SelfHosting />} />
+            <Route path="api-usage" element={<ApiUsage />} />
+            <Route path="examples" element={<Examples />} />
           </Route>
+          
+          {/* Documentation Manager (Admin) */}
+          <Route path="/docs-manager" element={<DocsManager />} />
           
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
