@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Github, Rocket, Book, Code2, Zap, Server, FileText, Home } from 'lucide-react';
 import ThemeToggle from '../../components/ThemeToggle';
 import DocsSidebar from '../../components/docs/DocsSidebar';
+import TableOfContents from '../../components/docs/TableOfContents';
 
 export default function DocsLayout() {
   const location = useLocation();
@@ -204,14 +205,23 @@ export default function DocsLayout() {
             </nav>
           </aside>
 
-          {/* Main content with right sidebar */}
+          {/* Main content with right sidebars */}
           <main className="flex-1 lg:ml-72">
-            <div className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12">
-              <div className="flex gap-8">
-                <div className="flex-1 max-w-4xl">
+            <div className="mx-auto max-w-[1800px] px-6 py-12 sm:px-8 lg:px-12">
+              <div className="flex gap-8 justify-between">
+                {/* Main content */}
+                <div className="flex-1 min-w-0 max-w-4xl">
                   <Outlet />
                 </div>
-                <DocsSidebar />
+                
+                {/* Right sidebars container */}
+                <div className="hidden xl:flex gap-8 flex-shrink-0">
+                  {/* Table of Contents (Tailwind-style) */}
+                  <TableOfContents />
+                  
+                  {/* Stats & Links Sidebar */}
+                  <DocsSidebar />
+                </div>
               </div>
             </div>
           </main>

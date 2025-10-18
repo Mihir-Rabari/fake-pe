@@ -3,6 +3,7 @@ export { default as DocPage } from './DocPage';
 export { default as CodeBlock } from './CodeBlock-new';
 export { default as Callout } from './Callout';
 export { default as DocsSidebar } from './DocsSidebar';
+export { default as TableOfContents } from './TableOfContents';
 
 // Table components
 export { 
