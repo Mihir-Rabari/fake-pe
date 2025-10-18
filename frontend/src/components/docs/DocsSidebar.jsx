@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, GitPullRequest, Star, Eye, Github, BookOpen } from 'lucide-react';
+import axios from 'axios';
 
 export default function DocsSidebar() {
   const [stats, setStats] = useState({
@@ -7,24 +8,55 @@ export default function DocsSidebar() {
     stars: 0,
     contributors: 0,
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate real-time viewers (you can replace with actual WebSocket later)
-    const interval = setInterval(() => {
-      setStats(prev => ({
-        ...prev,
-        viewers: Math.floor(Math.random() * 15) + 5,
-      }));
-    }, 5000);
+    // Generate unique viewer ID
+    let viewerId = localStorage.getItem('viewer-id');
+    if (!viewerId) {
+      viewerId = 'viewer_' + Math.random().toString(36).substring(2, 15);
+      localStorage.setItem('viewer-id', viewerId);
+    }
 
-    // Fetch GitHub stats (optional - you can add real API call)
-    setStats({
-      viewers: Math.floor(Math.random() * 15) + 5,
-      stars: 24,
-      contributors: 3,
-    });
+    // Track this viewer
+    const trackViewer = async () => {
+      try {
+        await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/v1/stats/viewers/track`, {}, {
+          headers: { 'x-viewer-id': viewerId }
+        });
+      } catch (error) {
+        console.error('Error tracking viewer:', error);
+      }
+    };
 
-    return () => clearInterval(interval);
+    // Fetch real stats from backend
+    const fetchStats = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/v1/stats/docs`);
+        setStats(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        // Fallback to defaults
+        setStats({ viewers: 5, stars: 24, contributors: 3 });
+        setLoading(false);
+      }
+    };
+
+    // Initial fetch
+    trackViewer();
+    fetchStats();
+
+    // Track viewer every 20 seconds
+    const trackInterval = setInterval(trackViewer, 20000);
+    
+    // Refresh stats every 10 seconds
+    const statsInterval = setInterval(fetchStats, 10000);
+
+    return () => {
+      clearInterval(trackInterval);
+      clearInterval(statsInterval);
+    };
   }, []);
 
   return (
@@ -43,7 +75,11 @@ export default function DocsSidebar() {
                 <Eye className="w-4 h-4" />
                 <span>Viewers</span>
               </div>
-              <span className="font-semibold text-gray-900 dark:text-white">{stats.viewers}</span>
+              {loading ? (
+                <div className="h-5 w-8 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+              ) : (
+                <span className="font-semibold text-gray-900 dark:text-white">{stats.viewers}</span>
+              )}
             </div>
 
             <div className="flex items-center justify-between">
@@ -51,7 +87,11 @@ export default function DocsSidebar() {
                 <Star className="w-4 h-4" />
                 <span>GitHub Stars</span>
               </div>
-              <span className="font-semibold text-gray-900 dark:text-white">{stats.stars}</span>
+              {loading ? (
+                <div className="h-5 w-8 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+              ) : (
+                <span className="font-semibold text-gray-900 dark:text-white">{stats.stars}</span>
+              )}
             </div>
 
             <div className="flex items-center justify-between">
@@ -59,7 +99,11 @@ export default function DocsSidebar() {
                 <Users className="w-4 h-4" />
                 <span>Contributors</span>
               </div>
-              <span className="font-semibold text-gray-900 dark:text-white">{stats.contributors}</span>
+              {loading ? (
+                <div className="h-5 w-8 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+              ) : (
+                <span className="font-semibold text-gray-900 dark:text-white">{stats.contributors}</span>
+              )}
             </div>
           </div>
         </div>

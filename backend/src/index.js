@@ -82,6 +82,7 @@ const projectRoutes = require('./routes/projects');
 const webhookRoutes = require('./routes/webhooks');
 const adminRoutes = require('./routes/admin');
 const upiRoutes = require('./routes/upi');
+const statsRoutes = require('./routes/stats');
 
 // Mount routes
 app.use('/api/v1/auth', authRoutes);
@@ -92,6 +93,7 @@ app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/webhooks', webhookRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/upi', upiRoutes);
+app.use('/api/v1/stats', statsRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {
