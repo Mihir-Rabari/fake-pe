@@ -1,5 +1,5 @@
 import React from 'react';
-import CodeBlock from '../../components/docs/CodeBlock-new';
+import CodeBlock from '../../components/docs/CodeBlock';
 import Callout from '../../components/docs/Callout';
 import { InfoCard } from '../../components/docs/Card';
 

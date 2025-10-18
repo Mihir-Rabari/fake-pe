@@ -1,6 +1,6 @@
 import React from 'react';
 import DocPage from '../../components/docs/DocPage';
-import CodeBlock from '../../components/docs/CodeBlock-new';
+import CodeBlock from '../../components/docs/CodeBlock';
 import Callout from '../../components/docs/Callout';
 
 export default function Examples() {
