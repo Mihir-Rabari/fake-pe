@@ -51,8 +51,13 @@ export default function DocsLayout() {
   ];
 
   const isActive = (href) => {
-    const path = href.split('#')[0];
-    return location.pathname === path;
+    // For hash links, only highlight if on the exact page AND hash matches
+    if (href.includes('#')) {
+      const [path, hash] = href.split('#');
+      return location.pathname === path && location.hash === `#${hash}`;
+    }
+    // For regular links, exact path match only
+    return location.pathname === href;
   };
 
   return (

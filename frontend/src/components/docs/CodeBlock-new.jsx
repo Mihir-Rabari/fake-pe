@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Copy, Check, Terminal } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { vscDarkPlus, vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function CodeBlock({ 
   code, 
@@ -9,10 +10,12 @@ export default function CodeBlock({
   title, 
   filename,
   showLineNumbers = true,
-  highlightLines = [],  // e.g., [3, 5, 6] to highlight lines 3, 5, and 6
+  highlightLines = [],
   startingLineNumber = 1
 }) {
   const [copied, setCopied] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -35,66 +38,14 @@ export default function CodeBlock({
 
   const langColor = languageColors[language] || { bg: 'bg-gray-500', text: 'text-gray-500', glow: 'shadow-gray-500/50' };
 
-  // Custom neon-inspired theme
-  const customTheme = {
-    ...oneDark,
-    'pre[class*="language-"]': {
-      ...oneDark['pre[class*="language-"]'],
-      background: '#0a0a0a',
-      margin: 0,
-      padding: showLineNumbers ? '1.25rem 1.25rem 1.25rem 0' : '1.25rem',
-      fontSize: '0.9rem',
-      lineHeight: '1.6',
-      fontFamily: 'JetBrains Mono, Menlo, Monaco, Consolas, monospace',
-    },
-    'code[class*="language-"]': {
-      ...oneDark['code[class*="language-"]'],
-      background: '#0a0a0a',
-      textShadow: '0 0 2px rgba(255, 255, 255, 0.1)',
-    },
-    comment: {
-      color: '#6a9955',
-      fontStyle: 'italic',
-    },
-    prolog: { color: '#6a9955' },
-    doctype: { color: '#569cd6' },
-    cdata: { color: '#6a9955' },
-    punctuation: { color: '#d4d4d4' },
-    property: { color: '#9cdcfe' },
-    tag: { color: '#569cd6' },
-    boolean: { color: '#569cd6' },
-    number: { color: '#b5cea8' },
-    constant: { color: '#4fc1ff' },
-    symbol: { color: '#4fc1ff' },
-    deleted: { color: '#f44747' },
-    selector: { color: '#d7ba7d' },
-    'attr-name': { color: '#9cdcfe' },
-    string: { color: '#ce9178' },
-    char: { color: '#ce9178' },
-    builtin: { color: '#4ec9b0' },
-    inserted: { color: '#b5cea8' },
-    variable: { color: '#9cdcfe' },
-    operator: { color: '#d4d4d4' },
-    entity: { color: '#569cd6' },
-    url: { color: '#3794ff' },
-    '.language-css .token.string': { color: '#ce9178' },
-    '.style .token.string': { color: '#ce9178' },
-    atrule: { color: '#c586c0' },
-    'attr-value': { color: '#ce9178' },
-    keyword: { color: '#c586c0' },
-    function: { color: '#dcdcaa' },
-    'class-name': { color: '#4ec9b0' },
-    regex: { color: '#d16969' },
-    important: { color: '#c586c0', fontWeight: 'bold' },
-    bold: { fontWeight: 'bold' },
-    italic: { fontStyle: 'italic' },
-  };
+  // Theme-aware syntax highlighting
+  const syntaxTheme = isDark ? vscDarkPlus : vs;
 
   return (
-    <div className="my-6 rounded-xl border border-gray-800 dark:border-gray-700 bg-gradient-to-br from-gray-900 to-black shadow-2xl overflow-hidden">
+    <div className={`my-6 rounded-xl border ${isDark ? 'border-gray-700' : 'border-gray-300'} ${isDark ? 'bg-gradient-to-br from-gray-900 to-black' : 'bg-white'} shadow-2xl overflow-hidden`}>
       {/* Header */}
       {(title || filename || language) && (
-        <div className="flex items-center justify-between px-5 py-3 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700">
+        <div className={`flex items-center justify-between px-5 py-3 ${isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700' : 'bg-gradient-to-r from-gray-100 to-gray-200 border-b border-gray-300'}`}>
           <div className="flex items-center gap-3">
             {/* Mac-style window dots */}
             <div className="flex items-center gap-1.5">
@@ -105,12 +56,12 @@ export default function CodeBlock({
             
             {filename && (
               <div className="flex items-center gap-2 ml-2">
-                <Terminal className="w-4 h-4 text-gray-400" />
-                <span className="text-sm font-medium text-gray-300">{filename}</span>
+                <Terminal className={`w-4 h-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`} />
+                <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{filename}</span>
               </div>
             )}
             {title && !filename && (
-              <span className="text-sm font-medium text-gray-300 ml-2">{title}</span>
+              <span className={`text-sm font-medium ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{title}</span>
             )}
             {language && (
               <span className={`text-xs px-2.5 py-1 ${langColor.bg} text-white rounded-md font-mono font-bold uppercase tracking-wide shadow-lg ${langColor.glow}`}>
@@ -120,12 +71,12 @@ export default function CodeBlock({
           </div>
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-all duration-200"
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium ${isDark ? 'text-gray-300 hover:text-white hover:bg-gray-700' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-300'} rounded-md transition-all duration-200`}
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-green-400" />
-                <span className="text-green-400">Copied!</span>
+                <Check className="w-3.5 h-3.5 text-green-500" />
+                <span className="text-green-500">Copied!</span>
               </>
             ) : (
               <>
@@ -142,26 +93,26 @@ export default function CodeBlock({
         {!title && !filename && !language && (
           <button
             onClick={handleCopy}
-            className="absolute top-3 right-3 p-2 bg-gray-800/90 hover:bg-gray-700 rounded-lg transition z-10 shadow-lg"
+            className={`absolute top-3 right-3 p-2 ${isDark ? 'bg-gray-800/90 hover:bg-gray-700' : 'bg-gray-200/90 hover:bg-gray-300'} rounded-lg transition z-10 shadow-lg`}
           >
             {copied ? (
-              <Check className="w-4 h-4 text-green-400" />
+              <Check className="w-4 h-4 text-green-500" />
             ) : (
-              <Copy className="w-4 h-4 text-gray-300" />
+              <Copy className={`w-4 h-4 ${isDark ? 'text-gray-300' : 'text-gray-700'}`} />
             )}
           </button>
         )}
         <SyntaxHighlighter
           language={language}
-          style={customTheme}
+          style={syntaxTheme}
           showLineNumbers={showLineNumbers}
           startingLineNumber={startingLineNumber}
           wrapLines={true}
           lineProps={(lineNumber) => {
             const style = { display: 'block', width: 'fit-content' };
             if (highlightLines.includes(lineNumber)) {
-              style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
-              style.borderLeft = '3px solid #61dafb';
+              style.backgroundColor = isDark ? 'rgba(97, 218, 251, 0.1)' : 'rgba(59, 130, 246, 0.1)';
+              style.borderLeft = `3px solid ${isDark ? '#61dafb' : '#3b82f6'}`;
               style.paddingLeft = '0.5rem';
               style.marginLeft = '-0.5rem';
             }
@@ -170,7 +121,7 @@ export default function CodeBlock({
           customStyle={{
             margin: 0,
             borderRadius: 0,
-            background: '#0a0a0a',
+            background: isDark ? '#0a0a0a' : '#ffffff',
             paddingTop: '1.25rem',
             paddingBottom: '1.25rem',
           }}
@@ -178,7 +129,7 @@ export default function CodeBlock({
             style: {
               fontSize: '0.9rem',
               fontFamily: 'JetBrains Mono, Menlo, Monaco, Consolas, monospace',
-              textShadow: '0 0 2px rgba(255, 255, 255, 0.1)',
+              textShadow: isDark ? '0 0 2px rgba(255, 255, 255, 0.1)' : 'none',
             }
           }}
         >
