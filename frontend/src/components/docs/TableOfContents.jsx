@@ -93,21 +93,7 @@ export default function TableOfContents() {
           ))}
         </ul>
 
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-            Back to top
-          </a>
-        </div>
+        
       </div>
     </nav>
   );
