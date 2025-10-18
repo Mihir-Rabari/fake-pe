@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const fetch = require('node-fetch');
 
 // In-memory store for active viewers
 const activeViewers = new Map();
@@ -30,17 +30,21 @@ router.get('/docs', async (req, res) => {
     
     try {
       // Try to fetch real GitHub stats
-      const response = await axios.get('https://api.github.com/repos/Mihir-Rabari/fake-pe', {
-        timeout: 5000,
+      const response = await fetch('https://api.github.com/repos/Mihir-Rabari/fake-pe', {
         headers: {
-          'Accept': 'application/vnd.github.v3+json'
-        }
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'FakePE-Docs'
+        },
+        timeout: 5000
       });
       
-      githubStats = {
-        stars: response.data.stargazers_count || 24,
-        contributors: response.data.subscribers_count || 3
-      };
+      if (response.ok) {
+        const data = await response.json();
+        githubStats = {
+          stars: data.stargazers_count || 24,
+          contributors: data.subscribers_count || 3
+        };
+      }
     } catch (error) {
       // Use defaults if GitHub API fails
       console.log('Using default GitHub stats');
