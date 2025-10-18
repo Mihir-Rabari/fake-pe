@@ -1,7 +1,16 @@
 import React from 'react';
-import DocPage from '../../components/docs/DocPage';
-import CodeBlock from '../../components/docs/CodeBlock-new';
-import Callout from '../../components/docs/Callout';
+import { 
+  DocPage, 
+  CodeBlock, 
+  Callout, 
+  ApiEndpoint,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableCell
+} from '../../components/docs';
 
 export default function ApiDocs() {
   return (
@@ -35,10 +44,7 @@ export default function ApiDocs() {
       
       <p>Create a new payment request.</p>
 
-      <div className="not-prose mb-4">
-        <span className="inline-block px-2 py-1 text-xs font-semibold bg-green-100 text-green-800 rounded">POST</span>
-        <code className="ml-2">/payments</code>
-      </div>
+      <ApiEndpoint method="POST" path="/payments" description="Create a new payment transaction" />
 
       <p><strong>Request Body:</strong></p>
 
@@ -69,53 +75,47 @@ export default function ApiDocs() {
       
       <p>Retrieve payment details by ID.</p>
 
-      <div className="not-prose mb-4">
-        <span className="inline-block px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded">GET</span>
-        <code className="ml-2">/payments/:paymentId</code>
-      </div>
+      <ApiEndpoint method="GET" path="/payments/:paymentId" description="Fetch details of a specific payment" />
 
       <h3>List Payments</h3>
       
       <p>Get a list of payments with optional filters.</p>
 
-      <div className="not-prose mb-4">
-        <span className="inline-block px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded">GET</span>
-        <code className="ml-2">/payments</code>
-      </div>
+      <ApiEndpoint method="GET" path="/payments" description="List all payments with pagination and filters" />
 
       <p><strong>Query Parameters:</strong></p>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Parameter</th>
-            <th>Type</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>merchantId</code></td>
-            <td>string</td>
-            <td>Filter by merchant ID</td>
-          </tr>
-          <tr>
-            <td><code>status</code></td>
-            <td>string</td>
-            <td>CREATED, PENDING, COMPLETED, FAILED</td>
-          </tr>
-          <tr>
-            <td><code>limit</code></td>
-            <td>number</td>
-            <td>Results per page (default: 10)</td>
-          </tr>
-          <tr>
-            <td><code>offset</code></td>
-            <td>number</td>
-            <td>Pagination offset (default: 0)</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeader>Parameter</TableHeader>
+            <TableHeader>Type</TableHeader>
+            <TableHeader>Description</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell code>merchantId</TableCell>
+            <TableCell>string</TableCell>
+            <TableCell>Filter by merchant ID</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell code>status</TableCell>
+            <TableCell>string</TableCell>
+            <TableCell>Filter by status (CREATED, PENDING, COMPLETED, FAILED)</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell code>limit</TableCell>
+            <TableCell>number</TableCell>
+            <TableCell>Number of records per page (default: 20)</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell code>offset</TableCell>
+            <TableCell>number</TableCell>
+            <TableCell>Pagination offset (default: 0)</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
 
       <h3>Refund Payment</h3>
       
