@@ -1,13 +1,14 @@
 import React from 'react';
+import DocPage from '../../components/docs/DocPage';
+import CodeBlock from '../../components/docs/CodeBlock-new';
+import Callout from '../../components/docs/Callout';
 
 export default function SDKGuide() {
   return (
-    <div className="prose prose-slate max-w-none">
-      <h1>SDK Guide</h1>
-      
-      <p className="lead">
-        Complete guide for using the fakepe-sdk Node.js package.
-      </p>
+    <DocPage
+      title="SDK Guide"
+      description="Complete guide for using the fakepe-sdk Node.js package."
+    >
 
       <h2>Installation</h2>
       
@@ -183,6 +184,6 @@ const payment: Payment = await fakepe.payments.create({
   amount: 50000,
   orderId: 'order_001'
 });`}</code></pre>
-    </div>
+    </DocPage>
   );
 }

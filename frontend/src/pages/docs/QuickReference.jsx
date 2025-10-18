@@ -1,13 +1,14 @@
 import React from 'react';
+import DocPage from '../../components/docs/DocPage';
+import CodeBlock from '../../components/docs/CodeBlock-new';
+import Callout from '../../components/docs/Callout';
 
 export default function QuickReference() {
   return (
-    <div className="prose prose-slate max-w-none">
-      <h1>Quick Reference</h1>
-      
-      <p className="lead">
-        Quick command reference and code snippets for FakePE.
-      </p>
+    <DocPage
+      title="Quick Reference"
+      description="Quick command reference and code snippets for FakePE."
+    >
 
       <h2>Service URLs</h2>
       
@@ -193,6 +194,6 @@ JWT_SECRET=your_secret`}</code></pre>
       <h3>Frontend</h3>
       
       <pre><code className="language-bash">VITE_API_URL=http://localhost:4000</code></pre>
-    </div>
+    </DocPage>
   );
 }

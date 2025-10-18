@@ -1,13 +1,14 @@
 import React from 'react';
+import DocPage from '../../components/docs/DocPage';
+import CodeBlock from '../../components/docs/CodeBlock-new';
+import Callout from '../../components/docs/Callout';
 
 export default function Examples() {
   return (
-    <div className="prose prose-slate max-w-none">
-      <h1>Code Examples</h1>
-      
-      <p className="lead">
-        Real-world integration examples for different use cases and frameworks.
-      </p>
+    <DocPage
+      title="Code Examples"
+      description="Real-world integration examples for different use cases and frameworks."
+    >
 
       <h2>Table of Contents</h2>
       
@@ -708,6 +709,6 @@ export default function CheckoutScreen({ route }) {
         <li><a href="https://github.com/Mihir-Rabari/fake-pe/tree/main/examples">Main Repository Examples</a></li>
         <li><a href="https://github.com/Mihir-Rabari/fakePE-sdk/tree/main/examples">SDK Examples</a></li>
       </ul>
-    </div>
+    </DocPage>
   );
 }

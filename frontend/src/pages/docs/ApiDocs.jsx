@@ -1,23 +1,33 @@
 import React from 'react';
+import DocPage from '../../components/docs/DocPage';
+import CodeBlock from '../../components/docs/CodeBlock-new';
+import Callout from '../../components/docs/Callout';
 
 export default function ApiDocs() {
   return (
-    <div className="prose prose-slate max-w-none">
-      <h1>API Reference</h1>
-      
-      <p className="lead">
-        Complete API documentation for the FakePE Payment Gateway.
-      </p>
+    <DocPage
+      title="API Reference"
+      description="Complete API documentation for the FakePE Payment Gateway."
+    >
 
       <h2>Base URL</h2>
       
-      <pre><code>http://localhost:4000/api/v1</code></pre>
+      <CodeBlock
+        code="http://localhost:4000/api/v1"
+      />
 
       <h2>Authentication</h2>
       
       <p>All API requests require HTTP Basic Authentication:</p>
 
-      <pre><code className="language-bash">Authorization: Basic base64(key_id:key_secret)</code></pre>
+      <CodeBlock
+        language="bash"
+        code="Authorization: Basic base64(key_id:key_secret)"
+      />
+      
+      <Callout type="warning" title="Keep Your Secrets Safe">
+        Never expose your <code>key_secret</code> in client-side code or public repositories.
+      </Callout>
 
       <h2 id="payments">Payments API</h2>
 
@@ -226,6 +236,6 @@ export default function ApiDocs() {
         <li><code>422</code> - Validation Error</li>
         <li><code>500</code> - Internal Server Error</li>
       </ul>
-    </div>
+    </DocPage>
   );
 }

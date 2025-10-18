@@ -1,19 +1,18 @@
 import React from 'react';
+import DocPage from '../../components/docs/DocPage';
+import CodeBlock from '../../components/docs/CodeBlock-new';
+import Callout from '../../components/docs/Callout';
 
 export default function SelfHosting() {
   return (
-    <div className="prose prose-slate max-w-none">
-      <h1>Self-Hosting Guide</h1>
-      
-      <p className="lead">
-        Complete guide to deploying and hosting your own FakePE instance for development and testing.
-      </p>
+    <DocPage
+      title="Self-Hosting Guide"
+      description="Complete guide to deploying and hosting your own FakePE instance for development and testing."
+    >
 
-      <div className="not-prose my-8 p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r">
-        <p className="text-sm text-blue-900">
-          <strong>Perfect for:</strong> Development teams, testing environments, CI/CD pipelines, and demo applications.
-        </p>
-      </div>
+      <Callout type="info" title="Perfect for">
+        Development teams, testing environments, CI/CD pipelines, and demo applications.
+      </Callout>
 
       <h2 id="overview">Overview</h2>
       
@@ -469,9 +468,8 @@ docker-compose up -d --build`}</code></pre>
 
       <h2 id="security">Security Considerations</h2>
 
-      <div className="not-prose my-6 p-4 bg-red-50 border-l-4 border-red-400 rounded-r">
-        <p className="text-sm text-red-900 font-semibold mb-2">Important Security Notes</p>
-        <ul className="text-sm text-red-900 space-y-1">
+      <Callout type="danger" title="Important Security Notes">
+        <ul className="space-y-1">
           <li>• Change all default secrets in production</li>
           <li>• Use strong JWT secrets (min 32 characters)</li>
           <li>• Enable HTTPS with SSL certificates</li>
@@ -479,7 +477,7 @@ docker-compose up -d --build`}</code></pre>
           <li>• Use environment variables, never hardcode secrets</li>
           <li>• Regularly update dependencies</li>
         </ul>
-      </div>
+      </Callout>
 
       <h2>Next Steps</h2>
       
@@ -489,6 +487,6 @@ docker-compose up -d --build`}</code></pre>
         <li><a href="/docs/examples">Check out code examples</a></li>
         <li><a href="https://github.com/Mihir-Rabari/fake-pe">Star us on GitHub</a></li>
       </ul>
-    </div>
+    </DocPage>
   );
 }

@@ -1,19 +1,18 @@
 import React from 'react';
+import DocPage from '../../components/docs/DocPage';
+import CodeBlock from '../../components/docs/CodeBlock-new';
+import Callout from '../../components/docs/Callout';
 
 export default function ApiUsage() {
   return (
-    <div className="prose prose-slate max-w-none">
-      <h1>API Usage Guide</h1>
-      
-      <p className="lead">
-        Learn how to integrate FakePE's payment gateway API into your application without self-hosting.
-      </p>
+    <DocPage
+      title="API Usage Guide"
+      description="Learn how to integrate FakePE's payment gateway API into your application without self-hosting."
+    >
 
-      <div className="not-prose my-8 p-4 bg-green-50 border-l-4 border-green-400 rounded-r">
-        <p className="text-sm text-green-900">
-          <strong>Quick Start:</strong> Get your API keys and start accepting payments in minutes.
-        </p>
-      </div>
+      <Callout type="success" title="Quick Start">
+        Get your API keys and start accepting payments in minutes.
+      </Callout>
 
       <h2 id="getting-started">Getting Started</h2>
 
@@ -38,11 +37,9 @@ export default function ApiUsage() {
         <li>Save your <code>key_id</code> and <code>key_secret</code> securely</li>
       </ol>
 
-      <div className="not-prose my-6 p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r">
-        <p className="text-sm text-amber-900">
-          <strong>Security:</strong> Never expose your <code>key_secret</code> in client-side code or public repositories.
-        </p>
-      </div>
+      <Callout type="warning" title="Security">
+        Never expose your <code>key_secret</code> in client-side code or public repositories.
+      </Callout>
 
       <h2 id="authentication">Authentication</h2>
       
@@ -592,6 +589,6 @@ ngrok http 3000
         <li><a href="/docs/webhooks">Webhook Guide</a></li>
         <li><a href="/docs/examples">More Code Examples</a></li>
       </ul>
-    </div>
+    </DocPage>
   );
 }
