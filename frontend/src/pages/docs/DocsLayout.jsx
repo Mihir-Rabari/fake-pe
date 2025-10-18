@@ -14,13 +14,13 @@ export default function DocsLayout() {
   const isActive = (href) => location.pathname === href;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-10">
+      <header className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Link to="/" className="text-2xl font-bold text-indigo-600">
+              <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 FakePE
               </Link>
               <span className="ml-4 text-sm text-gray-500">Documentation</span>
@@ -98,7 +98,7 @@ export default function DocsLayout() {
 
           {/* Main Content */}
           <main className="flex-1 min-w-0">
-            <div className="bg-white rounded-lg shadow-sm p-8">
+            <div className="bg-white rounded-xl shadow-lg p-8 lg:p-12">
               <Outlet />
             </div>
           </main>

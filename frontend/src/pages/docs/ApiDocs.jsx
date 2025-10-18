@@ -1,27 +1,67 @@
+import React from 'react';
+import { Lock, Server, CreditCard, QrCode, Wallet, Key } from 'lucide-react';
+import CodeBlockCard from '../../components/docs/CodeBlockCard';
+
 export default function ApiDocs() {
   return (
-    <div className="prose prose-indigo max-w-none">
-      <h1>API Reference</h1>
-      <p className="lead">
-        Complete API documentation for FakePE Payment Gateway.
-      </p>
-
-      <h2>Base URL</h2>
-      <pre><code>http://localhost:4000/api/v1</code></pre>
-
-      <h2>Authentication</h2>
-      <p>Most endpoints require HTTP Basic Authentication using API keys:</p>
-      <pre><code className="language-bash">{`Authorization: Basic base64(key_id:key_secret)`}</code></pre>
-
-      <h2>Payments API</h2>
-
-      <h3>Create Payment</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-green-600">POST</code> <code>/payments</code>
+    <div className="max-w-none space-y-8">
+      {/* Header */}
+      <div>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">API Reference</h1>
+        <p className="text-xl text-gray-600">
+          Complete API documentation for FakePE Payment Gateway.
+        </p>
       </div>
 
-      <p><strong>Request Body:</strong></p>
-      <pre><code className="language-json">{`{
+      {/* Base URL */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <Server className="w-6 h-6 text-blue-600" />
+          Base URL
+        </h2>
+        <div className="bg-white border border-blue-200 rounded-lg p-4">
+          <code className="text-lg text-blue-700 font-mono">http://localhost:4000/api/v1</code>
+        </div>
+      </div>
+
+      {/* Authentication */}
+      <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <Lock className="w-6 h-6 text-purple-600" />
+          Authentication
+        </h2>
+        <p className="text-gray-700 mb-4">Most endpoints require HTTP Basic Authentication using API keys:</p>
+        <CodeBlockCard
+          language="bash"
+          title="Authorization Header"
+          code="Authorization: Basic base64(key_id:key_secret)"
+        />
+      </div>
+
+      {/* Payments API */}
+      <div className="border-l-4 border-green-500 pl-6">
+        <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <CreditCard className="w-8 h-8 text-green-600" />
+          Payments API
+        </h2>
+
+        <div className="space-y-8">
+          {/* Create Payment */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-green-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">POST</span>
+              <h3 className="text-2xl font-bold text-gray-900">Create Payment</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/payments</code>
+            </div>
+
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Request Body</h4>
+            <CodeBlockCard
+              language="json"
+              title="POST /payments"
+              description="Create a new payment request"
+              code={`{
   "merchantId": "mer_123",
   "amount": 50000,
   "orderId": "order_abc123",
@@ -29,187 +69,490 @@ export default function ApiDocs() {
   "metadata": {
     "customer_name": "John Doe"
   }
-}`}</code></pre>
+}`}
+            />
 
-      <p><strong>Response:</strong></p>
-      <pre><code className="language-json">{`{
+            <h4 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Response (201 Created)</h4>
+            <CodeBlockCard
+              language="json"
+              title="Success Response"
+              code={`{
   "paymentId": "pay_xyz789",
   "paymentUrl": "http://localhost:3000/pay/pay_xyz789",
   "qrData": "data:image/png;base64,...",
   "status": "CREATED",
-  "amount": 50000
-}`}</code></pre>
+  "amount": 50000,
+  "createdAt": "2024-01-15T10:30:00.000Z"
+}`}
+            />
+          </div>
 
-      <h3>Get Payment</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-blue-600">GET</code> <code>/payments/:paymentId</code>
+          {/* Get Payment */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-blue-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">GET</span>
+              <h3 className="text-2xl font-bold text-gray-900">Get Payment</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/payments/:paymentId</code>
+            </div>
+
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              title="GET /payments/:paymentId"
+              code={`{
+  "paymentId": "pay_xyz789",
+  "merchantId": "mer_123",
+  "amount": 50000,
+  "status": "COMPLETED",
+  "method": "UPI",
+  "orderId": "order_abc123",
+  "createdAt": "2024-01-15T10:30:00.000Z",
+  "completedAt": "2024-01-15T10:31:45.000Z"
+}`}
+            />
+          </div>
+
+          {/* List Payments */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-blue-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">GET</span>
+              <h3 className="text-2xl font-bold text-gray-900">List Payments</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/payments?merchantId=mer_123&status=COMPLETED</code>
+            </div>
+
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Query Parameters</h4>
+            <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-4">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="text-left p-3 font-semibold">Parameter</th>
+                    <th className="text-left p-3 font-semibold">Type</th>
+                    <th className="text-left p-3 font-semibold">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="p-3"><code>merchantId</code></td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-600">Filter by merchant ID</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3"><code>status</code></td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-600">Filter by status (CREATED, PENDING, COMPLETED, FAILED)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3"><code>limit</code></td>
+                    <td className="p-3">number</td>
+                    <td className="p-3 text-gray-600">Results per page (default: 10)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3"><code>offset</code></td>
+                    <td className="p-3">number</td>
+                    <td className="p-3 text-gray-600">Pagination offset (default: 0)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              title="GET /payments"
+              code={`{
+  "payments": [
+    {
+      "paymentId": "pay_xyz789",
+      "amount": 50000,
+      "status": "COMPLETED",
+      ...
+    }
+  ],
+  "total": 156,
+  "limit": 10,
+  "offset": 0
+}`}
+            />
+          </div>
+
+          {/* Refund Payment */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-green-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">POST</span>
+              <h3 className="text-2xl font-bold text-gray-900">Refund Payment</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/payments/:paymentId/refund</code>
+            </div>
+
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Request Body</h4>
+            <CodeBlockCard
+              language="json"
+              title="POST /payments/:paymentId/refund"
+              code={`{
+  "amount": 25000,  // Optional, full refund if not provided
+  "reason": "Customer request"
+}`}
+            />
+
+            <h4 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              code={`{
+  "refundId": "rfnd_abc123",
+  "paymentId": "pay_xyz789",
+  "amount": 25000,
+  "reason": "Customer request",
+  "status": "PROCESSED",
+  "createdAt": "2024-01-15T11:00:00.000Z"
+}`}
+            />
+          </div>
+        </div>
       </div>
 
-      <h3>List Payments</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-blue-600">GET</code> <code>/payments?merchantId=mer_123&status=COMPLETED</code>
-      </div>
+      {/* UPI API */}
+      <div className="border-l-4 border-purple-500 pl-6">
+        <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <QrCode className="w-8 h-8 text-purple-600" />
+          UPI API
+        </h2>
 
-      <h3>Refund Payment</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-green-600">POST</code> <code>/payments/:paymentId/refund</code>
-      </div>
+        <div className="space-y-8">
+          {/* Create VPA */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-green-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">POST</span>
+              <h3 className="text-2xl font-bold text-gray-900">Create UPI VPA</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/upi/vpa</code>
+            </div>
 
-      <h2>UPI API</h2>
-
-      <h3>Create UPI VPA</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-green-600">POST</code> <code>/upi/vpa</code>
-      </div>
-
-      <pre><code className="language-json">{`{
+            <CodeBlockCard
+              language="json"
+              title="POST /upi/vpa"
+              code={`{
   "userId": "usr_123",
   "vpa": "user@fakepe"
-}`}</code></pre>
+}`}
+            />
 
-      <h3>Generate UPI QR</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-blue-600">GET</code> <code>/upi/qr/:paymentId</code>
-      </div>
+            <h4 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              code={`{
+  "vpa": "user@fakepe",
+  "userId": "usr_123",
+  "isDefault": true,
+  "createdAt": "2024-01-15T10:00:00.000Z"
+}`}
+            />
+          </div>
 
-      <p><strong>Response:</strong></p>
-      <pre><code className="language-json">{`{
+          {/* Generate QR */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-blue-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">GET</span>
+              <h3 className="text-2xl font-bold text-gray-900">Generate UPI QR</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/upi/qr/:paymentId</code>
+            </div>
+
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              title="GET /upi/qr/:paymentId"
+              code={`{
   "upiIntent": "upi://pay?pa=merchant@fakepe&pn=Merchant&am=500.00...",
   "qrCodeData": "data:image/png;base64,...",
   "payeeVpa": "merchant@fakepe",
   "amount": 50000
-}`}</code></pre>
+}`}
+            />
+          </div>
 
-      <h3>Initiate UPI Payment</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-green-600">POST</code> <code>/upi/initiate</code>
-      </div>
+          {/* Initiate Payment */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-green-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">POST</span>
+              <h3 className="text-2xl font-bold text-gray-900">Initiate UPI Payment</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/upi/initiate</code>
+            </div>
 
-      <pre><code className="language-json">{`{
+            <CodeBlockCard
+              language="json"
+              title="POST /upi/initiate"
+              code={`{
   "paymentId": "pay_xyz789",
   "payerVpa": "user@fakepe"
-}`}</code></pre>
+}`}
+            />
 
-      <h3>Confirm UPI Payment</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-green-600">POST</code> <code>/upi/confirm</code>
-      </div>
+            <h4 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              code={`{
+  "txnId": "UPI2024011512345678",
+  "paymentId": "pay_xyz789",
+  "payerVpa": "user@fakepe",
+  "payeeVpa": "merchant@fakepe",
+  "amount": 50000,
+  "status": "PENDING"
+}`}
+            />
+          </div>
 
-      <pre><code className="language-json">{`{
+          {/* Confirm Payment */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-green-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">POST</span>
+              <h3 className="text-2xl font-bold text-gray-900">Confirm UPI Payment</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/upi/confirm</code>
+            </div>
+
+            <CodeBlockCard
+              language="json"
+              title="POST /upi/confirm"
+              code={`{
   "txnId": "UPI2024011512345678",
   "pin": "1234"
-}`}</code></pre>
+}`}
+            />
 
-      <h3>Get Transaction History</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-blue-600">GET</code> <code>/upi/history/:userId?limit=20</code>
+            <h4 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              code={`{
+  "txnId": "UPI2024011512345678",
+  "status": "SUCCESS",
+  "message": "Payment completed successfully",
+  "upiRef": "UTR123456789012",
+  "completedAt": "2024-01-15T10:31:00.000Z"
+}`}
+            />
+          </div>
+
+          {/* Get Transaction */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-blue-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">GET</span>
+              <h3 className="text-2xl font-bold text-gray-900">Get Transaction</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/upi/transaction/:txnId</code>
+            </div>
+
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              title="GET /upi/transaction/:txnId"
+              code={`{
+  "txnId": "UPI2024011512345678",
+  "paymentId": "pay_xyz789",
+  "payerVpa": "user@fakepe",
+  "payeeVpa": "merchant@fakepe",
+  "amount": 50000,
+  "status": "SUCCESS",
+  "upiRef": "UTR123456789012",
+  "createdAt": "2024-01-15T10:30:00.000Z"
+}`}
+            />
+          </div>
+
+          {/* Get History */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-blue-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">GET</span>
+              <h3 className="text-2xl font-bold text-gray-900">Get Transaction History</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/upi/history/:userId?limit=20&offset=0</code>
+            </div>
+
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              title="GET /upi/history/:userId"
+              code={`{
+  "transactions": [
+    {
+      "txnId": "UPI2024011512345678",
+      "type": "DEBIT",
+      "amount": 50000,
+      "status": "SUCCESS",
+      "timestamp": "2024-01-15T10:30:00.000Z"
+    }
+  ],
+  "total": 45,
+  "limit": 20,
+  "offset": 0
+}`}
+            />
+          </div>
+        </div>
       </div>
 
-      <h2>Wallet API</h2>
+      {/* Wallet API */}
+      <div className="border-l-4 border-blue-500 pl-6">
+        <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <Wallet className="w-8 h-8 text-blue-600" />
+          Wallet API
+        </h2>
 
-      <h3>Get Balance</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-blue-600">GET</code> <code>/wallets/:userId</code>
-      </div>
+        <div className="space-y-8">
+          {/* Get Balance */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-blue-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">GET</span>
+              <h3 className="text-2xl font-bold text-gray-900">Get Balance</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/wallets/:userId</code>
+            </div>
 
-      <h3>Top Up Wallet</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-green-600">POST</code> <code>/wallets/topup</code>
-      </div>
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              title="GET /wallets/:userId"
+              code={`{
+  "userId": "usr_123",
+  "balance": 250000,
+  "currency": "INR",
+  "lastUpdated": "2024-01-15T10:00:00.000Z"
+}`}
+            />
+          </div>
 
-      <pre><code className="language-json">{`{
+          {/* Top Up */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-green-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">POST</span>
+              <h3 className="text-2xl font-bold text-gray-900">Top Up Wallet</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/wallets/topup</code>
+            </div>
+
+            <CodeBlockCard
+              language="json"
+              title="POST /wallets/topup"
+              code={`{
   "userId": "usr_123",
   "amount": 100000
-}`}</code></pre>
+}`}
+            />
 
-      <h3>Transfer Funds</h3>
-      <div className="bg-gray-50 p-4 rounded">
-        <code className="text-green-600">POST</code> <code>/wallets/transfer</code>
-      </div>
+            <h4 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              code={`{
+  "userId": "usr_123",
+  "balance": 350000,
+  "amountAdded": 100000,
+  "transactionId": "txn_topup_abc123"
+}`}
+            />
+          </div>
 
-      <pre><code className="language-json">{`{
+          {/* Transfer */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-green-500 text-white text-sm px-3 py-1 rounded font-mono font-bold">POST</span>
+              <h3 className="text-2xl font-bold text-gray-900">Transfer Funds</h3>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+              <code className="text-gray-800">/wallets/transfer</code>
+            </div>
+
+            <CodeBlockCard
+              language="json"
+              title="POST /wallets/transfer"
+              code={`{
   "from": "usr_123",
   "to": "usr_456",
   "amount": 50000
-}`}</code></pre>
+}`}
+            />
 
-      <h2>Webhooks</h2>
+            <h4 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Response</h4>
+            <CodeBlockCard
+              language="json"
+              code={`{
+  "transferId": "txf_xyz789",
+  "from": "usr_123",
+  "to": "usr_456",
+  "amount": 50000,
+  "status": "COMPLETED",
+  "timestamp": "2024-01-15T10:10:00.000Z"
+}`}
+            />
+          </div>
+        </div>
+      </div>
 
-      <h3>Webhook Payload</h3>
-      <p>When a payment event occurs, FakePE sends a POST request to your callback URL:</p>
+      {/* Error Responses */}
+      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Error Responses</h2>
+        <p className="text-gray-700 mb-4">All errors follow a consistent format:</p>
+        
+        <CodeBlockCard
+          language="json"
+          title="Error Response Format"
+          code={`{
+  "error": "Descriptive error message",
+  "statusCode": 400,
+  "details": {
+    // Additional error context
+  }
+}`}
+        />
 
-      <p><strong>Headers:</strong></p>
-      <ul>
-        <li><code>X-FakePE-Signature</code> - HMAC SHA256 signature</li>
-        <li><code>X-FakePE-Event</code> - Event type</li>
-      </ul>
-
-      <p><strong>Payload:</strong></p>
-      <pre><code className="language-json">{`{
-  "event": "payment.completed",
-  "data": {
-    "paymentId": "pay_xyz789",
-    "merchantId": "mer_123",
-    "amount": 50000,
-    "status": "COMPLETED",
-    "completedAt": "2024-01-15T10:36:00.000Z"
-  },
-  "created_at": 1705317360
-}`}</code></pre>
-
-      <p><strong>Event Types:</strong></p>
-      <ul>
-        <li><code>payment.created</code> - Payment order created</li>
-        <li><code>payment.pending</code> - Payment initiated</li>
-        <li><code>payment.completed</code> - Payment successful</li>
-        <li><code>payment.failed</code> - Payment failed</li>
-        <li><code>payment.refunded</code> - Payment refunded</li>
-      </ul>
-
-      <h3>Verify Webhook</h3>
-      <pre><code className="language-javascript">{`const crypto = require('crypto');
-
-function verifyWebhook(payload, signature, secret) {
-  const expected = crypto
-    .createHmac('sha256', secret)
-    .update(JSON.stringify(payload))
-    .digest('hex');
-    
-  return crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expected)
-  );
-}`}</code></pre>
-
-      <h2>Error Responses</h2>
-
-      <p><strong>Format:</strong></p>
-      <pre><code className="language-json">{`{
-  "error": "Error message describing what went wrong"
-}`}</code></pre>
-
-      <p><strong>Status Codes:</strong></p>
-      <ul>
-        <li><code>400</code> - Bad Request</li>
-        <li><code>401</code> - Unauthorized</li>
-        <li><code>402</code> - Payment Required (insufficient funds)</li>
-        <li><code>404</code> - Not Found</li>
-        <li><code>409</code> - Conflict (duplicate)</li>
-        <li><code>500</code> - Internal Server Error</li>
-      </ul>
-
-      <h2>Rate Limits</h2>
-      <ul>
-        <li>Payment creation: 100 requests/minute</li>
-        <li>General API: 300 requests/minute</li>
-        <li>Webhooks: 50 requests/minute</li>
-      </ul>
-
-      <h2>Idempotency</h2>
-      <p>Use the <code>Idempotency-Key</code> header to safely retry requests:</p>
-      <pre><code className="language-bash">{`curl -X POST http://localhost:4000/api/v1/payments \\
-  -H "Idempotency-Key: unique-key-123" \\
-  -d '{"merchantId":"mer_123","amount":50000}'`}</code></pre>
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-3">Common Status Codes</h3>
+          <div className="bg-white border border-red-200 rounded-lg overflow-hidden">
+            <table className="w-full text-sm">
+              <thead className="bg-red-50">
+                <tr>
+                  <th className="text-left p-3 font-semibold">Code</th>
+                  <th className="text-left p-3 font-semibold">Description</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-red-100">
+                <tr>
+                  <td className="p-3"><code className="text-red-600">400</code></td>
+                  <td className="p-3 text-gray-600">Bad Request - Invalid parameters</td>
+                </tr>
+                <tr>
+                  <td className="p-3"><code className="text-red-600">401</code></td>
+                  <td className="p-3 text-gray-600">Unauthorized - Invalid credentials</td>
+                </tr>
+                <tr>
+                  <td className="p-3"><code className="text-red-600">404</code></td>
+                  <td className="p-3 text-gray-600">Not Found - Resource doesn't exist</td>
+                </tr>
+                <tr>
+                  <td className="p-3"><code className="text-red-600">422</code></td>
+                  <td className="p-3 text-gray-600">Unprocessable Entity - Validation error</td>
+                </tr>
+                <tr>
+                  <td className="p-3"><code className="text-red-600">500</code></td>
+                  <td className="p-3 text-gray-600">Internal Server Error</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
