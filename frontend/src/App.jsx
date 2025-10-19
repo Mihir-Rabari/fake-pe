@@ -14,17 +14,6 @@ import WebhookLogs from './pages/WebhookLogs';
 import ErrorBoundary from './components/ErrorBoundary';
 import OfflineIndicator from './components/OfflineIndicator';
 
-// Documentation pages
-import DocsLayout from './pages/docs/DocsLayout';
-import GettingStarted from './pages/docs/GettingStarted';
-import ApiDocs from './pages/docs/ApiDocs';
-import SDKGuide from './pages/docs/SDKGuide';
-import QuickReference from './pages/docs/QuickReference';
-import SelfHosting from './pages/docs/SelfHosting';
-import ApiUsage from './pages/docs/ApiUsage';
-import Examples from './pages/docs/Examples';
-import DocsManager from './pages/DocsManager';
-
 function App() {
   return (
     <ErrorBoundary>
@@ -32,22 +21,6 @@ function App() {
         <OfflineIndicator />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          
-          {/* Documentation routes */}
-          <Route path="/docs" element={<DocsLayout />}>
-            <Route index element={<Navigate to="/docs/getting-started" replace />} />
-            <Route path="getting-started" element={<GettingStarted />} />
-            <Route path="api" element={<ApiDocs />} />
-            <Route path="sdk" element={<SDKGuide />} />
-            <Route path="quick-reference" element={<QuickReference />} />
-            <Route path="self-hosting" element={<SelfHosting />} />
-            <Route path="api-usage" element={<ApiUsage />} />
-            <Route path="examples" element={<Examples />} />
-          </Route>
-          
-          {/* Documentation Manager (Admin) */}
-          <Route path="/docs-manager" element={<DocsManager />} />
-          
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/wallet" element={<WalletPage />} />

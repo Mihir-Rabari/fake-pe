@@ -27,9 +27,6 @@ export default function HomePage() {
               <a href="#features" className="text-fakepe-text-secondary hover:text-fakepe-primary transition">
                 Features
               </a>
-              <Link to="/docs" className="text-fakepe-text-secondary hover:text-fakepe-primary transition">
-                Docs
-              </Link>
               <a href="#pricing" className="text-fakepe-text-secondary hover:text-fakepe-primary transition">
                 Pricing
               </a>
@@ -66,7 +63,6 @@ export default function HomePage() {
           <div className="md:hidden bg-fakepe-surface border-t border-fakepe-border">
             <div className="container mx-auto px-4 py-4 space-y-3">
               <a href="#features" className="block py-2 text-fakepe-text-secondary">Features</a>
-              <Link to="/docs" className="block py-2 text-fakepe-text-secondary">Docs</Link>
               <a href="#pricing" className="block py-2 text-fakepe-text-secondary">Pricing</a>
               <Link to="/login" className="block py-2 text-fakepe-text-secondary">Sign In</Link>
               <Link to="/register" className="block">
@@ -113,15 +109,16 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/register">
                 <Button variant="primary" size="lg">
+                  <Rocket className="w-5 h-5" />
                   Start Building <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
-              <Link to="/docs">
+              <a href="https://github.com/Mihir-Rabari/fake-pe" target="_blank" rel="noopener noreferrer">
                 <Button variant="secondary" size="lg">
-                  <Terminal className="w-5 h-5" />
-                  View Documentation
+                  <Github className="w-5 h-5" />
+                  View on GitHub
                 </Button>
-              </Link>
+              </a>
             </div>
 
             {/* Trust Badge */}
@@ -232,11 +229,6 @@ export default function HomePage() {
                   <span>REST API & SDK available</span>
                 </li>
               </ul>
-              <Link to="/docs">
-                <Button variant="primary" size="lg">
-                  Explore Documentation <ChevronRight className="w-5 h-5" />
-                </Button>
-              </Link>
             </div>
 
             <CodeBlock>
@@ -312,16 +304,16 @@ const payment = await fakepe.payments.create({
               <h4 className="font-semibold text-fakepe-text-primary mb-4">Product</h4>
               <ul className="space-y-2 text-sm text-fakepe-text-secondary">
                 <li><a href="#features" className="hover:text-fakepe-primary transition">Features</a></li>
-                <li><Link to="/docs" className="hover:text-fakepe-primary transition">Documentation</Link></li>
                 <li><a href="#pricing" className="hover:text-fakepe-primary transition">Pricing</a></li>
+                <li><Link to="/register" className="hover:text-fakepe-primary transition">Get Started</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-fakepe-text-primary mb-4">Resources</h4>
               <ul className="space-y-2 text-sm text-fakepe-text-secondary">
-                <li><Link to="/docs" className="hover:text-fakepe-primary transition">API Reference</Link></li>
-                <li><Link to="/docs/examples" className="hover:text-fakepe-primary transition">Examples</Link></li>
                 <li><a href="https://github.com/Mihir-Rabari/fake-pe" className="hover:text-fakepe-primary transition">GitHub</a></li>
+                <li><a href="https://github.com/Mihir-Rabari/fake-pe#readme" className="hover:text-fakepe-primary transition">README</a></li>
+                <li><Link to="/login" className="hover:text-fakepe-primary transition">Developer Portal</Link></li>
               </ul>
             </div>
             <div>
