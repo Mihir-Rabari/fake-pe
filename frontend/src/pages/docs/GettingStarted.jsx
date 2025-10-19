@@ -5,11 +5,11 @@ import { InfoCard } from '../../components/docs/Card';
 
 export default function GettingStarted() {
   return (
-    <article className="prose prose-slate max-w-none prose-headings:scroll-mt-20">
+    <article className="prose prose-invert max-w-none prose-headings:scroll-mt-20 prose-headings:text-fakepe-text-primary prose-p:text-fakepe-text-secondary prose-strong:text-fakepe-text-primary prose-li:text-fakepe-text-secondary prose-a:text-fakepe-primary hover:prose-a:text-fakepe-success">
       {/* Hero */}
       <div className="not-prose mb-12">
-        <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">Get started with FakePE</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+        <h1 className="text-5xl font-bold text-fakepe-text-primary mb-4 tracking-tight">Get started with FakePE</h1>
+        <p className="text-xl text-fakepe-text-secondary leading-relaxed">
           FakePE is a complete mock payment gateway inspired by Razorpay. Perfect for testing payment flows without real money.
         </p>
       </div>

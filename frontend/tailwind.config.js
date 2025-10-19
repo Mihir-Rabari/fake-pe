@@ -10,14 +10,14 @@ export default {
       colors: {
         fakepe: {
           primary: '#2ECB70',      // Supabase Green
-          background: '#0E0E0E',   // Dark Background
-          surface: '#1A1A1A',      // Card Gray
-          border: '#2A2A2A',       // Divider
+          background: 'rgb(var(--color-background) / <alpha-value>)',
+          surface: 'rgb(var(--color-surface) / <alpha-value>)',
+          border: 'rgb(var(--color-border) / <alpha-value>)',
           accent: '#00FFAE',       // Neon Mint
           success: '#3EE68E',      // Lighter Green
           text: {
-            primary: '#FFFFFF',    // White
-            secondary: '#A3A3A3',  // Gray
+            primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
+            secondary: 'rgb(var(--color-text-secondary) / <alpha-value>)',
           },
         },
       },

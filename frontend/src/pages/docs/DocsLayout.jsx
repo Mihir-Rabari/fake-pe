@@ -4,6 +4,7 @@ import { Menu, X, Github, Rocket, Book, Code2, Zap, Server, FileText, Home } fro
 import Logo from '../../components/Logo';
 import DocsSidebar from '../../components/docs/DocsSidebar';
 import TableOfContents from '../../components/docs/TableOfContents';
+import ThemeToggle from '../../components/ThemeToggle';
 
 export default function DocsLayout() {
   const location = useLocation();
@@ -87,6 +88,7 @@ export default function DocsLayout() {
                 <Link to="/" className="text-fakepe-text-secondary hover:text-fakepe-primary transition">Home</Link>
               </nav>
               
+              <ThemeToggle />
               
               <a
                 href="https://github.com/Mihir-Rabari/fake-pe"
