@@ -1,8 +1,14 @@
-# FakePay - Mock Payment Gateway (Razorpay-Inspired)
+# 💚 FakePE - Mock UPI Payment Gateway
 
-A complete mock payment gateway system with UPI-style payments, professional SDK, user app, webhooks, and merchant management. Perfect for testing and development.
+> **The complete mock payment ecosystem for developers.** Test UPI payments, QR codes, webhooks, and payment flows without real money. Beautiful green-themed UI, professional SDK, and realistic UPI experience.
 
-## 🚀 Features
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-18-green.svg)](https://reactjs.org/)
+
+---
+
+## ✨ What Makes FakePE Special?
 
 ### Core Payment System
 - 💳 **Payment Processing** - Create and manage payment orders
@@ -11,202 +17,202 @@ A complete mock payment gateway system with UPI-style payments, professional SDK
 - 🔔 **Webhooks** - Reliable webhook delivery with HMAC signature verification
 - 🏢 **Merchant Management** - Multi-tenant merchant accounts with API keys
 
-### Developer Tools
-- 📦 **Professional SDK** - Razorpay-style Node.js SDK with complete API wrapper
-- 📚 **Documentation** - Comprehensive API docs and examples
-- 🔐 **Webhook Verification** - HMAC SHA256 signature validation
-- 🎯 **Idempotency** - Safe retry mechanism for payment creation
+- 💚 **Beautiful Green Theme** - Modern, eye-catching design inspired by top payment gateways
+- 🎨 **Light & Dark Mode** - Seamless switching with perfect contrast in both modes
+- 📱 **Fully Responsive** - Mobile-first design that works on all devices
+- ⚡ **Lightning Fast** - Built with Vite for instant hot reload and optimized builds
 
-### User Experience
-- 📱 **Mobile User App** - UPI-style app for scanning QR codes and confirming payments
-- 🎨 **Modern UI** - Beautiful, mobile-first design with TailwindCSS
-- 📸 **QR Scanner** - Real-time QR code scanning with camera
-- 📊 **Transaction History** - Complete payment tracking and filtering
+### For Developers
+- 📦 **Professional SDK** - Clean, Razorpay-inspired API
+- 🔐 **Webhook System** - HMAC SHA256 signature verification
+- 🎯 **Idempotency Support** - Safe retry mechanism
+- 📊 **Developer Console** - Manage API keys, view transactions, test webhooks
+- 🔧 **Easy Integration** - Drop-in replacement for testing real payment gateways
 
-### Infrastructure
-- 📊 **Monitoring** - Prometheus metrics and Grafana dashboards
-- ⚡ **Real-time** - WebSocket support for live updates
-- 🔒 **Security** - JWT authentication, rate limiting, and input validation
+### For End Users
+- 📱 **UPI Mobile App** - Realistic UPI payment experience
+- 📸 **QR Code Scanner** - Scan and pay with camera
+- 💰 **Digital Wallet** - Top up, transfer, and track balance
+- 📊 **Transaction History** - Complete payment tracking
+- 🔒 **Secure by Design** - PIN-protected payments
+
+### Infrastructure & Monitoring
+- 🐳 **Docker Compose** - One-command infrastructure setup
+- 📊 **Prometheus & Grafana** - Real-time metrics and dashboards
+- ⚡ **Redis Caching** - Fast response times
+- 🔒 **JWT Authentication** - Secure API access
 
 ## 🚀 Quick Start
 
-**New to FakePay?** → **[Read the Getting Started Guide](docs/GETTING_STARTED.md)** 📚
+Get FakePE running in 3 minutes! ⚡
 
-### 1. Prerequisites
-- Node.js 18+
-- Docker & Docker Compose
+### Prerequisites
+```bash
+Node.js 18+ ✓
+Docker & Docker Compose ✓
+```
 
-### 2. Setup
+### Step 1: Clone & Setup Infrastructure
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/Mihir-Rabari/fake-pe.git
-cd fakepay
+cd fake-pe
 
-# Install backend dependencies
-cd backend
-npm install
-copy .env.example .env
-
-# Start infrastructure (MongoDB, Redis, Prometheus, Grafana)
-cd ..
+# Start MongoDB & Redis using Docker
 docker-compose up -d
 
-# Install frontend dependencies
-cd frontend
+# Verify containers are running
+docker ps
+```
+
+### Step 2: Install Dependencies
+
+```bash
+# Backend
+cd backend
+npm install
+cp .env.example .env  # or 'copy .env.example .env' on Windows
+
+# Frontend (Developer Portal)
+cd ../frontend
 npm install
 
-# Install user app dependencies
+# Optional: User App (for testing payments)
 cd ../user-app
 npm install
-
-# Install SDK dependencies (for development)
-cd ../sdk/nodejs
-npm install
 ```
 
-### 3. Run All Services
+### Step 3: Run Services
 
+Open 3 terminals:
+
+**Terminal 1 - Backend API:**
 ```bash
-# Terminal 1 - Backend API
 cd backend
 npm run dev
-# Runs on http://localhost:4000
+# ✓ Running on http://localhost:4000
+```
 
-# Terminal 2 - Merchant Frontend
+**Terminal 2 - Developer Portal:**
+```bash
 cd frontend
 npm run dev
-# Runs on http://localhost:3000
+# ✓ Running on http://localhost:3000
+```
 
-# Terminal 3 - User App
+**Terminal 3 - User App (Optional):**
+```bash
 cd user-app
 npm run dev
-# Runs on http://localhost:3001
+# ✓ Running on http://localhost:3001
 ```
 
-### 4. Quick Test with SDK
+### Step 4: Access Your Services
 
-```bash
-cd sdk/nodejs/examples
-
-# Run basic payment example
-node basic-payment.js
-
-# Run UPI payment flow example
-node upi-payment.js
-
-# Start webhook server
-node webhook-server.js
-```
+| Service | URL | Purpose |
+|---------|-----|---------|
+| 🏠 **Homepage** | http://localhost:3000 | Landing page & registration |
+| 💼 **Developer Portal** | http://localhost:3000/dashboard | Manage payments & API keys |
+| 📱 **User App** | http://localhost:3001 | Make UPI payments |
+| 🔧 **API** | http://localhost:4000 | REST API |
+| ❤️ **Health Check** | http://localhost:4000/health | API status |
 
 ## 📁 Project Structure
 
 ```
-fakepay/
-├── backend/              # Main API server
+fake-pe/
+├── backend/                    # 🔧 Node.js API Server
 │   ├── src/
-│   │   ├── controllers/  # Request handlers
-│   │   │   ├── paymentController.js
-│   │   │   ├── upiController.js      # NEW: UPI operations
-│   │   │   └── ...
-│   │   ├── models/       # MongoDB models
-│   │   │   ├── Payment.js
-│   │   │   ├── UpiVpa.js             # NEW: UPI VPA model
-│   │   │   ├── UpiTransaction.js     # NEW: UPI transactions
-│   │   │   └── ...
-│   │   ├── routes/       # API routes
-│   │   │   ├── payments.js
-│   │   │   ├── upi.js                # NEW: UPI routes
-│   │   │   └── ...
-│   │   ├── utils/        # Utilities
-│   │   │   ├── upi-helper.js         # NEW: UPI utilities
-│   │   │   ├── webhook-signature.js  # NEW: Webhook verification
-│   │   │   └── ...
-│   │   └── index.js      # Main server
+│   │   ├── controllers/        # Request handlers
+│   │   ├── models/             # MongoDB schemas
+│   │   ├── routes/             # API endpoints
+│   │   ├── middleware/         # Auth, validation, etc.
+│   │   ├── utils/              # Helpers & utilities
+│   │   └── index.js            # Server entry point
 │   └── package.json
 │
-├── frontend/             # Merchant dashboard (React)
+├── frontend/                   # 💼 Developer Portal (React + Vite)
 │   ├── src/
-│   │   ├── pages/
-│   │   │   ├── PaymentPage.jsx       # Customer payment page
-│   │   │   ├── MerchantDashboard.jsx
+│   │   ├── pages/              # React pages
+│   │   │   ├── HomePage.jsx           # 💚 Modern landing page
+│   │   │   ├── LoginPage.jsx          # Developer login
+│   │   │   ├── RegisterPage.jsx       # Merchant registration
+│   │   │   ├── Dashboard.jsx          # Main dashboard
+│   │   │   ├── DeveloperConsole.jsx   # API keys & settings
 │   │   │   └── ...
-│   │   └── ...
-│   └── package.json
-│
-├── user-app/             # NEW: User UPI App (React)
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── SetupAccount.jsx      # Account creation
-│   │   │   ├── HomePage.jsx          # Dashboard with balance
-│   │   │   ├── ScanQRPage.jsx        # QR code scanner
-│   │   │   ├── PaymentConfirmPage.jsx # Payment confirmation
-│   │   │   ├── TransactionHistory.jsx
-│   │   │   └── ProfilePage.jsx
+│   │   ├── components/         # Reusable components
+│   │   │   ├── ui/                    # UI components (Button, Input, Card...)
+│   │   │   ├── Logo.jsx               # FakePE logo
+│   │   │   └── ...
+│   │   ├── context/            # React context (Theme, Auth)
 │   │   └── App.jsx
 │   └── package.json
 │
-├── sdk/                  # NEW: Official SDKs
-│   └── nodejs/           # Node.js SDK
-│       ├── lib/
-│       │   └── index.js  # SDK implementation
-│       ├── examples/     # Usage examples
-│       │   ├── basic-payment.js
-│       │   ├── upi-payment.js
-│       │   └── webhook-server.js
-│       ├── README.md     # SDK documentation
-│       └── package.json
+├── user-app/                   # 📱 UPI Mobile App (React + Vite)
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── SetupAccount.jsx       # First-time setup
+│   │   │   ├── HomePage.jsx           # Wallet dashboard
+│   │   │   ├── ScanQRPage.jsx         # QR code scanner
+│   │   │   ├── PaymentConfirmPage.jsx # Confirm & pay
+│   │   │   └── TransactionHistory.jsx
+│   │   └── App.jsx
+│   └── package.json
 │
-├── docs/                 # NEW: Documentation
-│   └── API_DOCUMENTATION.md
+├── monitoring/                 # 📊 Observability
+│   ├── prometheus.yml          # Metrics config
+│   └── grafana/                # Dashboards
 │
-├── monitoring/           # Prometheus & Grafana configs
-├── docker-compose.yml    # Infrastructure setup
-└── README.md             # This file
+├── docker-compose.yml          # 🐳 Infrastructure setup
+└── README.md                   # 📖 You are here
 ```
 
-## API Endpoints
+## 🔌 API Endpoints
 
-### Authentication
-- `POST /api/v1/auth/register` - Register user
-- `POST /api/v1/auth/login` - Login
+### Authentication & Users
+```http
+POST   /api/v1/auth/register         # Register new merchant/user
+POST   /api/v1/auth/login            # Login
+```
 
 ### Payments
-- `POST /api/v1/payments` - Create payment
-- `GET /api/v1/payments/:id` - Get payment details
-- `GET /api/v1/payments` - List payments
-- `POST /api/v1/payments/:id/complete` - Complete payment (wallet-based)
-- `POST /api/v1/payments/:id/refund` - Refund payment
+```http
+POST   /api/v1/payments              # Create payment order
+GET    /api/v1/payments/:id          # Get payment details
+GET    /api/v1/payments              # List all payments
+POST   /api/v1/payments/:id/refund   # Refund a payment
+```
 
-### UPI (NEW)
-- `POST /api/v1/upi/vpa` - Create UPI VPA
-- `GET /api/v1/upi/vpa/:userId` - Get user's VPAs
-- `GET /api/v1/upi/qr/:paymentId` - Generate UPI QR code
-- `POST /api/v1/upi/initiate` - Initiate UPI payment
-- `POST /api/v1/upi/confirm` - Confirm UPI payment
-- `GET /api/v1/upi/transaction/:txnId` - Get UPI transaction
-- `GET /api/v1/upi/history/:userId` - Get transaction history
+### UPI Operations
+```http
+POST   /api/v1/upi/vpa              # Create UPI VPA
+GET    /api/v1/upi/qr/:paymentId    # Generate UPI QR code
+POST   /api/v1/upi/initiate         # Start UPI payment
+POST   /api/v1/upi/confirm          # Confirm payment with PIN
+GET    /api/v1/upi/history/:userId  # Transaction history
+```
 
-### Wallets
-- `GET /api/v1/wallets/:userId` - Get wallet balance
-- `POST /api/v1/wallets/topup` - Add funds
-- `POST /api/v1/wallets/transfer` - Transfer funds
+### Wallet
+```http
+GET    /api/v1/wallets/:userId      # Get balance
+POST   /api/v1/wallets/topup        # Add money
+POST   /api/v1/wallets/transfer     # P2P transfer
+```
 
-### Merchants
-- `POST /api/v1/merchants` - Create merchant
-- `GET /api/v1/merchants/:id` - Get merchant details
-
-### Projects & API Keys
-- `POST /api/v1/projects` - Create project
-- `POST /api/v1/projects/:id/keys` - Generate API key
+### Merchants & Projects
+```http
+POST   /api/v1/merchants            # Create merchant account
+GET    /api/v1/merchants/:id        # Get merchant details
+POST   /api/v1/projects             # Create new project
+POST   /api/v1/projects/:id/keys    # Generate API keys
+```
 
 ### Webhooks
-- `GET /api/v1/webhooks/attempts` - Get webhook attempts
-
-### Admin
-- `POST /api/v1/admin/replay-webhook/:paymentId` - Replay webhook
-
-**📚 Full API Documentation:** See [`docs/API_DOCUMENTATION.md`](docs/API_DOCUMENTATION.md)
+```http
+GET    /api/v1/webhooks/attempts    # View webhook delivery logs
+POST   /api/v1/admin/replay-webhook/:id  # Retry failed webhooks
+```
 
 ---
 
@@ -408,48 +414,44 @@ VITE_API_URL=http://localhost:4000
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **Runtime**: Node.js 18+
-- **Framework**: Express.js
-- **Database**: MongoDB with Mongoose ODM
-- **Cache/Queue**: Redis with ioredis
-- **Real-time**: Socket.IO
-- **Authentication**: JWT with bcryptjs
-- **Validation**: Joi schemas
-- **Monitoring**: Prometheus + Grafana
-- **Process Manager**: PM2
-- **Security**: Helmet, CORS, Rate limiting
+### Backend (Node.js)
+- **Runtime:** Node.js 18+
+- **Framework:** Express.js
+- **Database:** MongoDB 7 with Mongoose ODM
+- **Cache:** Redis 7 with ioredis
+- **Auth:** JWT with bcryptjs
+- **Validation:** Joi schemas
+- **Security:** Helmet, CORS, Rate limiting
+- **Monitoring:** Prometheus + Grafana
 
-### Merchant Frontend
-- **Framework**: React 18
-- **Build Tool**: Vite
-- **Styling**: TailwindCSS
-- **UI Components**: Radix UI, shadcn/ui
-- **Icons**: Lucide React
-- **HTTP Client**: Axios
-- **Routing**: React Router v6
-- **QR Codes**: qrcode library
+### Frontend - Developer Portal (React)
+- **Framework:** React 18 with Hooks
+- **Build Tool:** ⚡ Vite (Lightning Fast HMR)
+- **Styling:** TailwindCSS 3
+- **Theme:** 💚 **Custom Green Theme** (Light + Dark Mode)
+- **UI Components:** Custom component library
+- **Icons:** Lucide React
+- **HTTP:** Axios
+- **Routing:** React Router v6
+- **QR Codes:** qrcode library
+- **State:** React Context API
 
-### User App (UPI Style)
-- **Framework**: React 18
-- **Build Tool**: Vite
-- **Styling**: TailwindCSS (mobile-first)
-- **QR Scanner**: html5-qrcode
-- **Icons**: Lucide React
-- **HTTP Client**: Axios
-- **State**: localStorage for persistence
+### User App - UPI Mobile (React)
+- **Framework:** React 18
+- **Build:** Vite
+- **Styling:** TailwindCSS (Mobile-first)
+- **QR Scanner:** html5-qrcode (Camera integration)
+- **Icons:** Lucide React
+- **HTTP:** Axios
+- **Persistence:** localStorage
 
-### SDK
-- **Language**: Node.js (CommonJS)
-- **HTTP Client**: Axios
-- **Crypto**: Built-in crypto module
-- **Structure**: Razorpay-inspired class-based API
-
-### Infrastructure
-- **Containerization**: Docker Compose
-- **Database**: MongoDB 7
-- **Cache**: Redis 7
-- **Monitoring**: Prometheus + Grafana
+### Infrastructure & DevOps
+- **Containers:** Docker + Docker Compose
+- **Database:** MongoDB 7
+- **Cache:** Redis 7
+- **Monitoring:** Prometheus metrics
+- **Dashboards:** Grafana
+- **Process Manager:** PM2 (Production)
 
 ---
 
@@ -566,78 +568,64 @@ ALLOWED_ORIGINS=https://yourdomain.com,https://app.yourdomain.com
 
 ---
 
-## 📚 Documentation
+##⚠️ Important Disclaimer
 
-- **[API Documentation](docs/API_DOCUMENTATION.md)** - Complete API reference
-- **[SDK Documentation](sdk/nodejs/README.md)** - Node.js SDK guide
-- **[User App Guide](user-app/README.md)** - Mobile app documentation
-- **[Examples](sdk/nodejs/examples/)** - Code examples
+**FakePE is a MOCK payment system for testing ONLY.**
+
+- 💰 All money is FAKE
+- 🧪 Perfect for development & testing
+- 🚫 NOT for production use
+- 📚 Educational purposes only
+
+**For real payments, use:** Razorpay, Stripe, PayPal, or Square
 
 ---
 
 ## 🤝 Contributing
 
-This is a mock payment system for testing purposes. Contributions welcome!
+We welcome contributions! This is an open-source project built for developers.
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing`)
-5. Open Pull Request
-
----
-
-## ⚠️ Disclaimer
-
-**This is a MOCK payment system for testing and development only.**
-
-- 💰 All money is fake
-- 🔒 Not suitable for production payment processing
-- 🧪 Designed for testing integrations
-- 📚 Educational purposes
-
-For real payment processing, use established providers like:
-- Razorpay
-- Stripe
-- PayPal
-- Square
+```bash
+1. Fork the repo
+2. Create feature branch: git checkout -b feature/amazing
+3. Commit changes: git commit -m 'Add amazing feature'
+4. Push: git push origin feature/amazing
+5. Open a Pull Request
+```
 
 ---
 
-## 🌟 Features Comparison
+## 📞 Support & Community
 
-| Feature | FakePay | Razorpay |
-|---------|---------|----------|
-| Mock Payments | ✅ | ❌ |
-| Real Payments | ❌ | ✅ |
-| UPI Support | ✅ | ✅ |
-| QR Codes | ✅ | ✅ |
-| Webhooks | ✅ | ✅ |
-| SDK | ✅ | ✅ |
-| User App | ✅ | ❌ |
-| Free Testing | ✅ | Limited |
-| Open Source | ✅ | ❌ |
-
----
-
-## 📞 Support
-
-- **GitHub Issues**: [Report bugs or request features](https://github.com/Mihir-Rabari/fake-pe/issues)
-- **Documentation**: Check docs folder
-- **Examples**: See sdk/nodejs/examples
+- 🐛 **Found a bug?** [Open an issue](https://github.com/Mihir-Rabari/fake-pe/issues)
+- 💡 **Feature request?** [Start a discussion](https://github.com/Mihir-Rabari/fake-pe/discussions)
+- ⭐ **Like the project?** Give us a star!
+- 🐦 **Follow updates:** [@MihirRabari](https://github.com/Mihir-Rabari)
 
 ---
 
 ## 📄 License
 
-MIT License - see LICENSE file for details
+MIT License - Free to use, modify, and distribute!
+
+---
 
 ## 👨‍💻 Author
 
 **Mihir Rabari**
 
-Built with ❤️ for the developer community
+Built with 💚 for the developer community
 
 ---
 
-**⭐ Star this repo if you find it useful!**
+<div align="center">
+
+### ⭐ Star us on GitHub!
+
+**If FakePE helped you, give it a star to show support!**
+
+[★ Star this repo](https://github.com/Mihir-Rabari/fake-pe) • [Report Bug](https://github.com/Mihir-Rabari/fake-pe/issues) • [Request Feature](https://github.com/Mihir-Rabari/fake-pe/issues)
+
+Made with 💚 by developers, for developers
+
+</div>
