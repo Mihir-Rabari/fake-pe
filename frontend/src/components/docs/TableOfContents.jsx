@@ -8,6 +8,8 @@ export default function TableOfContents() {
   const location = useLocation(); // Track route changes
 
   useEffect(() => {
+    let observer;
+    
     // Small delay to ensure DOM is updated
     const timer = setTimeout(() => {
       // Extract all h2 and h3 headings from the page
@@ -22,34 +24,31 @@ export default function TableOfContents() {
       }));
 
       setHeadings(headingData);
+
+      // Set up intersection observer for active section highlighting
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveId(entry.target.id);
+            }
+          });
+        },
+        {
+          rootMargin: '-80px 0px -80% 0px',
+          threshold: 0
+        }
+      );
+
+      elements.forEach((element) => {
+        observer.observe(element);
+      });
     }, 100); // Small delay for DOM update
-
-    // Set up intersection observer for active section highlighting
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: '-80px 0px -80% 0px',
-        threshold: 0
-      }
-    );
-
-    elements.forEach((element) => {
-      observer.observe(element);
-    });
 
     return () => {
       clearTimeout(timer);
-      if (article) {
-        const elements = article.querySelectorAll('h2[id], h3[id]');
-        elements.forEach((element) => {
-          observer.unobserve(element);
-        });
+      if (observer) {
+        observer.disconnect();
       }
     };
   }, [location.pathname]); // Re-run when page changes
