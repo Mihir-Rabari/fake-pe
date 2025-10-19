@@ -6,7 +6,7 @@ import {
   Wallet, BarChart3, Lock, Globe, RefreshCw
 } from 'lucide-react';
 import Logo from '../components/Logo';
-import { Button, Card, Badge } from '../components/ui';
+import { Button, Card, Badge, CodeBlock, CodeBlockHeader, CodeBlockBody, CodeBlockContent } from '../components/ui';
 
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -239,36 +239,30 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <Card variant="glass" className="p-6">
-              <div className="bg-fakepe-background rounded-lg p-6 border border-fakepe-border font-mono text-sm">
-                <div className="text-fakepe-text-secondary mb-4">// Install the SDK</div>
-                <div className="text-fakepe-primary mb-6">npm install fakepe-sdk</div>
-                
-                <div className="text-fakepe-text-secondary mb-4">// Create a payment</div>
-                <div className="mb-2">
-                  <span className="text-fakepe-accent">import</span> <span className="text-fakepe-text-primary">FakePE</span> <span className="text-fakepe-accent">from</span> <span className="text-orange-400">'fakepe-sdk'</span>
-                </div>
-                <div className="mb-4">&nbsp;</div>
-                <div className="mb-2">
-                  <span className="text-fakepe-accent">const</span> <span className="text-fakepe-text-primary">fakepe</span> = <span className="text-fakepe-accent">new</span> <span className="text-fakepe-primary">FakePE</span>({'{'}
-                </div>
-                <div className="ml-4 mb-2">
-                  <span className="text-fakepe-text-primary">apiKey</span>: <span className="text-orange-400">'your_api_key'</span>
-                </div>
-                <div className="mb-4">{'}'});</div>
-                <div className="mb-4">&nbsp;</div>
-                <div className="mb-2">
-                  <span className="text-fakepe-accent">const</span> <span className="text-fakepe-text-primary">payment</span> = <span className="text-fakepe-accent">await</span> <span className="text-fakepe-text-primary">fakepe</span>.<span className="text-fakepe-primary">payments</span>.<span className="text-fakepe-text-primary">create</span>({'{'}
-                </div>
-                <div className="ml-4 mb-2">
-                  <span className="text-fakepe-text-primary">amount</span>: <span className="text-fakepe-success">50000</span>,
-                </div>
-                <div className="ml-4 mb-2">
-                  <span className="text-fakepe-text-primary">currency</span>: <span className="text-orange-400">'INR'</span>,
-                </div>
-                <div className="mb-2">{'}'});</div>
-              </div>
-            </Card>
+            <CodeBlock>
+              <CodeBlockHeader filename="payment.js" language="javascript" />
+              <CodeBlockBody>
+                <CodeBlockContent 
+                  code={`// Install the SDK
+npm install fakepe-sdk
+
+// Create a payment
+import FakePE from 'fakepe-sdk'
+
+const fakepe = new FakePE({
+  apiKey: 'your_api_key'
+});
+
+const payment = await fakepe.payments.create({
+  amount: 50000,
+  currency: 'INR',
+});`}
+                  language="javascript"
+                  showLineNumbers={true}
+                  showCopyButton={true}
+                />
+              </CodeBlockBody>
+            </CodeBlock>
           </div>
         </div>
       </section>
