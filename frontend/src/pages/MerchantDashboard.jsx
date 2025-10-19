@@ -79,56 +79,56 @@ function MerchantDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-fakepe-background flex items-center justify-center">
         <div className="text-center">
-          <Activity className="w-8 h-8 text-blue-600 animate-pulse mx-auto mb-2" />
-          <p className="text-gray-600">Loading dashboard...</p>
+          <Activity className="w-8 h-8 text-fakepe-primary animate-pulse mx-auto mb-2" />
+          <p className="text-fakepe-text-secondary">Loading dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-fakepe-background">
       {/* Sidebar */}
-      <div className="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200">
+      <div className="fixed inset-y-0 left-0 w-64 bg-fakepe-surface border-r border-fakepe-border">
         <div className="p-6">
-          <Logo size="md" />
+          <Logo size="md" showText={true} />
         </div>
         <nav className="px-4 space-y-1">
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium"
+            className="flex items-center gap-3 px-4 py-3 text-fakepe-primary bg-fakepe-primary/10 rounded-lg font-medium transition"
           >
             <LayoutDashboard className="w-5 h-5" />
             Dashboard
           </a>
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+            className="flex items-center gap-3 px-4 py-3 text-fakepe-text-secondary hover:bg-fakepe-surface hover:text-fakepe-text-primary rounded-lg transition"
           >
             <CreditCard className="w-5 h-5" />
             Payments
           </a>
           <Link
             to="/developer"
-            className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+            className="flex items-center gap-3 px-4 py-3 text-fakepe-text-secondary hover:bg-fakepe-surface hover:text-fakepe-text-primary rounded-lg transition"
           >
             <Code className="w-5 h-5" />
             Developer
           </Link>
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg"
+            className="flex items-center gap-3 px-4 py-3 text-fakepe-text-secondary hover:bg-fakepe-surface hover:text-fakepe-text-primary rounded-lg transition"
           >
             <Settings className="w-5 h-5" />
             Settings
           </a>
         </nav>
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-fakepe-border">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg w-full"
+            className="flex items-center gap-3 px-4 py-3 text-fakepe-text-secondary hover:bg-fakepe-surface hover:text-fakepe-text-primary rounded-lg w-full transition"
           >
             <LogOut className="w-5 h-5" />
             Logout
@@ -139,17 +139,17 @@ function MerchantDashboard() {
       {/* Main Content */}
       <div className="ml-64">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200">
-          <div className="px-8 py-4">
+        <header className="bg-fakepe-surface border-b border-fakepe-border">
+          <div className="px-8 py-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-                <p className="text-sm text-gray-600">Welcome back, {user?.name}</p>
+                <h1 className="text-3xl font-bold text-fakepe-text-primary">Dashboard</h1>
+                <p className="text-sm text-fakepe-text-secondary mt-1">Welcome back, {user?.name}</p>
               </div>
               <div className="flex items-center gap-4">
-                <div className="text-right">
-                  <p className="text-sm text-gray-600">Merchant ID</p>
-                  <p className="text-sm font-mono font-medium">{user?.merchantId}</p>
+                <div className="text-right px-4 py-2 bg-fakepe-background rounded-lg border border-fakepe-border">
+                  <p className="text-xs text-fakepe-text-secondary uppercase tracking-wider mb-1">Merchant ID</p>
+                  <p className="text-sm font-mono font-medium text-fakepe-primary">{user?.merchantId}</p>
                 </div>
               </div>
             </div>
@@ -160,91 +160,91 @@ function MerchantDashboard() {
         <div className="p-8">
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <div className="bg-fakepe-surface rounded-xl border border-fakepe-border p-6 hover:border-fakepe-primary/50 transition group">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <CreditCard className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 bg-fakepe-primary/10 rounded-lg flex items-center justify-center group-hover:bg-fakepe-primary/20 transition">
+                  <CreditCard className="w-6 h-6 text-fakepe-primary" />
                 </div>
-                <span className="text-xs text-green-600 font-medium">+12%</span>
+                <span className="text-xs text-fakepe-success font-medium">+12%</span>
               </div>
-              <p className="text-sm text-gray-600 mb-1">Total Payments</p>
-              <p className="text-3xl font-bold text-gray-900">{stats.totalPayments}</p>
+              <p className="text-sm text-fakepe-text-secondary mb-1">Total Payments</p>
+              <p className="text-3xl font-bold text-fakepe-text-primary">{stats.totalPayments}</p>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <div className="bg-fakepe-surface rounded-xl border border-fakepe-border p-6 hover:border-fakepe-primary/50 transition group">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <DollarSign className="w-6 h-6 text-green-600" />
+                <div className="w-12 h-12 bg-fakepe-success/10 rounded-lg flex items-center justify-center group-hover:bg-fakepe-success/20 transition">
+                  <DollarSign className="w-6 h-6 text-fakepe-success" />
                 </div>
-                <span className="text-xs text-green-600 font-medium">+8%</span>
+                <span className="text-xs text-fakepe-success font-medium">+8%</span>
               </div>
-              <p className="text-sm text-gray-600 mb-1">Total Volume</p>
-              <p className="text-3xl font-bold text-gray-900">₹{stats.totalAmount.toLocaleString()}</p>
+              <p className="text-sm text-fakepe-text-secondary mb-1">Total Volume</p>
+              <p className="text-3xl font-bold text-fakepe-text-primary">₹{stats.totalAmount.toLocaleString()}</p>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <div className="bg-fakepe-surface rounded-xl border border-fakepe-border p-6 hover:border-fakepe-primary/50 transition group">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-purple-600" />
+                <div className="w-12 h-12 bg-fakepe-accent/10 rounded-lg flex items-center justify-center group-hover:bg-fakepe-accent/20 transition">
+                  <TrendingUp className="w-6 h-6 text-fakepe-accent" />
                 </div>
-                <span className="text-xs text-green-600 font-medium">+2%</span>
+                <span className="text-xs text-fakepe-success font-medium">+2%</span>
               </div>
-              <p className="text-sm text-gray-600 mb-1">Success Rate</p>
-              <p className="text-3xl font-bold text-gray-900">{stats.successRate}%</p>
+              <p className="text-sm text-fakepe-text-secondary mb-1">Success Rate</p>
+              <p className="text-3xl font-bold text-fakepe-text-primary">{stats.successRate}%</p>
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <div className="bg-fakepe-surface rounded-xl border border-fakepe-border p-6 hover:border-fakepe-primary/50 transition group">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                  <Code className="w-6 h-6 text-orange-600" />
+                <div className="w-12 h-12 bg-fakepe-primary/10 rounded-lg flex items-center justify-center group-hover:bg-fakepe-primary/20 transition">
+                  <Code className="w-6 h-6 text-fakepe-primary" />
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mb-1">Active Projects</p>
-              <p className="text-3xl font-bold text-gray-900">{stats.activeProjects}</p>
+              <p className="text-sm text-fakepe-text-secondary mb-1">Active Projects</p>
+              <p className="text-3xl font-bold text-fakepe-text-primary">{stats.activeProjects}</p>
             </div>
           </div>
 
           {/* Quick Actions */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+          <div className="bg-fakepe-surface rounded-xl border border-fakepe-border p-6 mb-8">
+            <h2 className="text-lg font-semibold text-fakepe-text-primary mb-4">Quick Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link
                 to="/developer"
-                className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-600 hover:bg-blue-50 transition"
+                className="flex items-center gap-3 p-4 border-2 border-fakepe-border rounded-lg hover:border-fakepe-primary hover:bg-fakepe-primary/5 transition group"
               >
-                <Code className="w-6 h-6 text-blue-600" />
+                <Code className="w-6 h-6 text-fakepe-primary" />
                 <div>
-                  <p className="font-medium text-gray-900">Developer Console</p>
-                  <p className="text-sm text-gray-600">Manage API keys & projects</p>
+                  <p className="font-medium text-fakepe-text-primary group-hover:text-fakepe-primary transition">Developer Console</p>
+                  <p className="text-sm text-fakepe-text-secondary">Manage API keys & projects</p>
                 </div>
               </Link>
               <a
                 href="#"
-                className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-600 hover:bg-blue-50 transition"
+                className="flex items-center gap-3 p-4 border-2 border-fakepe-border rounded-lg hover:border-fakepe-primary hover:bg-fakepe-primary/5 transition group"
               >
-                <CreditCard className="w-6 h-6 text-blue-600" />
+                <CreditCard className="w-6 h-6 text-fakepe-primary" />
                 <div>
-                  <p className="font-medium text-gray-900">View Payments</p>
-                  <p className="text-sm text-gray-600">Transaction history</p>
+                  <p className="font-medium text-fakepe-text-primary group-hover:text-fakepe-primary transition">View Payments</p>
+                  <p className="text-sm text-fakepe-text-secondary">Transaction history</p>
                 </div>
               </a>
               <a
                 href="#"
-                className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-600 hover:bg-blue-50 transition"
+                className="flex items-center gap-3 p-4 border-2 border-fakepe-border rounded-lg hover:border-fakepe-primary hover:bg-fakepe-primary/5 transition group"
               >
-                <Settings className="w-6 h-6 text-blue-600" />
+                <Settings className="w-6 h-6 text-fakepe-primary" />
                 <div>
-                  <p className="font-medium text-gray-900">Settings</p>
-                  <p className="text-sm text-gray-600">Configure webhooks</p>
+                  <p className="font-medium text-fakepe-text-primary group-hover:text-fakepe-primary transition">Settings</p>
+                  <p className="text-sm text-fakepe-text-secondary">Configure webhooks</p>
                 </div>
               </a>
             </div>
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
-            <div className="text-center py-12 text-gray-500">
+          <div className="bg-fakepe-surface rounded-xl border border-fakepe-border p-6">
+            <h2 className="text-lg font-semibold text-fakepe-text-primary mb-4">Recent Activity</h2>
+            <div className="text-center py-12 text-fakepe-text-secondary">
               <Clock className="w-12 h-12 mx-auto mb-3 opacity-50" />
               <p>No recent activity</p>
               <p className="text-sm">Start by creating your first project in the Developer Console</p>

@@ -101,29 +101,29 @@ function WalletPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-fakepe-background flex items-center justify-center">
         <div className="text-center">
-          <RefreshCw className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-2" />
-          <p className="text-gray-600">Loading wallet...</p>
+          <RefreshCw className="w-8 h-8 text-fakepe-primary animate-spin mx-auto mb-2" />
+          <p className="text-fakepe-text-secondary">Loading wallet...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-fakepe-background">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-fakepe-surface border-b border-fakepe-border">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Logo size="md" />
+            <Logo size="md" showText={true} />
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-fakepe-text-secondary">
                 {user?.name}
               </span>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900"
+                className="flex items-center gap-2 px-4 py-2 text-fakepe-text-secondary hover:text-fakepe-primary transition"
               >
                 <LogOut className="w-4 h-4" />
                 Logout
@@ -136,56 +136,59 @@ function WalletPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Alerts */}
         {error && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+          <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400">
             {error}
           </div>
         )}
         {success && (
-          <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700">
+          <div className="mb-4 p-4 bg-fakepe-success/10 border border-fakepe-success/30 rounded-lg text-fakepe-success">
             {success}
           </div>
         )}
 
         {/* Wallet Card */}
         <div className="max-w-2xl mx-auto">
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 text-white shadow-xl mb-8">
-            <div className="flex items-center gap-3 mb-6">
-              <Wallet className="w-8 h-8" />
-              <h2 className="text-2xl font-bold">My Wallet</h2>
+          <div className="bg-gradient-to-br from-fakepe-primary to-fakepe-success rounded-2xl p-8 text-white shadow-xl mb-8 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-6">
+                <Wallet className="w-8 h-8" />
+                <h2 className="text-2xl font-bold">My Wallet</h2>
+              </div>
+              <div className="mb-2">
+                <p className="text-white/80 text-sm">Available Balance</p>
+                <p className="text-5xl font-bold">₹{wallet?.balance?.toFixed(2) || '0.00'}</p>
+              </div>
+              <p className="text-white/80 text-sm">User ID: {user?.userId}</p>
             </div>
-            <div className="mb-2">
-              <p className="text-blue-100 text-sm">Available Balance</p>
-              <p className="text-5xl font-bold">₹{wallet?.balance?.toFixed(2) || '0.00'}</p>
-            </div>
-            <p className="text-blue-100 text-sm">User ID: {user?.userId}</p>
           </div>
 
           {/* Actions */}
           <div className="grid grid-cols-2 gap-4 mb-8">
             <button
               onClick={() => setShowTopup(true)}
-              className="flex items-center justify-center gap-2 p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-600 hover:bg-blue-50 transition"
+              className="flex items-center justify-center gap-2 p-4 bg-fakepe-surface rounded-lg border-2 border-fakepe-border hover:border-fakepe-primary hover:bg-fakepe-primary/5 transition group"
             >
-              <Plus className="w-5 h-5 text-blue-600" />
-              <span className="font-medium">Top Up</span>
+              <Plus className="w-5 h-5 text-fakepe-primary" />
+              <span className="font-medium text-fakepe-text-primary group-hover:text-fakepe-primary">Top Up</span>
             </button>
             <button
               onClick={() => setShowTransfer(true)}
-              className="flex items-center justify-center gap-2 p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-600 hover:bg-blue-50 transition"
+              className="flex items-center justify-center gap-2 p-4 bg-fakepe-surface rounded-lg border-2 border-fakepe-border hover:border-fakepe-primary hover:bg-fakepe-primary/5 transition group"
             >
-              <ArrowUpRight className="w-5 h-5 text-blue-600" />
-              <span className="font-medium">Transfer</span>
+              <ArrowUpRight className="w-5 h-5 text-fakepe-primary" />
+              <span className="font-medium text-fakepe-text-primary group-hover:text-fakepe-primary">Transfer</span>
             </button>
           </div>
 
           {/* Top-up Modal */}
           {showTopup && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-              <div className="bg-white rounded-lg p-6 max-w-md w-full">
-                <h3 className="text-xl font-bold mb-4">Top Up Wallet</h3>
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+              <div className="bg-fakepe-surface rounded-xl border border-fakepe-border p-6 max-w-md w-full">
+                <h3 className="text-xl font-bold text-fakepe-text-primary mb-4">Top Up Wallet</h3>
                 <form onSubmit={handleTopup}>
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-fakepe-text-primary mb-2">
                       Amount (₹)
                     </label>
                     <input
@@ -195,7 +198,7 @@ function WalletPage() {
                       required
                       min="1"
                       step="0.01"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 bg-fakepe-background border border-fakepe-border rounded-lg focus:ring-2 focus:ring-fakepe-primary focus:border-fakepe-primary text-fakepe-text-primary"
                       placeholder="100"
                     />
                   </div>
@@ -203,13 +206,13 @@ function WalletPage() {
                     <button
                       type="button"
                       onClick={() => setShowTopup(false)}
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      className="flex-1 px-4 py-2 border border-fakepe-border rounded-lg hover:bg-fakepe-background text-fakepe-text-secondary transition"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                      className="flex-1 px-4 py-2 bg-fakepe-primary text-white rounded-lg hover:bg-fakepe-success transition"
                     >
                       Add Money
                     </button>
@@ -221,12 +224,12 @@ function WalletPage() {
 
           {/* Transfer Modal */}
           {showTransfer && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-              <div className="bg-white rounded-lg p-6 max-w-md w-full">
-                <h3 className="text-xl font-bold mb-4">Transfer Money</h3>
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+              <div className="bg-fakepe-surface rounded-xl border border-fakepe-border p-6 max-w-md w-full">
+                <h3 className="text-xl font-bold text-fakepe-text-primary mb-4">Transfer Money</h3>
                 <form onSubmit={handleTransfer}>
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-fakepe-text-primary mb-2">
                       Recipient User ID
                     </label>
                     <input
@@ -234,12 +237,12 @@ function WalletPage() {
                       value={transferData.toUserId}
                       onChange={(e) => setTransferData({ ...transferData, toUserId: e.target.value })}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 bg-fakepe-background border border-fakepe-border rounded-lg focus:ring-2 focus:ring-fakepe-primary focus:border-fakepe-primary text-fakepe-text-primary"
                       placeholder="usr_..."
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-fakepe-text-primary mb-2">
                       Amount (₹)
                     </label>
                     <input
@@ -250,10 +253,10 @@ function WalletPage() {
                       min="1"
                       step="0.01"
                       max={wallet?.balance || 0}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 bg-fakepe-background border border-fakepe-border rounded-lg focus:ring-2 focus:ring-fakepe-primary focus:border-fakepe-primary text-fakepe-text-primary"
                       placeholder="50"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-fakepe-text-secondary mt-1">
                       Available: ₹{wallet?.balance?.toFixed(2) || '0.00'}
                     </p>
                   </div>
@@ -261,13 +264,13 @@ function WalletPage() {
                     <button
                       type="button"
                       onClick={() => setShowTransfer(false)}
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      className="flex-1 px-4 py-2 border border-fakepe-border rounded-lg hover:bg-fakepe-background text-fakepe-text-secondary transition"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                      className="flex-1 px-4 py-2 bg-fakepe-primary text-white rounded-lg hover:bg-fakepe-success transition"
                     >
                       Send Money
                     </button>
@@ -278,8 +281,8 @@ function WalletPage() {
           )}
 
           {/* Info Card */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-900">
+          <div className="bg-fakepe-primary/10 border border-fakepe-primary/30 rounded-lg p-4">
+            <p className="text-sm text-fakepe-text-primary">
               <strong>Sandbox Mode:</strong> This is a test wallet. Use the top-up feature to add test money.
               Share your User ID with others to receive P2P transfers.
             </p>
