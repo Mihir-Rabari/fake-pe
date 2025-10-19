@@ -16,7 +16,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
-function MerchantDashboard() {
+function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [merchant, setMerchant] = useState(null);
@@ -256,4 +256,4 @@ function MerchantDashboard() {
   );
 }
 
-export default MerchantDashboard;
+export default Dashboard;

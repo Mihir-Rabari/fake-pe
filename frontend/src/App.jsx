@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WalletPage from './pages/WalletPage';
-import MerchantDashboard from './pages/MerchantDashboard';
+import Dashboard from './pages/Dashboard';
 import DeveloperConsole from './pages/DeveloperConsole';
 import PaymentPage from './pages/PaymentPage';
 import TransactionHistory from './pages/TransactionHistory';
@@ -51,7 +51,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/wallet" element={<WalletPage />} />
-          <Route path="/dashboard" element={<MerchantDashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/developer" element={<DeveloperConsole />} />
           <Route path="/pay/:paymentId" element={<PaymentPage />} />
           <Route path="/transactions" element={<TransactionHistory />} />
