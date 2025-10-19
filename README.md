@@ -1,457 +1,372 @@
-# 💚 FakePE - Mock UPI Payment Gateway
+# 💚 FakePE - Mock Payment Gateway
 
-> **The complete mock payment ecosystem for developers.** Test UPI payments, QR codes, webhooks, and payment flows without real money. Beautiful green-themed UI, professional SDK, and realistic UPI experience.
+> **Beautiful mock payment system for developers.** Test payment integrations, webhooks, and UPI flows without real money. Modern UI with perfect light/dark mode support.
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18-green.svg)](https://reactjs.org/)
 
 ---
 
-## ✨ What Makes FakePE Special?
+## 🎯 What is FakePE?
 
-### Core Payment System
-- 💳 **Payment Processing** - Create and manage payment orders
-- 📱 **UPI Payments** - Complete UPI flow with VPA, QR codes, and intent-based payments
-- 👛 **Digital Wallets** - User wallet system with top-up and transfers
-- 🔔 **Webhooks** - Reliable webhook delivery with HMAC signature verification
-- 🏢 **Merchant Management** - Multi-tenant merchant accounts with API keys
+FakePE is a **complete mock payment gateway** that simulates real payment flows. Perfect for:
+- 🧪 Testing payment integrations
+- 📚 Learning payment gateway architecture
+- 🎨 Demos and presentations
+- 🚀 Development without production APIs
 
-- 💚 **Beautiful Green Theme** - Modern, eye-catching design inspired by top payment gateways
-- 🎨 **Light & Dark Mode** - Seamless switching with perfect contrast in both modes
-- 📱 **Fully Responsive** - Mobile-first design that works on all devices
-- ⚡ **Lightning Fast** - Built with Vite for instant hot reload and optimized builds
+---
 
-### For Developers
-- 📦 **Professional SDK** - Clean, Razorpay-inspired API
-- 🔐 **Webhook System** - HMAC SHA256 signature verification
-- 🎯 **Idempotency Support** - Safe retry mechanism
-- 📊 **Developer Console** - Manage API keys, view transactions, test webhooks
-- 🔧 **Easy Integration** - Drop-in replacement for testing real payment gateways
+## ✨ Features
 
-### For End Users
-- 📱 **UPI Mobile App** - Realistic UPI payment experience
-- 📸 **QR Code Scanner** - Scan and pay with camera
-- 💰 **Digital Wallet** - Top up, transfer, and track balance
-- 📊 **Transaction History** - Complete payment tracking
-- 🔒 **Secure by Design** - PIN-protected payments
+### 🎨 Beautiful UI
+- 💚 **Modern Green Theme** - Eye-catching design inspired by top payment gateways
+- 🌓 **Perfect Light/Dark Mode** - Seamless switching with proper contrast
+- 📱 **Fully Responsive** - Mobile-first design
+- ⚡ **Lightning Fast** - Built with Vite for instant HMR
 
-### Infrastructure & Monitoring
-- 🐳 **Docker Compose** - One-command infrastructure setup
-- 📊 **Prometheus & Grafana** - Real-time metrics and dashboards
-- ⚡ **Redis Caching** - Fast response times
-- 🔒 **JWT Authentication** - Secure API access
+### 💳 Payment System
+- 💰 **Payment Orders** - Create, track, and manage payments
+- 📱 **UPI Integration** - Full UPI flow with QR codes
+- 👛 **Digital Wallets** - User balance management
+- 🔄 **Refunds** - Complete refund workflow
+- 📊 **Transaction History** - Full payment tracking
+
+### 🔧 Developer Tools
+- 🔑 **API Keys** - Generate and manage test API keys
+- 🎯 **Developer Console** - Beautiful dashboard for developers
+- 🔔 **Webhooks** - HMAC-verified webhook delivery
+- 📊 **Analytics** - Payment statistics and metrics
+- 🏢 **Multi-tenant** - Multiple merchant accounts
+
+### 🔒 Security & Infrastructure
+- 🔐 **JWT Authentication** - Secure API access
+- 🛡️ **CORS Protection** - Configurable origins
+- 🚦 **Rate Limiting** - Prevent abuse
+- 🐳 **Docker Ready** - One-command infrastructure
+- 📊 **Monitoring** - Prometheus + Grafana metrics
+
+---
 
 ## 🚀 Quick Start
 
-Get FakePE running in 3 minutes! ⚡
-
 ### Prerequisites
 ```bash
-Node.js 18+ ✓
-Docker & Docker Compose ✓
+✓ Node.js 18+
+✓ Docker & Docker Compose
+✓ 10 minutes of your time ⏰
 ```
 
-### Step 1: Clone & Setup Infrastructure
+### 1️⃣ Clone & Setup Infrastructure
 
 ```bash
-# Clone repository
+# Clone the repository
 git clone https://github.com/Mihir-Rabari/fake-pe.git
 cd fake-pe
 
-# Start MongoDB & Redis using Docker
+# Start MongoDB & Redis
 docker-compose up -d
 
 # Verify containers are running
 docker ps
 ```
 
-### Step 2: Install Dependencies
+### 2️⃣ Setup Backend
 
 ```bash
-# Backend
 cd backend
 npm install
-cp .env.example .env  # or 'copy .env.example .env' on Windows
 
-# Frontend (Developer Portal)
-cd ../frontend
-npm install
+# Create environment file
+cp .env.example .env   # Linux/Mac
+# OR
+copy .env.example .env  # Windows
 
-# Optional: User App (for testing payments)
-cd ../user-app
-npm install
-```
-
-### Step 3: Run Services
-
-Open 3 terminals:
-
-**Terminal 1 - Backend API:**
-```bash
-cd backend
+# Start backend server
 npm run dev
-# ✓ Running on http://localhost:4000
+# ✓ Backend running on http://localhost:4000
 ```
 
-**Terminal 2 - Developer Portal:**
+### 3️⃣ Setup Frontend
+
 ```bash
+# Open new terminal
 cd frontend
+npm install
+
+# Start development server
 npm run dev
-# ✓ Running on http://localhost:3000
+# ✓ Frontend running on http://localhost:3000
 ```
 
-**Terminal 3 - User App (Optional):**
-```bash
-cd user-app
-npm run dev
-# ✓ Running on http://localhost:3001
-```
+### 4️⃣ Access the Application
 
-### Step 4: Access Your Services
+Open your browser:
+- 🏠 **Homepage**: http://localhost:3000
+- 💼 **Register**: http://localhost:3000/register (Create merchant account)
+- 🔑 **Login**: http://localhost:3000/login
+- 📊 **Dashboard**: http://localhost:3000/dashboard
+- ❤️ **API Health**: http://localhost:4000/health
 
-| Service | URL | Purpose |
-|---------|-----|---------|
-| 🏠 **Homepage** | http://localhost:3000 | Landing page & registration |
-| 💼 **Developer Portal** | http://localhost:3000/dashboard | Manage payments & API keys |
-| 📱 **User App** | http://localhost:3001 | Make UPI payments |
-| 🔧 **API** | http://localhost:4000 | REST API |
-| ❤️ **Health Check** | http://localhost:4000/health | API status |
+---
 
 ## 📁 Project Structure
 
 ```
 fake-pe/
+│
 ├── backend/                    # 🔧 Node.js API Server
 │   ├── src/
-│   │   ├── controllers/        # Request handlers
+│   │   ├── controllers/        # Route handlers
 │   │   ├── models/             # MongoDB schemas
 │   │   ├── routes/             # API endpoints
 │   │   ├── middleware/         # Auth, validation, etc.
-│   │   ├── utils/              # Helpers & utilities
+│   │   ├── utils/              # Helpers
 │   │   └── index.js            # Server entry point
+│   ├── .env.example            # Environment template
 │   └── package.json
 │
-├── frontend/                   # 💼 Developer Portal (React + Vite)
+├── frontend/                   # 💼 Developer Portal (React)
+│   ├── public/                 # Static assets
 │   ├── src/
 │   │   ├── pages/              # React pages
-│   │   │   ├── HomePage.jsx           # 💚 Modern landing page
-│   │   │   ├── LoginPage.jsx          # Developer login
-│   │   │   ├── RegisterPage.jsx       # Merchant registration
+│   │   │   ├── HomePage.jsx           # 💚 Landing page
+│   │   │   ├── LoginPage.jsx          # Login
+│   │   │   ├── RegisterPage.jsx       # Sign up
 │   │   │   ├── Dashboard.jsx          # Main dashboard
-│   │   │   ├── DeveloperConsole.jsx   # API keys & settings
+│   │   │   ├── DeveloperConsole.jsx   # API keys
+│   │   │   ├── PaymentPage.jsx        # Customer payment
 │   │   │   └── ...
 │   │   ├── components/         # Reusable components
-│   │   │   ├── ui/                    # UI components (Button, Input, Card...)
+│   │   │   ├── ui/                    # Button, Input, Card...
 │   │   │   ├── Logo.jsx               # FakePE logo
+│   │   │   ├── Navbar.jsx
 │   │   │   └── ...
-│   │   ├── context/            # React context (Theme, Auth)
-│   │   └── App.jsx
-│   └── package.json
-│
-├── user-app/                   # 📱 UPI Mobile App (React + Vite)
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── SetupAccount.jsx       # First-time setup
-│   │   │   ├── HomePage.jsx           # Wallet dashboard
-│   │   │   ├── ScanQRPage.jsx         # QR code scanner
-│   │   │   ├── PaymentConfirmPage.jsx # Confirm & pay
-│   │   │   └── TransactionHistory.jsx
-│   │   └── App.jsx
+│   │   ├── context/            # React Context
+│   │   │   └── ThemeContext.jsx       # 🌓 Light/Dark mode
+│   │   ├── App.jsx
+│   │   └── main.jsx
 │   └── package.json
 │
 ├── monitoring/                 # 📊 Observability
 │   ├── prometheus.yml          # Metrics config
 │   └── grafana/                # Dashboards
 │
-├── docker-compose.yml          # 🐳 Infrastructure setup
+├── docker-compose.yml          # 🐳 Infrastructure
+├── .gitignore
+├── LICENSE
 └── README.md                   # 📖 You are here
-```
-
-## 🔌 API Endpoints
-
-### Authentication & Users
-```http
-POST   /api/v1/auth/register         # Register new merchant/user
-POST   /api/v1/auth/login            # Login
-```
-
-### Payments
-```http
-POST   /api/v1/payments              # Create payment order
-GET    /api/v1/payments/:id          # Get payment details
-GET    /api/v1/payments              # List all payments
-POST   /api/v1/payments/:id/refund   # Refund a payment
-```
-
-### UPI Operations
-```http
-POST   /api/v1/upi/vpa              # Create UPI VPA
-GET    /api/v1/upi/qr/:paymentId    # Generate UPI QR code
-POST   /api/v1/upi/initiate         # Start UPI payment
-POST   /api/v1/upi/confirm          # Confirm payment with PIN
-GET    /api/v1/upi/history/:userId  # Transaction history
-```
-
-### Wallet
-```http
-GET    /api/v1/wallets/:userId      # Get balance
-POST   /api/v1/wallets/topup        # Add money
-POST   /api/v1/wallets/transfer     # P2P transfer
-```
-
-### Merchants & Projects
-```http
-POST   /api/v1/merchants            # Create merchant account
-GET    /api/v1/merchants/:id        # Get merchant details
-POST   /api/v1/projects             # Create new project
-POST   /api/v1/projects/:id/keys    # Generate API keys
-```
-
-### Webhooks
-```http
-GET    /api/v1/webhooks/attempts    # View webhook delivery logs
-POST   /api/v1/admin/replay-webhook/:id  # Retry failed webhooks
 ```
 
 ---
 
-## 🎯 Complete Payment Flow Example
+## 🔌 API Endpoints
 
-### Step 1: Merchant Creates Payment (Using SDK)
-
-```javascript
-const FakePay = require('@fakepay/sdk');
-
-const fakepay = new FakePay({
-  key_id: 'your_key_id',
-  key_secret: 'your_key_secret'
-});
-
-// Create payment order
-const payment = await fakepay.payments.create({
-  merchantId: 'mer_123',
-  amount: 50000, // ₹500 (in paise)
-  orderId: 'order_001',
-  callbackUrl: 'https://yoursite.com/webhook'
-});
-
-console.log('Payment URL:', payment.paymentUrl);
-console.log('QR Code:', payment.qrData); // Show this to customer
+### Authentication
+```http
+POST   /api/v1/auth/register    # Register merchant account
+POST   /api/v1/auth/login       # Login
 ```
 
-### Step 2: Customer Scans & Pays (User App)
+### Payments
+```http
+POST   /api/v1/payments         # Create payment order
+GET    /api/v1/payments/:id     # Get payment details
+GET    /api/v1/payments         # List payments
+POST   /api/v1/payments/:id/refund  # Refund payment
+```
 
-1. Customer opens **FakePay User App** (`http://localhost:3001`)
-2. Clicks "Scan & Pay"
-3. Scans merchant's QR code
-4. Reviews payment details (₹500)
-5. Clicks "Proceed to Pay"
-6. Enters UPI PIN (any 4-6 digits)
-7. Clicks "Pay Securely"
-8. ✅ Payment complete!
+### UPI
+```http
+POST   /api/v1/upi/vpa          # Create UPI VPA
+GET    /api/v1/upi/qr/:id       # Generate QR code
+POST   /api/v1/upi/initiate     # Start payment
+POST   /api/v1/upi/confirm      # Confirm with PIN
+GET    /api/v1/upi/history/:userId  # Transaction history
+```
 
-### Step 3: Merchant Receives Webhook
+### Wallets
+```http
+GET    /api/v1/wallets/:userId  # Get balance
+POST   /api/v1/wallets/topup    # Add money
+POST   /api/v1/wallets/transfer # P2P transfer
+```
+
+### Merchants
+```http
+POST   /api/v1/merchants        # Create merchant
+GET    /api/v1/merchants/:id    # Get details
+GET    /api/v1/merchants/:id/stats  # Get statistics
+```
+
+### Projects & API Keys
+```http
+POST   /api/v1/projects         # Create project
+GET    /api/v1/projects         # List projects
+POST   /api/v1/projects/:id/keys  # Generate API key
+GET    /api/v1/projects/:id/keys  # List API keys
+```
+
+### Webhooks
+```http
+GET    /api/v1/webhooks/attempts  # View delivery logs
+POST   /api/v1/admin/replay-webhook/:id  # Retry webhook
+```
+
+---
+
+## 🎯 Complete Payment Flow
+
+### Step 1: Register as Merchant
+
+1. Go to http://localhost:3000
+2. Click "Get Started" or "Sign Up"
+3. Fill in merchant details
+4. Login to dashboard
+
+### Step 2: Create API Keys
+
+1. Go to **Developer Console**
+2. Create a new project
+3. Generate API key pair (key_id + key_secret)
+4. Copy and save securely
+
+### Step 3: Create Payment (via API)
+
+```bash
+curl -X POST http://localhost:4000/api/v1/payments \
+  -H "Content-Type: application/json" \
+  -u "YOUR_KEY_ID:YOUR_KEY_SECRET" \
+  -d '{
+    "merchantId": "mer_xxx",
+    "amount": 50000,
+    "currency": "INR",
+    "orderId": "order_001",
+    "callbackUrl": "https://your-site.com/webhook"
+  }'
+```
+
+Response:
+```json
+{
+  "success": true,
+  "payment": {
+    "paymentId": "pay_xxx",
+    "amount": 50000,
+    "status": "CREATED",
+    "paymentUrl": "http://localhost:3000/pay/pay_xxx",
+    "qrData": "data:image/png;base64,..."
+  }
+}
+```
+
+### Step 4: Customer Pays
+
+Customer visits the `paymentUrl` or scans QR code with **FakePE User App** ([separate repository](https://github.com/Mihir-Rabari/fakePE-user-app))
+
+### Step 5: Receive Webhook
 
 ```javascript
+// Your webhook endpoint
 app.post('/webhook', (req, res) => {
-  // Verify signature
-  const signature = req.headers['x-fakepay-signature'];
+  const signature = req.headers['x-fakepe-signature'];
   
-  if (!fakepay.webhooks.verify(req.body, signature)) {
-    return res.status(400).send('Invalid signature');
+  // Verify signature (HMAC SHA256)
+  if (verifySignature(req.body, signature, YOUR_SECRET)) {
+    const { event, data } = req.body;
+    
+    if (event === 'payment.completed') {
+      console.log('✅ Payment completed:', data.paymentId);
+      // Update order, send email, etc.
+    }
   }
-
-  // Process webhook
-  const { event, data } = req.body;
   
-  if (event === 'payment.completed') {
-    console.log('Payment received:', data.paymentId);
-    // Update order status
-    // Send confirmation email
-    // Trigger fulfillment
-  }
-
   res.status(200).send('OK');
 });
 ```
 
 ---
 
-## 📦 Using the SDK
-
-### Installation
-
-```bash
-npm install @fakepay/sdk
-```
-
-### Basic Usage
-
-```javascript
-const FakePay = require('@fakepay/sdk');
-
-const fakepay = new FakePay({
-  key_id: 'your_key_id',
-  key_secret: 'your_key_secret',
-  baseUrl: 'http://localhost:4000' // Optional
-});
-
-// Create payment
-const payment = await fakepay.payments.create({
-  merchantId: 'mer_123',
-  amount: 50000,
-  orderId: 'order_001'
-});
-
-// Get payment status
-const status = await fakepay.payments.fetch(payment.paymentId);
-
-// Refund payment
-await fakepay.payments.refund(payment.paymentId, {
-  amount: 25000,
-  reason: 'Customer request'
-});
-```
-
-### UPI Operations
-
-```javascript
-// Create UPI VPA
-await fakepay.upi.createVpa({
-  userId: 'usr_123',
-  vpa: 'user@fakepay'
-});
-
-// Generate UPI QR
-const qr = await fakepay.upi.generateQr(paymentId);
-console.log('UPI Intent:', qr.upiIntent);
-console.log('QR Code:', qr.qrCodeData);
-
-// Get transaction history
-const history = await fakepay.upi.getHistory('usr_123', { limit: 20 });
-```
-
-**📚 Complete SDK docs:** See [`sdk/nodejs/README.md`](sdk/nodejs/README.md)
-
----
-
-## 📱 Using the User App
-
-### First-Time Setup
-
-1. Navigate to `http://localhost:3001`
-2. You'll see the account setup screen
-3. Fill in your details:
-   - **Name**: Your full name
-   - **Phone**: 10-digit number
-   - **Email**: Your email
-   - **UPI ID**: Choose unique ID (e.g., `john@fakepay`)
-   - **Initial Balance**: Select amount (fake money)
-4. Click "Create Account"
-
-### Making Your First Payment
-
-1. On home screen, click **"Scan & Pay"**
-2. Allow camera access when prompted
-3. Point camera at merchant's QR code
-4. Payment details appear - review them
-5. Click **"Proceed to Pay"**
-6. Enter any 4-6 digit PIN (e.g., `1234`)
-7. Click **"Pay Securely"**
-8. ✅ Success! Payment complete
-
-### Managing Your Wallet
-
-- **View Balance**: Home screen shows current balance
-- **Add Money**: Profile → "Add Money" → Select amount
-- **Transaction History**: Click "History" tab to see all payments
-- **Filter Transactions**: Use All/Sent/Received filters
-
-**📚 User App docs:** See [`user-app/README.md`](user-app/README.md)
-
----
-
 ## 🔧 Environment Variables
 
-### Backend (`backend/.env`)
+### Backend (`.env`)
 ```env
 NODE_ENV=development
 PORT=4000
+
+# Database
 MONGO_URI=mongodb://admin:expe_secure_pass_2024@localhost:27017/expe_gateway?authSource=admin
+
+# Redis
 REDIS_URL=redis://:expe_redis_pass_2024@localhost:6379
-JWT_SECRET=your_jwt_secret_change_this
+
+# Security
+JWT_SECRET=your_jwt_secret_change_this_in_production
 JWT_EXPIRY=24h
+
+# CORS
 FRONTEND_URL=http://localhost:3000
 ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+
+# Webhooks
+WEBHOOK_SECRET=your_webhook_secret_for_signature_verification
 ```
 
-### Frontend (`frontend/.env`)
+### Frontend (`.env`)
 ```env
 VITE_API_URL=http://localhost:4000
 ```
-
-### User App (`user-app/.env`)
-```env
-VITE_API_URL=http://localhost:4000
-```
-
----
-
-## 📊 Monitoring & Services
-
-| Service | URL | Credentials |
-|---------|-----|-------------|
-| **Backend API** | http://localhost:4000 | - |
-| **Merchant Frontend** | http://localhost:3000 | Create account |
-| **User App** | http://localhost:3001 | Create account |
-| **API Health** | http://localhost:4000/health | - |
-| **Prometheus** | http://localhost:9090 | - |
-| **Grafana** | http://localhost:3001 | admin / expe_grafana_2024 |
-| **API Metrics** | http://localhost:4000/metrics | - |
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Backend (Node.js)
+### Backend
 - **Runtime:** Node.js 18+
 - **Framework:** Express.js
-- **Database:** MongoDB 7 with Mongoose ODM
-- **Cache:** Redis 7 with ioredis
-- **Auth:** JWT with bcryptjs
-- **Validation:** Joi schemas
-- **Security:** Helmet, CORS, Rate limiting
-- **Monitoring:** Prometheus + Grafana
+- **Database:** MongoDB 7 + Mongoose ODM
+- **Cache:** Redis 7 + ioredis
+- **Auth:** JWT (jsonwebtoken + bcryptjs)
+- **Validation:** Joi
+- **Security:** Helmet, CORS, express-rate-limit
+- **Monitoring:** Prometheus client
+- **Process:** PM2 (production)
 
-### Frontend - Developer Portal (React)
+### Frontend
 - **Framework:** React 18 with Hooks
-- **Build Tool:** ⚡ Vite (Lightning Fast HMR)
+- **Build:** ⚡ Vite 4 (Lightning fast HMR)
+- **Language:** JavaScript + JSX
 - **Styling:** TailwindCSS 3
-- **Theme:** 💚 **Custom Green Theme** (Light + Dark Mode)
-- **UI Components:** Custom component library
+- **Theme:** 💚 **Custom Green Theme** (Light/Dark mode)
+- **UI Library:** Custom components
 - **Icons:** Lucide React
 - **HTTP:** Axios
 - **Routing:** React Router v6
-- **QR Codes:** qrcode library
+- **QR Codes:** qrcode.react
 - **State:** React Context API
 
-### User App - UPI Mobile (React)
-- **Framework:** React 18
-- **Build:** Vite
-- **Styling:** TailwindCSS (Mobile-first)
-- **QR Scanner:** html5-qrcode (Camera integration)
-- **Icons:** Lucide React
-- **HTTP:** Axios
-- **Persistence:** localStorage
-
-### Infrastructure & DevOps
+### Infrastructure
 - **Containers:** Docker + Docker Compose
 - **Database:** MongoDB 7
 - **Cache:** Redis 7
-- **Monitoring:** Prometheus metrics
+- **Metrics:** Prometheus
 - **Dashboards:** Grafana
-- **Process Manager:** PM2 (Production)
+- **Reverse Proxy:** Nginx (production)
+
+---
+
+## 📊 Available Services
+
+| Service | URL | Credentials |
+|---------|-----|-------------|
+| 🏠 **Homepage** | http://localhost:3000 | - |
+| 💼 **Dashboard** | http://localhost:3000/dashboard | Login required |
+| 🔧 **API** | http://localhost:4000 | API keys |
+| ❤️ **Health Check** | http://localhost:4000/health | - |
+| 📊 **Metrics** | http://localhost:4000/metrics | - |
+| 📈 **Prometheus** | http://localhost:9090 | - |
+| 📊 **Grafana** | http://localhost:3001 | admin / expe_grafana_2024 |
 
 ---
 
@@ -460,153 +375,163 @@ VITE_API_URL=http://localhost:4000
 ### Backend won't start
 
 ```bash
-# Check if MongoDB and Redis are running
+# Check if containers are running
 docker ps
 
 # If not, start them
-docker-compose up -d mongodb redis
+docker-compose up -d
 
 # Check backend logs
 cd backend
 npm run dev
 ```
 
-### User app camera not working
-
-- Grant camera permissions in browser settings
-- Use HTTPS in production (HTTP works on localhost)
-- Try uploading QR image instead
-
-### Webhook signature verification fails
-
-```javascript
-// Make sure you're using the correct secret
-const fakepay = new FakePay({
-  key_secret: 'same_secret_as_backend'
-});
-
-// Verify with raw body (not parsed JSON)
-app.use(express.json({
-  verify: (req, res, buf) => {
-    req.rawBody = buf.toString();
-  }
-}));
-```
-
-### Payment stuck in PENDING
-
-- Check if user has sufficient balance
-- Verify VPA exists and is active
-- Check backend logs for errors
-- Ensure webhook worker is running
-
----
-
-## 📝 Testing Guide
-
-### 1. Test Payment Creation
+### Frontend build errors
 
 ```bash
-cd sdk/nodejs/examples
-node basic-payment.js
+# Clear node_modules and reinstall
+cd frontend
+rm -rf node_modules package-lock.json  # or rmdir /s node_modules on Windows
+npm install
 ```
 
-### 2. Test Complete UPI Flow
+### Database connection failed
 
 ```bash
-node upi-payment.js
+# Check MongoDB is running
+docker ps | grep mongo
+
+# Check environment variables
+cat backend/.env  # Linux/Mac
+type backend\.env  # Windows
+
+# Verify connection string format
+MONGO_URI=mongodb://admin:password@localhost:27017/expe_gateway?authSource=admin
 ```
 
-This will:
-- Create user and VPA
-- Top up wallet
-- Create payment
-- Generate QR code
-- Initiate UPI payment
-- Confirm payment
-- Verify completion
-
-### 3. Test Webhooks
+### Port already in use
 
 ```bash
-# Terminal 1 - Start webhook server
-node webhook-server.js
+# Find process using port 4000
+lsof -i :4000  # Linux/Mac
+netstat -ano | findstr :4000  # Windows
 
-# Terminal 2 - Create test payment
-curl -X POST http://localhost:3000/create-test-payment
+# Kill the process or change PORT in .env
 ```
 
 ---
 
-## 🚀 Deployment (Production)
-
-### Environment Variables
-
-Update production values:
-
-```env
-NODE_ENV=production
-MONGO_URI=your_production_mongodb_uri
-REDIS_URL=your_production_redis_url
-JWT_SECRET=strong_random_secret_generate_new_one
-FRONTEND_URL=https://yourdomain.com
-ALLOWED_ORIGINS=https://yourdomain.com,https://app.yourdomain.com
-```
+## 🚀 Production Deployment
 
 ### Security Checklist
 
-- ✅ Change all default passwords
-- ✅ Use strong JWT secret
-- ✅ Enable HTTPS for all services
+- ✅ Change **all** default passwords
+- ✅ Use strong JWT secret (generate with `openssl rand -base64 32`)
+- ✅ Enable HTTPS (use Let's Encrypt)
 - ✅ Configure CORS properly
-- ✅ Set up rate limiting
-- ✅ Enable MongoDB authentication
+- ✅ Enable rate limiting
+- ✅ Use MongoDB authentication
 - ✅ Use Redis password
-- ✅ Implement API key rotation
+- ✅ Set up API key rotation
 - ✅ Monitor webhook delivery
-- ✅ Set up error logging
+- ✅ Set up error logging (Sentry, etc.)
+- ✅ Use PM2 for process management
+- ✅ Set up automated backups
+
+### Environment Variables (Production)
+
+```env
+NODE_ENV=production
+MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/db
+REDIS_URL=rediss://user:pass@redis-host:6380
+JWT_SECRET=<generate-strong-secret>
+FRONTEND_URL=https://yourdomain.com
+ALLOWED_ORIGINS=https://yourdomain.com
+```
 
 ---
 
-##⚠️ Important Disclaimer
+## 📱 Related Projects
 
-**FakePE is a MOCK payment system for testing ONLY.**
+### FakePE User App (Separate Repository)
+The **UPI Mobile App** for end-users to scan QR codes and make payments.
+
+🔗 **Repository:** [github.com/Mihir-Rabari/fakePE-user-app](https://github.com/Mihir-Rabari/fakePE-user-app)
+
+Features:
+- 📱 Mobile-first UPI interface
+- 📸 QR code scanner
+- 💰 Digital wallet
+- 📊 Transaction history
+- 🔒 PIN-protected payments
+
+### FakePE SDK (Separate Repository)
+Official **Node.js SDK** for easy integration.
+
+🔗 **Repository:** [github.com/Mihir-Rabari/fakePE-sdk](https://github.com/Mihir-Rabari/fakePE-sdk)
+
+Features:
+- 📦 Razorpay-inspired API
+- 🔐 Automatic authentication
+- 🎯 Idempotency support
+- 🔔 Webhook verification helpers
+
+---
+
+## ⚠️ Important Disclaimer
+
+**FakePE is a MOCK payment system for TESTING and DEVELOPMENT only.**
 
 - 💰 All money is FAKE
 - 🧪 Perfect for development & testing
-- 🚫 NOT for production use
+- 🚫 NOT suitable for production
 - 📚 Educational purposes only
+- 🎓 Learn payment gateway architecture
 
-**For real payments, use:** Razorpay, Stripe, PayPal, or Square
+**For real payments, use established providers:**
+- [Razorpay](https://razorpay.com)
+- [Stripe](https://stripe.com)
+- [PayPal](https://paypal.com)
+- [Square](https://square.com)
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! This is an open-source project built for developers.
+We love contributions! Whether it's bug fixes, new features, or documentation improvements.
 
 ```bash
-1. Fork the repo
-2. Create feature branch: git checkout -b feature/amazing
-3. Commit changes: git commit -m 'Add amazing feature'
-4. Push: git push origin feature/amazing
-5. Open a Pull Request
+1. Fork the repository
+2. Create a feature branch: git checkout -b feature/amazing
+3. Make your changes
+4. Commit: git commit -m 'Add amazing feature'
+5. Push: git push origin feature/amazing
+6. Open a Pull Request
 ```
+
+### Development Guidelines
+- Follow existing code style
+- Add tests for new features
+- Update documentation
+- Test in both light and dark mode
+- Keep the green theme consistent! 💚
 
 ---
 
 ## 📞 Support & Community
 
-- 🐛 **Found a bug?** [Open an issue](https://github.com/Mihir-Rabari/fake-pe/issues)
-- 💡 **Feature request?** [Start a discussion](https://github.com/Mihir-Rabari/fake-pe/discussions)
+- 🐛 **Bug reports:** [GitHub Issues](https://github.com/Mihir-Rabari/fake-pe/issues)
+- 💡 **Feature requests:** [GitHub Discussions](https://github.com/Mihir-Rabari/fake-pe/discussions)
 - ⭐ **Like the project?** Give us a star!
-- 🐦 **Follow updates:** [@MihirRabari](https://github.com/Mihir-Rabari)
+- 🔗 **Follow:** [@MihirRabari](https://github.com/Mihir-Rabari)
 
 ---
 
 ## 📄 License
 
 MIT License - Free to use, modify, and distribute!
+
+See [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -622,9 +547,9 @@ Built with 💚 for the developer community
 
 ### ⭐ Star us on GitHub!
 
-**If FakePE helped you, give it a star to show support!**
+**If FakePE helped you test payments, give it a star to show support!**
 
-[★ Star this repo](https://github.com/Mihir-Rabari/fake-pe) • [Report Bug](https://github.com/Mihir-Rabari/fake-pe/issues) • [Request Feature](https://github.com/Mihir-Rabari/fake-pe/issues)
+[★ Star this repo](https://github.com/Mihir-Rabari/fake-pe) • [Report Bug](https://github.com/Mihir-Rabari/fake-pe/issues) • [Request Feature](https://github.com/Mihir-Rabari/fake-pe/discussions)
 
 Made with 💚 by developers, for developers
 
