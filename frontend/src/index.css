@@ -99,6 +99,21 @@
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background: #2ECB70;
   }
+
+  /* Inline Code Styles */
+  :not(pre) > code {
+    @apply px-1.5 py-0.5 bg-fakepe-surface text-fakepe-primary rounded text-sm font-mono border border-fakepe-border;
+  }
+
+  /* Link Styles for Docs */
+  article a, .prose a {
+    @apply text-fakepe-primary hover:text-fakepe-success underline decoration-fakepe-primary/30 hover:decoration-fakepe-success transition-colors duration-200;
+  }
+
+  /* Heading Anchor Links */
+  article h2, article h3, article h4 {
+    @apply scroll-mt-20;
+  }
 }
 
 @layer utilities {
