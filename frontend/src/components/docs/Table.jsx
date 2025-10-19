@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function Table({ children }) {
   return (
-    <div className="my-8 overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm">
-      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-800">
+    <div className="my-8 overflow-x-auto rounded-lg border border-fakepe-border shadow-sm">
+      <table className="min-w-full divide-y divide-fakepe-border">
         {children}
       </table>
     </div>
@@ -12,7 +12,7 @@ export default function Table({ children }) {
 
 export function TableHead({ children }) {
   return (
-    <thead className="bg-gray-50 dark:bg-gray-900">
+    <thead className="bg-fakepe-surface">
       {children}
     </thead>
   );
@@ -20,7 +20,7 @@ export function TableHead({ children }) {
 
 export function TableBody({ children }) {
   return (
-    <tbody className="bg-white dark:bg-gray-950 divide-y divide-gray-200 dark:divide-gray-800">
+    <tbody className="bg-fakepe-background divide-y divide-fakepe-border">
       {children}
     </tbody>
   );
@@ -28,7 +28,7 @@ export function TableBody({ children }) {
 
 export function TableRow({ children }) {
   return (
-    <tr className="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition">
+    <tr className="hover:bg-fakepe-primary/5 transition-colors duration-150">
       {children}
     </tr>
   );
@@ -36,7 +36,7 @@ export function TableRow({ children }) {
 
 export function TableHeader({ children }) {
   return (
-    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+    <th className="px-6 py-4 text-left text-xs font-semibold text-fakepe-text-primary uppercase tracking-wider">
       {children}
     </th>
   );
@@ -44,9 +44,9 @@ export function TableHeader({ children }) {
 
 export function TableCell({ children, code }) {
   return (
-    <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
+    <td className="px-6 py-4 text-sm text-fakepe-text-primary">
       {code ? (
-        <code className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 rounded text-xs font-mono">
+        <code className="px-2 py-1 bg-fakepe-surface text-fakepe-primary rounded text-xs font-mono border border-fakepe-border">
           {children}
         </code>
       ) : (

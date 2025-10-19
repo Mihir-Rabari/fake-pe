@@ -2,11 +2,11 @@ import React from 'react';
 
 export default function Badge({ children, variant = 'default' }) {
   const variants = {
-    default: 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300',
-    success: 'bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-400',
-    warning: 'bg-yellow-100 dark:bg-yellow-950 text-yellow-700 dark:text-yellow-400',
-    danger: 'bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-400',
-    info: 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-400',
+    default: 'bg-fakepe-surface text-fakepe-text-primary border border-fakepe-border',
+    success: 'bg-fakepe-success/10 text-fakepe-success border border-fakepe-success/30',
+    warning: 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/30',
+    danger: 'bg-red-500/10 text-red-400 border border-red-500/30',
+    info: 'bg-fakepe-primary/10 text-fakepe-primary border border-fakepe-primary/30',
   };
 
   return (
@@ -18,8 +18,8 @@ export default function Badge({ children, variant = 'default' }) {
 
 export function MethodBadge({ method }) {
   const methods = {
-    GET: { bg: 'bg-blue-500', text: 'text-white' },
-    POST: { bg: 'bg-green-500', text: 'text-white' },
+    GET: { bg: 'bg-fakepe-primary', text: 'text-white' },
+    POST: { bg: 'bg-fakepe-success', text: 'text-white' },
     PUT: { bg: 'bg-yellow-500', text: 'text-white' },
     PATCH: { bg: 'bg-orange-500', text: 'text-white' },
     DELETE: { bg: 'bg-red-500', text: 'text-white' },

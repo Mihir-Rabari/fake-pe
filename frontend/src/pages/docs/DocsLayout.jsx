@@ -63,7 +63,7 @@ export default function DocsLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-fakepe-background">
+    <div className="min-h-screen bg-fakepe-background scroll-smooth">
       {/* Top Navigation */}
       <div className="sticky top-0 z-50 w-full border-b border-fakepe-border bg-fakepe-background/80 backdrop-blur-md shadow-sm">
         <div className="flex h-16 items-center px-6">
@@ -128,14 +128,14 @@ export default function DocsLayout() {
                         <li key={item.name}>
                           <Link
                             to={item.href}
-                            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition ${
+                            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all duration-200 group ${
                               isActive(item.href)
                                 ? 'bg-fakepe-primary/10 text-fakepe-primary font-medium border border-fakepe-primary/30'
-                                : 'text-fakepe-text-secondary hover:bg-fakepe-background'
+                                : 'text-fakepe-text-secondary hover:bg-fakepe-background hover:text-fakepe-primary hover:translate-x-1'
                             }`}
                             onClick={() => setMobileMenuOpen(false)}
                           >
-                            {Icon && <Icon className="w-4 h-4" />}
+                            {Icon && <Icon className="w-4 h-4 group-hover:text-fakepe-primary transition-colors duration-200" />}
                             {item.name}
                           </Link>
                         </li>
@@ -165,18 +165,18 @@ export default function DocsLayout() {
                         <li key={item.name}>
                           <Link
                             to={item.href}
-                            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition group ${
+                            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 group ${
                               active
                                 ? 'bg-fakepe-primary/10 text-fakepe-primary font-medium shadow-sm border border-fakepe-primary/30'
-                                : 'text-fakepe-text-secondary hover:bg-fakepe-background hover:text-fakepe-text-primary'
+                                : 'text-fakepe-text-secondary hover:bg-fakepe-background hover:text-fakepe-primary hover:translate-x-1'
                             }`}
                           >
                             {Icon && (
-                              <Icon className={`w-4 h-4 ${active ? 'text-fakepe-primary' : 'text-fakepe-text-secondary group-hover:text-fakepe-primary'}`} />
+                              <Icon className={`w-4 h-4 transition-colors duration-200 ${active ? 'text-fakepe-primary' : 'text-fakepe-text-secondary group-hover:text-fakepe-primary'}`} />
                             )}
                             <span className={Icon ? '' : 'ml-7'}>{item.name}</span>
                             {active && (
-                              <div className="ml-auto w-1.5 h-1.5 bg-fakepe-primary rounded-full"></div>
+                              <div className="ml-auto w-1.5 h-1.5 bg-fakepe-primary rounded-full animate-pulse"></div>
                             )}
                           </Link>
                         </li>
