@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogIn } from 'lucide-react';
+import { LogIn, ArrowLeft } from 'lucide-react';
 import Logo from '../components/Logo';
+import { Button, Input, Card } from '../components/ui';
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
@@ -48,73 +49,70 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-fakepe-background flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute top-20 left-10 w-96 h-96 bg-fakepe-primary rounded-full mix-blend-soft-light filter blur-3xl opacity-10 animate-pulse-slow"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-fakepe-accent rounded-full mix-blend-soft-light filter blur-3xl opacity-10 animate-pulse-slow"></div>
+      
+      <div className="w-full max-w-md relative z-10">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link to="/">
-            <Logo size="lg" className="justify-center" />
+          <Link to="/" className="inline-block">
+            <Logo size="lg" showText={true} className="justify-center" />
           </Link>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-lg shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h2>
-          <p className="text-gray-600 mb-6">Sign in to your account</p>
+        <Card variant="glass" className="p-8">
+          <h2 className="text-3xl font-bold text-fakepe-text-primary mb-2">Welcome back</h2>
+          <p className="text-fakepe-text-secondary mb-8">Sign in to your FakePE account</p>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="you@example.com"
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <Input
+              type="email"
+              label="Email Address"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="you@example.com"
+            />
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="••••••••"
-              />
-            </div>
+            <Input
+              type="password"
+              label="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="••••••••"
+            />
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+              <label className="flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  className="w-4 h-4 rounded border-fakepe-border text-fakepe-primary focus:ring-2 focus:ring-fakepe-primary focus:ring-offset-2 focus:ring-offset-fakepe-background" 
+                />
+                <span className="ml-2 text-sm text-fakepe-text-secondary">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-blue-600 hover:text-blue-700">
+              <a href="#" className="text-sm text-fakepe-primary hover:text-fakepe-success transition">
                 Forgot password?
               </a>
             </div>
 
-            <button
+            <Button
               type="submit"
+              variant="primary"
+              size="lg"
               disabled={loading}
-              className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full"
             >
               {loading ? (
                 'Signing in...'
@@ -124,23 +122,24 @@ function LoginPage() {
                   Sign In
                 </>
               )}
-            </button>
+            </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+          <div className="mt-8 text-center">
+            <p className="text-sm text-fakepe-text-secondary">
               Don't have an account?{' '}
-              <Link to="/register" className="text-blue-600 hover:text-blue-700 font-medium">
+              <Link to="/register" className="text-fakepe-primary hover:text-fakepe-success font-medium transition">
                 Sign up
               </Link>
             </p>
           </div>
-        </div>
+        </Card>
 
         {/* Back to home */}
-        <div className="text-center mt-4">
-          <Link to="/" className="text-sm text-gray-600 hover:text-gray-900">
-            ← Back to home
+        <div className="text-center mt-6">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-fakepe-text-secondary hover:text-fakepe-primary transition">
+            <ArrowLeft className="w-4 h-4" />
+            Back to home
           </Link>
         </div>
       </div>

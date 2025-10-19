@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserPlus } from 'lucide-react';
+import { UserPlus, ArrowLeft } from 'lucide-react';
 import Logo from '../components/Logo';
+import { Button, Input, Card } from '../components/ui';
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
@@ -69,102 +70,83 @@ function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-fakepe-background flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute top-20 left-10 w-96 h-96 bg-fakepe-primary rounded-full mix-blend-soft-light filter blur-3xl opacity-10 animate-pulse-slow"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-fakepe-accent rounded-full mix-blend-soft-light filter blur-3xl opacity-10 animate-pulse-slow"></div>
+      
+      <div className="w-full max-w-md relative z-10">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link to="/">
-            <Logo size="lg" className="justify-center" />
+          <Link to="/" className="inline-block">
+            <Logo size="lg" showText={true} className="justify-center" />
           </Link>
         </div>
 
         {/* Register Card */}
-        <div className="bg-white rounded-lg shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Create your account</h2>
-          <p className="text-gray-600 mb-6">Get started with Expe</p>
+        <Card variant="glass" className="p-8">
+          <h2 className="text-3xl font-bold text-fakepe-text-primary mb-2">Create your account</h2>
+          <p className="text-fakepe-text-secondary mb-8">Get started with FakePE</p>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="John Doe"
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <Input
+              type="text"
+              label="Full Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              placeholder="John Doe"
+            />
+
+            <Input
+              type="email"
+              label="Email Address"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="you@example.com"
+            />
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="you@example.com"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
+              <Input
                 type="password"
-                id="password"
+                label="Password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 required
-                minLength={8}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="••••••••"
               />
-              <p className="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
+              <p className="text-xs text-fakepe-text-secondary mt-2">Must be at least 8 characters</p>
             </div>
 
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="••••••••"
-              />
-            </div>
+            <Input
+              type="password"
+              label="Confirm Password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              placeholder="••••••••"
+            />
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-fakepe-text-primary mb-2">
                 Account Type
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <label className={`flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition ${
                   formData.role === 'user' 
-                    ? 'border-blue-600 bg-blue-50' 
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-fakepe-primary bg-fakepe-primary/10' 
+                    : 'border-fakepe-border hover:border-fakepe-border'
                 }`}>
                   <input
                     type="radio"
@@ -175,15 +157,15 @@ function RegisterPage() {
                     className="sr-only"
                   />
                   <span className={`text-sm font-medium ${
-                    formData.role === 'user' ? 'text-blue-700' : 'text-gray-700'
+                    formData.role === 'user' ? 'text-fakepe-primary' : 'text-fakepe-text-secondary'
                   }`}>
                     User
                   </span>
                 </label>
                 <label className={`flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition ${
                   formData.role === 'merchant' 
-                    ? 'border-blue-600 bg-blue-50' 
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-fakepe-primary bg-fakepe-primary/10' 
+                    : 'border-fakepe-border hover:border-fakepe-border'
                 }`}>
                   <input
                     type="radio"
@@ -194,23 +176,25 @@ function RegisterPage() {
                     className="sr-only"
                   />
                   <span className={`text-sm font-medium ${
-                    formData.role === 'merchant' ? 'text-blue-700' : 'text-gray-700'
+                    formData.role === 'merchant' ? 'text-fakepe-primary' : 'text-fakepe-text-secondary'
                   }`}>
                     Merchant
                   </span>
                 </label>
               </div>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-fakepe-text-secondary mt-2">
                 {formData.role === 'merchant' 
                   ? 'Access developer console and API keys' 
                   : 'Personal wallet and P2P transfers'}
               </p>
             </div>
 
-            <button
+            <Button
               type="submit"
+              variant="primary"
+              size="lg"
               disabled={loading}
-              className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full"
             >
               {loading ? (
                 'Creating account...'
@@ -220,32 +204,33 @@ function RegisterPage() {
                   Create Account
                 </>
               )}
-            </button>
+            </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+          <div className="mt-8 text-center">
+            <p className="text-sm text-fakepe-text-secondary">
               Already have an account?{' '}
-              <Link to="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+              <Link to="/login" className="text-fakepe-primary hover:text-fakepe-success font-medium transition">
                 Sign in
               </Link>
             </p>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-xs text-gray-500 text-center">
+          <div className="mt-6 pt-6 border-t border-fakepe-border">
+            <p className="text-xs text-fakepe-text-secondary text-center">
               By creating an account, you agree to our{' '}
-              <a href="#" className="text-blue-600 hover:text-blue-700">Terms of Service</a>
+              <a href="#" className="text-fakepe-primary hover:text-fakepe-success transition">Terms of Service</a>
               {' '}and{' '}
-              <a href="#" className="text-blue-600 hover:text-blue-700">Privacy Policy</a>
+              <a href="#" className="text-fakepe-primary hover:text-fakepe-success transition">Privacy Policy</a>
             </p>
           </div>
-        </div>
+        </Card>
 
         {/* Back to home */}
-        <div className="text-center mt-4">
-          <Link to="/" className="text-sm text-gray-600 hover:text-gray-900">
-            ← Back to home
+        <div className="text-center mt-6">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-fakepe-text-secondary hover:text-fakepe-primary transition">
+            <ArrowLeft className="w-4 h-4" />
+            Back to home
           </Link>
         </div>
       </div>
