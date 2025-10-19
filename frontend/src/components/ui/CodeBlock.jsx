@@ -18,55 +18,6 @@ const languageIcons = {
   text: '📄'
 };
 
-// Simple syntax highlighter using regex patterns
-const highlightSyntax = (code, language) => {
-  if (language === 'text') return code;
-  
-  let highlighted = code;
-  
-  // Keywords
-  const keywords = [
-    'const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while',
-    'import', 'export', 'from', 'default', 'class', 'extends', 'async', 'await',
-    'try', 'catch', 'throw', 'new', 'this', 'super', 'static', 'public', 'private'
-  ];
-  
-  keywords.forEach(keyword => {
-    const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
-    highlighted = highlighted.replace(regex, `<span class="text-purple-400">$1</span>`);
-  });
-  
-  // Strings
-  highlighted = highlighted.replace(
-    /(['"`])(?:(?=(\\?))\2.)*?\1/g,
-    '<span class="text-green-400">$&</span>'
-  );
-  
-  // Comments
-  highlighted = highlighted.replace(
-    /\/\/.*/g,
-    '<span class="text-gray-500 italic">$&</span>'
-  );
-  highlighted = highlighted.replace(
-    /\/\*[\s\S]*?\*\//g,
-    '<span class="text-gray-500 italic">$&</span>'
-  );
-  
-  // Numbers
-  highlighted = highlighted.replace(
-    /\b\d+\.?\d*\b/g,
-    '<span class="text-orange-400">$&</span>'
-  );
-  
-  // Function calls
-  highlighted = highlighted.replace(
-    /\b(\w+)(?=\()/g,
-    '<span class="text-blue-400">$1</span>'
-  );
-  
-  return highlighted;
-};
-
 export function CodeBlock({ children, className = '' }) {
   return (
     <div className={`rounded-lg border border-fakepe-border bg-fakepe-surface overflow-hidden ${className}`}>
@@ -177,23 +128,6 @@ export function CodeBlockContent({
               displayLine = line.substring(2); // Remove diff prefix
             }
 
-            // Highlight words
-            let processedLine = displayLine;
-            if (highlightWords.length > 0) {
-              highlightWords.forEach(word => {
-                const regex = new RegExp(`(${word})`, 'gi');
-                processedLine = processedLine.replace(
-                  regex,
-                  '<mark class="bg-fakepe-primary/30 text-fakepe-primary px-1 rounded">$1</mark>'
-                );
-              });
-            }
-
-            // Apply syntax highlighting
-            const highlighted = language !== 'text' 
-              ? highlightSyntax(processedLine, language)
-              : processedLine;
-
             return (
               <div
                 key={index}
@@ -235,10 +169,9 @@ export function CodeBlockContent({
                 )}
 
                 {/* Code Line */}
-                <span
-                  className="flex-1 text-fakepe-text-primary"
-                  dangerouslySetInnerHTML={{ __html: highlighted }}
-                />
+                <span className="flex-1 text-fakepe-text-primary whitespace-pre-wrap">
+                  {displayLine}
+                </span>
               </div>
             );
           })}
