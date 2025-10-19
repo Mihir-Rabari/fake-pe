@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import NewLandingPage from './pages/NewLandingPage';
+import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WalletPage from './pages/WalletPage';
@@ -31,7 +31,7 @@ function App() {
       <Router>
         <OfflineIndicator />
         <Routes>
-          <Route path="/" element={<NewLandingPage />} />
+          <Route path="/" element={<HomePage />} />
           
           {/* Documentation routes */}
           <Route path="/docs" element={<DocsLayout />}>
