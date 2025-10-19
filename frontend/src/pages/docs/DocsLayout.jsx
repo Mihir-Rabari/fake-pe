@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Github, Rocket, Book, Code2, Zap, Server, FileText, Home } from 'lucide-react';
-import ThemeToggle from '../../components/ThemeToggle';
+import Logo from '../../components/Logo';
 import DocsSidebar from '../../components/docs/DocsSidebar';
 import TableOfContents from '../../components/docs/TableOfContents';
 
@@ -62,14 +62,14 @@ export default function DocsLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-fakepe-background">
       {/* Top Navigation */}
-      <div className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm">
+      <div className="sticky top-0 z-50 w-full border-b border-fakepe-border bg-fakepe-background/80 backdrop-blur-md shadow-sm">
         <div className="flex h-16 items-center px-6">
           <div className="mr-4 flex lg:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-lg p-2 text-gray-700 hover:bg-gray-100 transition"
+              className="inline-flex items-center justify-center rounded-lg p-2 text-fakepe-text-secondary hover:bg-fakepe-surface transition"
               onClick={() => setMobileMenuOpen(true)}
             >
               <Menu className="h-5 w-5" />
@@ -77,27 +77,22 @@ export default function DocsLayout() {
           </div>
           
           <div className="flex flex-1 items-center justify-between">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">FakePE</span>
-              <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full font-medium">Docs</span>
+            <Link to="/">
+              <Logo size="md" showText={true} />
             </Link>
             
             <div className="flex items-center space-x-4">
               <nav className="hidden md:flex md:space-x-6 text-sm font-medium">
-                <Link to="/docs/getting-started" className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Documentation</Link>
-                <Link to="/" className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Dashboard</Link>
+                <Link to="/docs/getting-started" className="text-fakepe-text-secondary hover:text-fakepe-primary transition">Documentation</Link>
+                <Link to="/" className="text-fakepe-text-secondary hover:text-fakepe-primary transition">Home</Link>
               </nav>
               
-              <ThemeToggle />
               
               <a
                 href="https://github.com/Mihir-Rabari/fake-pe"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+                className="p-2 text-fakepe-text-secondary hover:text-fakepe-primary hover:bg-fakepe-surface rounded-lg transition"
                 title="GitHub"
               >
                 <Github className="h-5 w-5" />
@@ -110,23 +105,20 @@ export default function DocsLayout() {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
-          <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="fixed inset-y-0 left-0 w-full max-w-xs bg-white shadow-2xl">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <Link to="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-lg font-bold">FakePE</span>
+          <div className="fixed inset-0 bg-fakepe-background/50 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
+          <div className="fixed inset-y-0 left-0 w-full max-w-xs bg-fakepe-surface shadow-2xl">
+            <div className="flex items-center justify-between p-6 border-b border-fakepe-border">
+              <Link to="/">
+                <Logo size="sm" showText={true} />
               </Link>
-              <button onClick={() => setMobileMenuOpen(false)} className="p-2 hover:bg-gray-100 rounded-lg transition">
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2 hover:bg-fakepe-background rounded-lg transition text-fakepe-text-secondary">
                 <X className="h-5 w-5" />
               </button>
             </div>
             <nav className="p-6 space-y-6 overflow-y-auto max-h-[calc(100vh-80px)]">
               {navigation.map((section) => (
                 <div key={section.title}>
-                  <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500">{section.title}</h3>
+                  <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-fakepe-text-secondary">{section.title}</h3>
                   <ul className="space-y-1">
                     {section.items.map((item) => {
                       const Icon = item.icon;
@@ -136,8 +128,8 @@ export default function DocsLayout() {
                             to={item.href}
                             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition ${
                               isActive(item.href)
-                                ? 'bg-indigo-50 text-indigo-600 font-medium'
-                                : 'text-gray-700 hover:bg-gray-100'
+                                ? 'bg-fakepe-primary/10 text-fakepe-primary font-medium border border-fakepe-primary/30'
+                                : 'text-fakepe-text-secondary hover:bg-fakepe-background'
                             }`}
                             onClick={() => setMobileMenuOpen(false)}
                           >
@@ -158,11 +150,11 @@ export default function DocsLayout() {
       <div className="mx-auto max-w-8xl">
         <div className="flex">
           {/* Sidebar */}
-          <aside className="hidden lg:block fixed top-16 bottom-0 left-0 w-72 overflow-y-auto border-r border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+          <aside className="hidden lg:block fixed top-16 bottom-0 left-0 w-72 overflow-y-auto border-r border-fakepe-border bg-fakepe-surface/50 backdrop-blur-sm">
             <nav className="p-6 space-y-6">
               {navigation.map((section) => (
                 <div key={section.title}>
-                  <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500 px-3">{section.title}</h3>
+                  <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-fakepe-text-secondary px-3">{section.title}</h3>
                   <ul className="space-y-1">
                     {section.items.map((item) => {
                       const Icon = item.icon;
@@ -173,16 +165,16 @@ export default function DocsLayout() {
                             to={item.href}
                             className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition group ${
                               active
-                                ? 'bg-indigo-50 text-indigo-600 font-medium shadow-sm'
-                                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                                ? 'bg-fakepe-primary/10 text-fakepe-primary font-medium shadow-sm border border-fakepe-primary/30'
+                                : 'text-fakepe-text-secondary hover:bg-fakepe-background hover:text-fakepe-text-primary'
                             }`}
                           >
                             {Icon && (
-                              <Icon className={`w-4 h-4 ${active ? 'text-indigo-600' : 'text-gray-400 group-hover:text-gray-600'}`} />
+                              <Icon className={`w-4 h-4 ${active ? 'text-fakepe-primary' : 'text-fakepe-text-secondary group-hover:text-fakepe-primary'}`} />
                             )}
                             <span className={Icon ? '' : 'ml-7'}>{item.name}</span>
                             {active && (
-                              <div className="ml-auto w-1.5 h-1.5 bg-indigo-600 rounded-full"></div>
+                              <div className="ml-auto w-1.5 h-1.5 bg-fakepe-primary rounded-full"></div>
                             )}
                           </Link>
                         </li>
@@ -193,13 +185,13 @@ export default function DocsLayout() {
               ))}
               
               {/* Footer links */}
-              <div className="pt-6 border-t border-gray-200">
-                <div className="px-3 space-y-2 text-xs text-gray-600">
-                  <a href="https://github.com/Mihir-Rabari/fake-pe" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-indigo-600 transition">
+              <div className="pt-6 border-t border-fakepe-border">
+                <div className="px-3 space-y-2 text-xs text-fakepe-text-secondary">
+                  <a href="https://github.com/Mihir-Rabari/fake-pe" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-fakepe-primary transition">
                     <Github className="w-3.5 h-3.5" />
                     <span>GitHub</span>
                   </a>
-                  <p className="text-gray-400">v1.0.0</p>
+                  <p className="text-fakepe-text-secondary/60">v1.0.0</p>
                 </div>
               </div>
             </nav>
