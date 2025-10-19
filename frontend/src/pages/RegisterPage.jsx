@@ -14,7 +14,7 @@ function RegisterPage() {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'user'
+    role: 'merchant'
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -56,12 +56,8 @@ function RegisterPage() {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
-      // Redirect based on role
-      if (formData.role === 'merchant') {
-        navigate('/dashboard');
-      } else {
-        navigate('/wallet');
-      }
+      // Redirect to dashboard (merchant only)
+      navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed. Please try again.');
     } finally {
@@ -85,8 +81,8 @@ function RegisterPage() {
 
         {/* Register Card */}
         <Card variant="glass" className="p-8">
-          <h2 className="text-3xl font-bold text-fakepe-text-primary mb-2">Create your account</h2>
-          <p className="text-fakepe-text-secondary mb-8">Get started with FakePE</p>
+          <h2 className="text-3xl font-bold text-fakepe-text-primary mb-2">Create Developer Account</h2>
+          <p className="text-fakepe-text-secondary mb-8">Build and integrate payment solutions with FakePE</p>
 
           {error && (
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
@@ -138,57 +134,6 @@ function RegisterPage() {
               placeholder="••••••••"
             />
 
-            <div>
-              <label className="block text-sm font-medium text-fakepe-text-primary mb-2">
-                Account Type
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                <label className={`flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition ${
-                  formData.role === 'user' 
-                    ? 'border-fakepe-primary bg-fakepe-primary/10' 
-                    : 'border-fakepe-border hover:border-fakepe-border'
-                }`}>
-                  <input
-                    type="radio"
-                    name="role"
-                    value="user"
-                    checked={formData.role === 'user'}
-                    onChange={handleChange}
-                    className="sr-only"
-                  />
-                  <span className={`text-sm font-medium ${
-                    formData.role === 'user' ? 'text-fakepe-primary' : 'text-fakepe-text-secondary'
-                  }`}>
-                    User
-                  </span>
-                </label>
-                <label className={`flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition ${
-                  formData.role === 'merchant' 
-                    ? 'border-fakepe-primary bg-fakepe-primary/10' 
-                    : 'border-fakepe-border hover:border-fakepe-border'
-                }`}>
-                  <input
-                    type="radio"
-                    name="role"
-                    value="merchant"
-                    checked={formData.role === 'merchant'}
-                    onChange={handleChange}
-                    className="sr-only"
-                  />
-                  <span className={`text-sm font-medium ${
-                    formData.role === 'merchant' ? 'text-fakepe-primary' : 'text-fakepe-text-secondary'
-                  }`}>
-                    Merchant
-                  </span>
-                </label>
-              </div>
-              <p className="text-xs text-fakepe-text-secondary mt-2">
-                {formData.role === 'merchant' 
-                  ? 'Access developer console and API keys' 
-                  : 'Personal wallet and P2P transfers'}
-              </p>
-            </div>
-
             <Button
               type="submit"
               variant="primary"
@@ -201,13 +146,21 @@ function RegisterPage() {
               ) : (
                 <>
                   <UserPlus className="w-5 h-5" />
-                  Create Account
+                  Create Developer Account
                 </>
               )}
             </Button>
           </form>
 
-          <div className="mt-8 text-center">
+          <div className="mt-6">
+            <div className="bg-fakepe-primary/10 border border-fakepe-primary/30 rounded-lg p-3">
+              <p className="text-xs text-fakepe-text-primary">
+                <strong>Note:</strong> This is for developers & merchants only. End users should use the FakePE mobile app.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
             <p className="text-sm text-fakepe-text-secondary">
               Already have an account?{' '}
               <Link to="/login" className="text-fakepe-primary hover:text-fakepe-success font-medium transition">

@@ -35,12 +35,16 @@ function LoginPage() {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
-      // Redirect based on role
-      if (response.data.user.role === 'merchant') {
-        navigate('/dashboard');
-      } else {
-        navigate('/wallet');
+      // Only allow merchants/developers
+      if (response.data.user.role !== 'merchant') {
+        setError('This portal is for developers/merchants only. Please use the FakePE mobile app.');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        return;
       }
+      
+      // Redirect to dashboard
+      navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed. Please try again.');
     } finally {
@@ -64,8 +68,8 @@ function LoginPage() {
 
         {/* Login Card */}
         <Card variant="glass" className="p-8">
-          <h2 className="text-3xl font-bold text-fakepe-text-primary mb-2">Welcome back</h2>
-          <p className="text-fakepe-text-secondary mb-8">Sign in to your FakePE account</p>
+          <h2 className="text-3xl font-bold text-fakepe-text-primary mb-2">Developer Portal</h2>
+          <p className="text-fakepe-text-secondary mb-8">Sign in to access your developer dashboard</p>
 
           {error && (
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
@@ -125,9 +129,17 @@ function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-8 text-center">
+          <div className="mt-6">
+            <div className="bg-fakepe-primary/10 border border-fakepe-primary/30 rounded-lg p-3">
+              <p className="text-xs text-fakepe-text-primary">
+                <strong>Note:</strong> This portal is for developers & merchants only. End users should download the FakePE mobile app.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
             <p className="text-sm text-fakepe-text-secondary">
-              Don't have an account?{' '}
+              Need a developer account?{' '}
               <Link to="/register" className="text-fakepe-primary hover:text-fakepe-success font-medium transition">
                 Sign up
               </Link>
