@@ -1,21 +1,26 @@
 import React from 'react';
-import CodeBlock from '../../components/docs/CodeBlock';
+import { CodeBlock, CodeBlockHeader, CodeBlockBody, CodeBlockContent } from '../../components/ui';
 import Callout from '../../components/docs/Callout';
-import { InfoCard } from '../../components/docs/Card';
+import Card, { InfoCard, LinkCard } from '../../components/docs/Card';
+import { CheckCircle, Rocket, Code, Zap } from 'lucide-react';
 
 export default function GettingStarted() {
   return (
-    <article className="prose prose-invert max-w-none prose-headings:scroll-mt-20 prose-headings:text-fakepe-text-primary prose-p:text-fakepe-text-secondary prose-strong:text-fakepe-text-primary prose-li:text-fakepe-text-secondary prose-a:text-fakepe-primary hover:prose-a:text-fakepe-success">
+    <article className="prose prose-invert max-w-none">
       {/* Hero */}
       <div className="not-prose mb-12">
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-fakepe-primary/10 border border-fakepe-primary/30 rounded-full text-fakepe-primary text-sm font-medium mb-6">
+          <CheckCircle className="w-4 h-4" />
+          <span>Latest Version: v1.0.0</span>
+        </div>
         <h1 className="text-5xl font-bold text-fakepe-text-primary mb-4 tracking-tight">Get started with FakePE</h1>
-        <p className="text-xl text-fakepe-text-secondary leading-relaxed">
-          FakePE is a complete mock payment gateway inspired by Razorpay. Perfect for testing payment flows without real money.
+        <p className="text-xl text-fakepe-text-secondary leading-relaxed max-w-3xl">
+          FakePE is a complete mock payment gateway for developers. Test UPI payments, wallet transactions, and P2P transfers without real money. Perfect for development and testing.
         </p>
       </div>
 
-      <Callout type="warning" title="Testing Environment Only">
-        This is a <strong>mock system</strong>. All transactions use fake money and are not real financial transactions.
+      <Callout type="warning" title="🧪 Testing Environment Only">
+        This is a <strong>mock payment system</strong>. All transactions use fake money and are not real financial transactions. Perfect for development and testing!
       </Callout>
 
       <h2 id="installation">Installation</h2>
